@@ -120,17 +120,84 @@ class HeardCQ(models.Model):
 
 ## 🛠️ Setup
 
+### Voraussetzungen
+
+- Python 3.12+
+- PostgreSQL 12+
+- Git
+
+### Installation
+
+1. **Repository klonen:**
+
 ```bash
-git clone <repo>
-cd wsjtx-stats
+git clone <repository-url>
+cd PropScope
+```
 
+2. **Virtual Environment erstellen:**
+
+```bash
 python -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # Unter Windows: venv\Scripts\activate
+```
 
+3. **Dependencies installieren:**
+
+```bash
 pip install -r requirements.txt
+```
 
+4. **Umgebungsvariablen konfigurieren:**
+
+```bash
+cp .env.example .env
+```
+
+Bearbeiten Sie die `.env` Datei und passen Sie die Werte an:
+
+```env
+# Django Settings
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Database Settings (PostgreSQL)
+DB_NAME=propscope
+DB_USER=propscope
+DB_PASSWORD=your-password-here
+DB_HOST=localhost
+DB_PORT=5432
+```
+
+5. **PostgreSQL Datenbank erstellen:**
+
+```bash
+createdb propscope
+createuser propscope
+# Passwort für User setzen
+psql -c "ALTER USER propscope WITH PASSWORD 'your-password-here';"
+psql -c "GRANT ALL PRIVILEGES ON DATABASE propscope TO propscope;"
+```
+
+6. **Datenbank migrieren:**
+
+```bash
 python manage.py migrate
+```
+
+7. **Server starten:**
+
+```bash
 python manage.py runserver
+```
+
+Die Anwendung ist nun unter http://localhost:8000 erreichbar.
+
+### Admin-User erstellen
+
+```bash
+python manage.py createsuperuser
 ```
 
 ---
