@@ -127,10 +127,15 @@ class WsjtxLogImporter:
             if start_position > 0:
                 f.seek(start_position)
 
-            for line in f:
+            while True:
+                line = f.readline()
+                if not line:
+                    # End of file
+                    break
+
                 lines_total += 1
 
-                # Update position
+                # Update position after reading
                 current_position = f.tell()
 
                 # Skip empty lines
