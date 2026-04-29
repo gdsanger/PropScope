@@ -13,6 +13,23 @@ class PropScopeSettings(models.Model):
         help_text="Name of this settings configuration"
     )
 
+    # Station Location Configuration
+    station_locator = models.CharField(
+        max_length=6,
+        blank=True,
+        help_text="Home station Maidenhead locator (4 or 6 characters)"
+    )
+    station_latitude = models.FloatField(
+        null=True,
+        blank=True,
+        help_text="Home station latitude (for distance calculation)"
+    )
+    station_longitude = models.FloatField(
+        null=True,
+        blank=True,
+        help_text="Home station longitude (for distance calculation)"
+    )
+
     # WSJT-X Configuration
     wsjtx_all_txt_path = models.CharField(
         max_length=500,
