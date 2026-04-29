@@ -12,7 +12,7 @@ This command re-enriches HeardSignal records that are missing enrichment fields 
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from apps.cq.models import HeardSignal
-from apps.ui.models import PropScopeSettings
+from apps.ui.models import PropScopeSettings, StationProfile
 from apps.ingest.services.enrichment import SignalEnricher
 
 
@@ -57,9 +57,21 @@ class Command(BaseCommand):
         settings = PropScopeSettings.objects.filter(is_active=True).first()
         station_lat = settings.station_latitude if settings else None
         station_lon = settings.station_longitude if settings else None
+        coordinate_source = None
+
+        # If no coordinates in settings, try to get from default StationProfile
+        if not (station_lat and station_lon):
+            station_profile = StationProfile.objects.filter(is_default=True, is_active=True).first()
+            if station_profile:
+                station_lat = station_profile.latitude
+                station_lon = station_profile.longitude
+                if station_lat and station_lon:
+                    coordinate_source = f"StationProfile '{station_profile.name}'"
+        else:
+            coordinate_source = "PropScopeSettings"
 
         if station_lat and station_lon:
-            self.stdout.write(f'Station coordinates: {station_lat}, {station_lon}')
+            self.stdout.write(f'Station coordinates: {station_lat}, {station_lon} (from {coordinate_source})')
         else:
             self.stdout.write(self.style.WARNING('No station coordinates found - distance calculation will be skipped'))
 
