@@ -39,6 +39,20 @@
                                 <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                             </svg>
                         </a>
+                        {% if signal.locator_country %}
+                            <small class="text-muted ms-2">· {{ signal.locator_country }}</small>
+                        {% else %}
+                            <small class="text-muted ms-2">· nicht zugeordnet</small>
+                            <button
+                                class="btn btn-sm btn-outline-primary py-0 px-1 ms-1"
+                                style="font-size: 0.7rem; line-height: 1.2;"
+                                hx-get="{% url 'ui:maidenhead-area-create-modal' %}?locator={{ signal.locator }}"
+                                hx-target="#modal-container"
+                                hx-swap="innerHTML"
+                                title="Locator pflegen">
+                                +
+                            </button>
+                        {% endif %}
                     {% else %}
                         <span class="text-muted fst-italic">Unknown</span>
                     {% endif %}

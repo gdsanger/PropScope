@@ -397,6 +397,7 @@ class StatisticsService:
             timestamp     – when the signal was received
             callsign      – callsign of the transmitting station
             locator       – Maidenhead locator
+            locator_country – country from locator
             band          – band name
             snr           – signal-to-noise ratio
             distance_km   – distance in kilometres
@@ -412,6 +413,7 @@ class StatisticsService:
             "timestamp",
             "callsign",
             "locator",
+            "locator_country",
             "band",
             "snr",
             "distance_km",

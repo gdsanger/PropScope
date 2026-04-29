@@ -17,4 +17,8 @@ urlpatterns = [
     path('dashboard/partials/top-dx/', views.dashboard_top_dx, name='dashboard-top-dx'),
     path('dashboard/partials/top-callsigns/', views.dashboard_top_callsigns, name='dashboard-top-callsigns'),
     path('dashboard/partials/top-locators/', views.dashboard_top_locators, name='dashboard-top-locators'),
+
+    # MaidenheadArea management
+    path('dashboard/maidenhead-area/create-modal/', views.maidenhead_area_create_modal, name='maidenhead-area-create-modal'),
+    path('dashboard/maidenhead-area/create/', views.maidenhead_area_create, name='maidenhead-area-create'),
 ]
