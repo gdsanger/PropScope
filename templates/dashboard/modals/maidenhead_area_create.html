@@ -1,0 +1,145 @@
+<!-- Bootstrap 5 Modal for MaidenheadArea Quick Create -->
+<div class="modal fade show" id="maidenheadAreaModal" tabindex="-1" aria-labelledby="maidenheadAreaModalLabel" aria-modal="true" role="dialog" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="maidenheadAreaModalLabel">
+                    Maidenhead Locator pflegen: {{ locator|default:"?" }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen" onclick="document.getElementById('modal-container').innerHTML = '';"></button>
+            </div>
+
+            <form hx-post="{% url 'ui:maidenhead-area-create' %}" hx-target="#modal-container" hx-swap="innerHTML">
+                {% csrf_token %}
+
+                <div class="modal-body">
+                    {% if error_message %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error_message }}
+                    </div>
+                    {% endif %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    <div class="alert alert-info small" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle me-2" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>
+                        Latitude und Longitude wurden aus dem Maidenhead Locator berechnet.
+                        Bitte Land und Kontinent fachlich prüfen, da Locator-Felder Grenzregionen abdecken können.
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.locator.id_for_label }}" class="form-label">Locator *</label>
+                        {{ form.locator }}
+                        {% if form.locator.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.locator.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.center_lat.id_for_label }}" class="form-label">Latitude *</label>
+                            {{ form.center_lat }}
+                            {% if form.center_lat.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.center_lat.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.center_lon.id_for_label }}" class="form-label">Longitude *</label>
+                            {{ form.center_lon }}
+                            {% if form.center_lon.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ form.center_lon.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.primary_country.id_for_label }}" class="form-label">Primäres Land *</label>
+                        {{ form.primary_country }}
+                        {% if form.primary_country.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.primary_country.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.continent.id_for_label }}" class="form-label">Kontinent *</label>
+                        {{ form.continent }}
+                        <small class="form-text text-muted d-block">z.B. EU, NA, SA, AS, AF, OC</small>
+                        {% if form.continent.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.continent.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.alternative_countries.id_for_label }}" class="form-label">Alternative Länder</label>
+                        {{ form.alternative_countries }}
+                        <small class="form-text text-muted d-block">Komma-getrennt, für Grenzregionen</small>
+                        {% if form.alternative_countries.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.alternative_countries.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        {{ form.is_ambiguous }}
+                        <label class="form-check-label" for="{{ form.is_ambiguous.id_for_label }}">
+                            Mehrdeutig (mehrere Länder)
+                        </label>
+                        {% if form.is_ambiguous.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.is_ambiguous.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.notes.id_for_label }}" class="form-label">Notizen</label>
+                        {{ form.notes }}
+                        {% if form.notes.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ form.notes.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="document.getElementById('modal-container').innerHTML = '';">Abbrechen</button>
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Backdrop -->
+<div class="modal-backdrop fade show"></div>
+
+<!-- Auto-show modal using Bootstrap -->
+<script>
+    // Show the modal
+    var modal = new bootstrap.Modal(document.getElementById('maidenheadAreaModal'));
+    modal.show();
+
+    // Clean up modal container when closed
+    document.getElementById('maidenheadAreaModal').addEventListener('hidden.bs.modal', function () {
+        document.getElementById('modal-container').innerHTML = '';
+    });
+</script>
