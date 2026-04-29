@@ -1,6 +1,8 @@
+{% load dashboard_extras %}
+
 {% if top_dx %}
 <div class="table-responsive">
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover align-middle">
         <thead>
             <tr>
                 <th>Zeitpunkt</th>
@@ -8,35 +10,63 @@
                 <th>Locator</th>
                 <th>Band</th>
                 <th>SNR</th>
-                <th>Distanz</th>
+                <th class="text-end">Distanz</th>
             </tr>
         </thead>
         <tbody>
             {% for signal in top_dx %}
-            <tr>
-                <td>{{ signal.timestamp|date:"Y-m-d H:i" }}</td>
+            <tr {% if signal.distance_km|highlight_dx %}class="table-warning"{% endif %}>
+                <td class="text-muted small">{{ signal.timestamp|date:"d.m. H:i" }}</td>
                 <td>
                     {% if signal.qrz_url %}
-                        <a href="{{ signal.qrz_url }}" target="_blank" rel="noopener noreferrer">{{ signal.callsign }}</a>
+                        <a href="{{ signal.qrz_url }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none fw-semibold">
+                            {{ signal.callsign }}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-box-arrow-up-right ms-1" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                                <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                            </svg>
+                        </a>
                     {% else %}
-                        {{ signal.callsign }}
+                        <span class="fw-semibold">{{ signal.callsign }}</span>
                     {% endif %}
                 </td>
                 <td>
-                    {% if signal.locator %}
-                        <a href="https://k7fry.com/grid/?qth={{ signal.locator }}" target="_blank" rel="noopener noreferrer">{{ signal.locator }}</a>
+                    {% if signal.locator and signal.locator != 'None' %}
+                        <a href="https://k7fry.com/grid/?qth={{ signal.locator }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
+                            {{ signal.locator }}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-geo-alt ms-1" viewBox="0 0 16 16">
+                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
+                        </a>
                     {% else %}
-                        -
+                        <span class="text-muted fst-italic">Unknown</span>
                     {% endif %}
                 </td>
-                <td><span class="badge bg-secondary">{{ signal.band }}</span></td>
-                <td>{{ signal.snr|floatformat:0 }} dB</td>
-                <td><strong>{{ signal.distance_km|floatformat:0 }} km</strong></td>
+                <td>
+                    <span class="badge bg-{{ signal.band|band_color }}">{{ signal.band }}</span>
+                </td>
+                <td class="{{ signal.snr|snr_color }}">
+                    <span class="fw-medium">{{ signal.snr|floatformat:0 }} dB</span>
+                </td>
+                <td class="text-end">
+                    {% if signal.distance_km|highlight_dx %}
+                        <strong class="text-danger fs-5">{{ signal.distance_km|floatformat:0 }} km</strong>
+                    {% else %}
+                        <strong>{{ signal.distance_km|floatformat:0 }} km</strong>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 {% else %}
-<p class="text-muted text-center py-4">Keine DX-Daten verfügbar</p>
+<div class="alert alert-info text-center mb-0" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle mb-2" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+    </svg>
+    <p class="mb-0">Keine DX-Daten im gewählten Zeitraum verfügbar</p>
+</div>
 {% endif %}
