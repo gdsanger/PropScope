@@ -75,8 +75,8 @@ class SignalEnricher:
                 enriched['locator_alt_country'] = area.alternative_countries if area.alternative_countries else None
                 enriched['locator_continent'] = area.continent
                 enriched['locator_ambiguous'] = area.is_ambiguous
-            except MaidenheadArea.DoesNotExist:
-                # No data for this locator
+            except (MaidenheadArea.DoesNotExist, Exception):
+                # No data for this locator or database not available
                 pass
 
         # Look up callsign prefix
@@ -86,7 +86,7 @@ class SignalEnricher:
                 prefix_data = CallsignPrefix.objects.get(prefix=prefix)
                 enriched['callsign_country'] = prefix_data.country
                 enriched['callsign_continent'] = prefix_data.continent
-            except CallsignPrefix.DoesNotExist:
+            except (CallsignPrefix.DoesNotExist, Exception):
                 # No data for this prefix, try shorter prefixes
                 # Try progressively shorter prefixes
                 for length in range(len(prefix) - 1, 0, -1):
@@ -96,7 +96,7 @@ class SignalEnricher:
                         enriched['callsign_country'] = prefix_data.country
                         enriched['callsign_continent'] = prefix_data.continent
                         break
-                    except CallsignPrefix.DoesNotExist:
+                    except (CallsignPrefix.DoesNotExist, Exception):
                         continue
 
         return enriched
