@@ -138,3 +138,15 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Microsoft Graph API Configuration
+# These should be set via environment variables for security
+GRAPH_TENANT_ID = os.getenv('GRAPH_TENANT_ID', '')
+GRAPH_CLIENT_ID = os.getenv('GRAPH_CLIENT_ID', '')
+GRAPH_CLIENT_SECRET = os.getenv('GRAPH_CLIENT_SECRET', '')
+GRAPH_SENDER_ADDRESS = os.getenv('GRAPH_SENDER_ADDRESS', '')
+
+# WSJT-X Configuration (can be overridden via environment variables)
+WSJTX_ALL_TXT_PATH = os.getenv('WSJTX_ALL_TXT_PATH', '')
+WSJTX_POLL_INTERVAL = int(os.getenv('WSJTX_POLL_INTERVAL', '30'))
+
