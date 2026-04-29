@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import HeardSignal
+from .models import HeardSignal, BandDefinition
+
+
+@admin.register(BandDefinition)
+class BandDefinitionAdmin(admin.ModelAdmin):
+    list_display = ['name', 'lower_frequency_mhz', 'upper_frequency_mhz', 'mode_hint', 'is_active']
+    list_filter = ['mode_hint', 'is_active']
+    search_fields = ['name', 'notes']
+    readonly_fields = ['created_at', 'updated_at']
+    ordering = ['lower_frequency_mhz']
 
 
 @admin.register(HeardSignal)
