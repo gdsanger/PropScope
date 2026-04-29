@@ -14,7 +14,13 @@
         <tbody>
             {% for loc in top_locators %}
             <tr>
-                <td><strong>{{ loc.locator }}</strong></td>
+                <td>
+                    {% if loc.locator %}
+                        <a href="https://k7fry.com/grid/?qth={{ loc.locator }}" target="_blank" rel="noopener noreferrer"><strong>{{ loc.locator }}</strong></a>
+                    {% else %}
+                        <strong>-</strong>
+                    {% endif %}
+                </td>
                 <td>{{ loc.count }}</td>
                 <td>
                     {% if loc.avg_snr %}

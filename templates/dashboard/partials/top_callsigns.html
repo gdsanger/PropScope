@@ -13,7 +13,13 @@
         <tbody>
             {% for cs in top_callsigns %}
             <tr>
-                <td><strong>{{ cs.callsign }}</strong></td>
+                <td>
+                    {% if cs.qrz_url %}
+                        <a href="{{ cs.qrz_url }}" target="_blank" rel="noopener noreferrer"><strong>{{ cs.callsign }}</strong></a>
+                    {% else %}
+                        <strong>{{ cs.callsign }}</strong>
+                    {% endif %}
+                </td>
                 <td>{{ cs.count }}</td>
                 <td>
                     {% if cs.avg_snr %}
