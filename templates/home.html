@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}PropScope - WSJT-X Statistics{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="jumbotron bg-light p-5 rounded">
+            <h1 class="display-4">📡 PropScope</h1>
+            <p class="lead">WSJT-X Statistics / CQ Analyzer</p>
+            <hr class="my-4">
+            <p>Analyse von WSJT-X ALL.TXT Logs mit Fokus auf CQ-Rufe, Entfernung und Ausbreitungsbedingungen.</p>
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">🚧 In Entwicklung</h4>
+                <p>PropScope ist derzeit in Entwicklung. Bald verfügbar:</p>
+                <ul>
+                    <li>Import von ALL.TXT Dateien</li>
+                    <li>CQ-Ruf Analyse</li>
+                    <li>Entfernungsberechnung via Maidenhead Locator</li>
+                    <li>Statistiken und Visualisierungen</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">📏 Entfernung</h5>
+                <p class="card-text">Berechnung der Luftlinie basierend auf Maidenhead Locator</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">⏱️ Tageszeit</h5>
+                <p class="card-text">Auswertung nach Tageszeit und Bandöffnungen</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">🌍 Geografie</h5>
+                <p class="card-text">Geografische Einordnung nach Land und Kontinent</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
