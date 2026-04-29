@@ -6,6 +6,7 @@ This service provides centralized functionality for:
 - Converting locators to coordinates
 - Calculating distances between coordinates
 - Calculating distances between locators
+- Generating external map URLs for locators
 
 The service is independent of database, UI, and import functionality.
 """
@@ -208,3 +209,37 @@ class MaidenheadService:
         to_lat, to_lon = self.locator_to_latlon(to_locator)
 
         return self.distance_km(from_lat, from_lon, to_lat, to_lon)
+
+    def get_grid_map_url(self, locator: str) -> str:
+        """
+        Generate a k7fry.com grid map URL for a Maidenhead locator.
+
+        The locator is normalized and validated before generating the URL.
+        The URL can be used to display the locator on an interactive map.
+
+        Args:
+            locator: Maidenhead locator string (4 or 6 characters)
+
+        Returns:
+            URL string for k7fry.com grid map
+
+        Raises:
+            InvalidMaidenheadLocatorError: If locator format is invalid
+
+        Examples:
+            >>> url = service.get_grid_map_url("jn68")
+            >>> url
+            "https://k7fry.com/grid/?qth=JN68"
+
+            >>> url = service.get_grid_map_url(" JO21 ")
+            >>> url
+            "https://k7fry.com/grid/?qth=JO21"
+        """
+        normalized = self.normalize_locator(locator)
+
+        if not self.is_valid_locator(normalized):
+            raise InvalidMaidenheadLocatorError(
+                f"Invalid Maidenhead locator format: {locator}"
+            )
+
+        return f"https://k7fry.com/grid/?qth={normalized}"
