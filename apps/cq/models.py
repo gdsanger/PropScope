@@ -1,6 +1,53 @@
 from django.db import models
 
 
+class BandDefinition(models.Model):
+    """
+    Defines amateur radio band frequency ranges.
+    Used to map frequencies to band designations (e.g., 40m, 20m).
+    """
+    name = models.CharField(
+        max_length=20,
+        unique=True,
+        db_index=True,
+        help_text="Band name (e.g., 40m, 20m, 10m)"
+    )
+    lower_frequency_mhz = models.FloatField(
+        db_index=True,
+        help_text="Lower frequency bound in MHz"
+    )
+    upper_frequency_mhz = models.FloatField(
+        db_index=True,
+        help_text="Upper frequency bound in MHz"
+    )
+    mode_hint = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="Mode hint (e.g., HF, VHF, UHF)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        db_index=True,
+        help_text="Whether this band definition is active and should be used for lookups"
+    )
+    notes = models.TextField(blank=True, help_text="Additional notes")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['lower_frequency_mhz']
+        verbose_name = "Band Definition"
+        verbose_name_plural = "Band Definitions"
+        indexes = [
+            models.Index(fields=['name']),
+            models.Index(fields=['lower_frequency_mhz', 'upper_frequency_mhz']),
+            models.Index(fields=['is_active']),
+        ]
+
+    def __str__(self):
+        return f"{self.name} ({self.lower_frequency_mhz}-{self.upper_frequency_mhz} MHz)"
+
+
 class HeardSignal(models.Model):
     """
     Stores a received CQ call from WSJT-X ALL.TXT.
