@@ -385,7 +385,9 @@ class StatisticsService:
 
     def get_top_dx(self, filters: dict | None = None, limit: int = 20) -> list[dict]:
         """
-        Return the furthest received CQ signals.
+        Return the furthest received CQ signals (deduplicated by callsign).
+
+        Each callsign appears only once, showing the maximum distance achieved.
 
         Args:
             filters: Optional filter dictionary.
@@ -405,6 +407,7 @@ class StatisticsService:
             filters,
         )
 
+        # Get all signals ordered by distance
         signals = qs.order_by("-distance_km").values(
             "timestamp",
             "callsign",
@@ -413,6 +416,98 @@ class StatisticsService:
             "snr",
             "distance_km",
             "qrz_url",
-        )[:limit]
+        )
 
-        return list(signals)
+        # Deduplicate by callsign, keeping the highest distance per callsign
+        seen_callsigns = set()
+        result = []
+
+        for signal in signals:
+            if signal["callsign"] not in seen_callsigns:
+                result.append(signal)
+                seen_callsigns.add(signal["callsign"])
+
+            if len(result) >= limit:
+                break
+
+        return result
+
+    def get_cq_count_by_continent(self, filters: dict | None = None) -> list[dict]:
+        """
+        Aggregate CQ signals by continent.
+
+        Returns a list of dicts ordered by count descending, each with:
+            continent   – continent name
+            count       – number of CQ signals received
+        """
+        qs = self._apply_filters(HeardSignal.objects.all(), filters)
+
+        rows = (
+            qs.exclude(locator_continent__isnull=True)
+            .exclude(locator_continent="")
+            .values("locator_continent")
+            .annotate(count=Count("id"))
+            .order_by("-count")
+        )
+
+        return [
+            {
+                "continent": row["locator_continent"],
+                "count": row["count"],
+            }
+            for row in rows
+        ]
+
+    def get_cq_count_by_callsign_country(self, filters: dict | None = None) -> list[dict]:
+        """
+        Aggregate CQ signals by callsign country.
+
+        Returns a list of dicts ordered by count descending, each with:
+            country   – country name (from callsign prefix)
+            count     – number of CQ signals received
+        """
+        qs = self._apply_filters(HeardSignal.objects.all(), filters)
+
+        rows = (
+            qs.exclude(callsign_country__isnull=True)
+            .exclude(callsign_country="")
+            .values("callsign_country")
+            .annotate(count=Count("id"))
+            .order_by("-count")
+        )
+
+        return [
+            {
+                "country": row["callsign_country"],
+                "count": row["count"],
+            }
+            for row in rows
+        ]
+
+    def get_best_dx_time(self, filters: dict | None = None) -> dict | None:
+        """
+        Determine the best hour for DX (maximum distance achieved).
+
+        Returns a dict with:
+            hour          – hour of day (0–23) with the best DX
+            distance_km   – maximum distance achieved in that hour
+            count         – number of signals in that hour
+
+        Returns None if no data is available.
+        """
+        distance_stats = self.get_distance_stats_by_hour(filters)
+
+        if not distance_stats:
+            return None
+
+        # Find the hour with the maximum distance
+        best_hour = max(
+            distance_stats,
+            key=lambda x: x["max_distance_km"] if x["max_distance_km"] else 0
+        )
+
+        return {
+            "hour": best_hour["hour"],
+            "distance_km": best_hour["max_distance_km"],
+            "count": best_hour["count"],
+        }

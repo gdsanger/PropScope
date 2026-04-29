@@ -44,6 +44,8 @@ def dashboard(request):
     activity_by_hour = stats_service.get_activity_by_hour(filters)
     distance_by_hour = stats_service.get_distance_stats_by_hour(filters)
     band_activity = stats_service.get_cq_count_by_band(filters)
+    continent_activity = stats_service.get_cq_count_by_continent(filters)
+    best_dx_time = stats_service.get_best_dx_time(filters)
     top_dx = stats_service.get_top_dx(filters, limit=20)
     top_callsigns = stats_service.get_cq_count_by_callsign(filters)[:10]
     top_locators = stats_service.get_cq_count_by_locator(filters)[:10]
@@ -53,6 +55,8 @@ def dashboard(request):
         'activity_by_hour': json.dumps(activity_by_hour),
         'distance_by_hour': json.dumps(distance_by_hour),
         'band_activity': json.dumps(band_activity),
+        'continent_activity': json.dumps(continent_activity),
+        'best_dx_time': best_dx_time,
         'top_dx': top_dx,
         'top_callsigns': top_callsigns,
         'top_locators': top_locators,
@@ -144,6 +148,17 @@ def dashboard_top_locators(request):
 
     return render(request, 'dashboard/partials/top_locators.html', {
         'top_locators': top_locators
+    })
+
+
+def dashboard_continent_activity(request):
+    """HTMX partial: Continent activity chart."""
+    stats_service = StatisticsService()
+    filters = _get_filters_from_request(request)
+    continent_activity = stats_service.get_cq_count_by_continent(filters)
+
+    return render(request, 'dashboard/partials/continent_activity.html', {
+        'continent_activity': json.dumps(continent_activity)
     })
 
 

@@ -243,3 +243,47 @@ class MaidenheadService:
             )
 
         return f"https://k7fry.com/grid/?qth={normalized}"
+
+    def calculate_azimuth(
+        self,
+        from_lat: float,
+        from_lon: float,
+        to_lat: float,
+        to_lon: float,
+    ) -> float:
+        """
+        Calculate the azimuth (bearing) from one point to another.
+
+        Returns the direction in degrees (0-360) where:
+        - 0° = North
+        - 90° = East
+        - 180° = South
+        - 270° = West
+
+        Args:
+            from_lat: Latitude of starting point in degrees
+            from_lon: Longitude of starting point in degrees
+            to_lat: Latitude of destination point in degrees
+            to_lon: Longitude of destination point in degrees
+
+        Returns:
+            Azimuth in degrees (0-360)
+
+        Example:
+            >>> azimuth = service.calculate_azimuth(48.5, 9.0, 51.5, 6.0)
+            >>> 0 <= azimuth < 360
+            True
+        """
+        # Convert to radians
+        lat1 = math.radians(from_lat)
+        lat2 = math.radians(to_lat)
+        dlon = math.radians(to_lon - from_lon)
+
+        # Calculate bearing
+        x = math.sin(dlon) * math.cos(lat2)
+        y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(dlon)
+
+        bearing = math.degrees(math.atan2(x, y))
+
+        # Normalize to 0-360
+        return (bearing + 360) % 360
