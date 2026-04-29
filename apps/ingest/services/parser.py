@@ -38,7 +38,7 @@ class WsjtxLineParser:
     |              |      |  +------------------------- Mode
     |              |      +---------------------------- Rx/Tx
     |              +----------------------------------- Frequency
-    +-------------------------------------------------- Timestamp (DDMMYY_HHMMSS)
+    +-------------------------------------------------- Timestamp (YYMMDD_HHMMSS)
     """
 
     # Pattern for standard ALL.TXT line
@@ -86,7 +86,7 @@ class WsjtxLineParser:
             audio_freq_str = match.group(7)
             message = match.group(8).strip()
 
-            # Parse timestamp: DDMMYY_HHMMSS
+            # Parse timestamp: YYMMDD_HHMMSS
             timestamp = self._parse_timestamp(timestamp_str)
             if not timestamp:
                 return None
@@ -124,7 +124,7 @@ class WsjtxLineParser:
 
     def _parse_timestamp(self, timestamp_str: str) -> Optional[datetime]:
         """
-        Parse timestamp from DDMMYY_HHMMSS format.
+        Parse timestamp from YYMMDD_HHMMSS format.
 
         Args:
             timestamp_str: Timestamp string (e.g., "260419_185200")
@@ -133,8 +133,8 @@ class WsjtxLineParser:
             datetime object in UTC, or None if parsing fails
         """
         try:
-            # DDMMYY_HHMMSS
-            dt = datetime.strptime(timestamp_str, "%d%m%y_%H%M%S")
+            # YYMMDD_HHMMSS
+            dt = datetime.strptime(timestamp_str, "%y%m%d_%H%M%S")
             # Add UTC timezone
             dt = dt.replace(tzinfo=timezone.utc)
             return dt

@@ -101,7 +101,7 @@ Example line:
 ```
 
 Fields:
-- `260419_185200`: Timestamp (DDMMYY_HHMMSS)
+- `260419_185200`: Timestamp (YYMMDD_HHMMSS)
 - `7.074`: Frequency in MHz
 - `Rx`: Direction (Rx = received, Tx = transmitted)
 - `FT8`: Mode
