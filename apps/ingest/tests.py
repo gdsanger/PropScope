@@ -2,11 +2,15 @@
 Tests for WSJT-X parser, enrichment, and importer services.
 """
 
+import tempfile
+import os
 from django.test import TestCase
 from django.utils import timezone
 from datetime import datetime, timezone as dt_timezone
 from apps.ingest.services.parser import WsjtxLineParser, ParsedWsjtxLine
+from apps.ingest.services.wsjtx_importer import WsjtxLogImporter
 from apps.ingest.models import ImportRun, ImporterState
+from apps.ui.models import PropScopeSettings
 from apps.geo.utils import maidenhead_to_latlon, haversine_distance, frequency_to_band
 from apps.callsign.utils import extract_prefix, generate_qrz_url, normalize_callsign
 
@@ -447,3 +451,160 @@ class CallsignUtilsTests(TestCase):
         """Test QRZ URL generation with suffix."""
         url = generate_qrz_url("DL1ABC/P")
         self.assertEqual(url, "https://www.qrz.com/db/DL1ABC")
+
+
+class WsjtxImporterTests(TestCase):
+    """
+    Tests for the WsjtxLogImporter service.
+    Specifically tests the fix for the "telling position disabled by next() call" bug.
+    """
+
+    def setUp(self):
+        """Create a temporary test file."""
+        self.test_content = """260419_185200     7.074 Rx FT8    -19  0.3 1133 CQ EX7CQ MN72
+260419_185215    14.074 Rx FT8    -12  0.2 1456 CQ DL1ABC JN68
+260419_185230    21.074 Rx FT8     -8  0.1 1789 CQ K1XYZ FN42
+260419_185245     7.074 Rx FT8    -15  0.4 1234 DL1ABC K1XYZ RR73
+260419_185300    14.074 Rx FT8    -10  0.3 1567 CQ G4ABC IO91
+"""
+        fd, self.test_file_path = tempfile.mkstemp(suffix='.txt', prefix='test_all_')
+        with os.fdopen(fd, 'w') as f:
+            f.write(self.test_content)
+
+    def tearDown(self):
+        """Clean up temporary test file."""
+        if os.path.exists(self.test_file_path):
+            os.unlink(self.test_file_path)
+
+    def test_full_import_no_tell_error(self):
+        """
+        Test that full import works without 'telling position disabled by next() call' error.
+        This verifies the fix for the bug where using 'for line in f:' with 'f.tell()' caused an error.
+        """
+        importer = WsjtxLogImporter()
+
+        # Run full import
+        import_run = importer.import_file(
+            file_path=self.test_file_path,
+            incremental=False,
+            settings=None
+        )
+
+        # Assert import completed successfully
+        self.assertEqual(import_run.status, 'completed')
+        self.assertEqual(import_run.lines_total, 5)
+        # 4 CQ lines, but duplicates might be skipped based on hash
+        self.assertGreaterEqual(import_run.lines_imported, 1)
+        self.assertGreaterEqual(import_run.lines_skipped, 0)
+
+    def test_incremental_import_with_position_tracking(self):
+        """
+        Test that incremental import correctly tracks file position using tell().
+        This verifies that the fix allows proper position tracking without errors.
+        """
+        # Create settings for position tracking
+        settings = PropScopeSettings.objects.create(
+            name='test_settings',
+            is_active=False,
+            wsjtx_last_position=0
+        )
+
+        importer = WsjtxLogImporter()
+
+        # First incremental import (from position 0)
+        import_run1 = importer.import_file(
+            file_path=self.test_file_path,
+            incremental=True,
+            settings=settings
+        )
+
+        # Assert first import completed successfully
+        self.assertEqual(import_run1.status, 'completed')
+        self.assertEqual(import_run1.lines_total, 5)
+
+        # Get the saved position
+        settings.refresh_from_db()
+        first_position = settings.wsjtx_last_position
+        self.assertGreater(first_position, 0, "Position should be saved after import")
+
+        # Append new data to the file
+        with open(self.test_file_path, 'a') as f:
+            f.write("260419_185315     7.074 Rx FT8    -20  0.5 1890 CQ VE3ABC FN03\n")
+            f.write("260419_185330    14.074 Rx FT8    -18  0.2 1123 CQ JA1ABC PM95\n")
+
+        # Second incremental import (from saved position)
+        import_run2 = importer.import_file(
+            file_path=self.test_file_path,
+            incremental=True,
+            settings=settings
+        )
+
+        # Assert second import completed successfully
+        self.assertEqual(import_run2.status, 'completed')
+        # Should only process the 2 new lines
+        self.assertEqual(import_run2.lines_total, 2)
+
+        # Get the new saved position
+        settings.refresh_from_db()
+        second_position = settings.wsjtx_last_position
+        self.assertGreater(second_position, first_position, "Position should advance after second import")
+
+    def test_incremental_import_from_middle_of_file(self):
+        """
+        Test that incremental import can correctly seek to a position and continue reading.
+        This verifies the fix works with seek() + readline() combination.
+        """
+        # Calculate the position of the 3rd line
+        lines = self.test_content.split('\n')
+        first_two_lines = '\n'.join(lines[:2]) + '\n'
+        start_position = len(first_two_lines.encode('utf-8'))
+
+        settings = PropScopeSettings.objects.create(
+            name='test_settings',
+            is_active=False,
+            wsjtx_last_position=start_position
+        )
+
+        importer = WsjtxLogImporter()
+
+        # Import from the middle of the file
+        import_run = importer.import_file(
+            file_path=self.test_file_path,
+            incremental=True,
+            settings=settings
+        )
+
+        # Assert import completed successfully
+        self.assertEqual(import_run.status, 'completed')
+        # Should process lines from position onwards (3 lines: 3rd, 4th, 5th)
+        self.assertEqual(import_run.lines_total, 3)
+
+    def test_file_position_updated_correctly(self):
+        """
+        Test that file position is correctly updated and saved after import.
+        """
+        settings = PropScopeSettings.objects.create(
+            name='test_settings',
+            is_active=False,
+            wsjtx_last_position=0
+        )
+
+        importer = WsjtxLogImporter()
+
+        # Run incremental import
+        import_run = importer.import_file(
+            file_path=self.test_file_path,
+            incremental=True,
+            settings=settings
+        )
+
+        # Get file size
+        file_size = os.path.getsize(self.test_file_path)
+
+        # Get saved position
+        settings.refresh_from_db()
+        saved_position = settings.wsjtx_last_position
+
+        # Position should be at or near end of file (equal to file size)
+        self.assertEqual(saved_position, file_size, "Position should match file size after reading entire file")
+
