@@ -1,0 +1,54 @@
+<canvas id="activity-by-hour-chart" height="80"></canvas>
+
+<script>
+(function() {
+    const ctx = document.getElementById('activity-by-hour-chart');
+    if (!ctx) return;
+
+    const data = {{ activity_by_hour|safe }};
+
+    // Create array for all hours (0-23) with default 0 values
+    const hours = Array.from({length: 24}, (_, i) => i);
+    const counts = hours.map(hour => {
+        const found = data.find(d => d.hour === hour);
+        return found ? found.count : 0;
+    });
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: hours,
+            datasets: [{
+                label: 'CQ-Rufe',
+                data: counts,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Stunde (UTC)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+})();
+</script>

@@ -1,0 +1,36 @@
+{% if top_dx %}
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th>Zeitpunkt</th>
+                <th>Rufzeichen</th>
+                <th>Locator</th>
+                <th>Band</th>
+                <th>SNR</th>
+                <th>Distanz</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for signal in top_dx %}
+            <tr>
+                <td>{{ signal.timestamp|date:"Y-m-d H:i" }}</td>
+                <td>
+                    {% if signal.qrz_url %}
+                        <a href="{{ signal.qrz_url }}" target="_blank" rel="noopener noreferrer">{{ signal.callsign }}</a>
+                    {% else %}
+                        {{ signal.callsign }}
+                    {% endif %}
+                </td>
+                <td>{{ signal.locator|default:"-" }}</td>
+                <td><span class="badge bg-secondary">{{ signal.band }}</span></td>
+                <td>{{ signal.snr|floatformat:0 }} dB</td>
+                <td><strong>{{ signal.distance_km|floatformat:0 }} km</strong></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="text-muted text-center py-4">Keine DX-Daten verfügbar</p>
+{% endif %}

@@ -1,0 +1,57 @@
+<canvas id="snr-by-hour-chart" height="80"></canvas>
+
+<script>
+(function() {
+    const ctx = document.getElementById('snr-by-hour-chart');
+    if (!ctx) return;
+
+    const data = {{ distance_by_hour|safe }};
+
+    // Create array for all hours (0-23) with default null values
+    const hours = Array.from({length: 24}, (_, i) => i);
+    const avgSnr = hours.map(hour => {
+        const found = data.find(d => d.hour === hour);
+        return found && found.avg_snr !== null ? found.avg_snr : null;
+    });
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: hours,
+            datasets: [{
+                label: 'Durchschnittlicher SNR',
+                data: avgSnr,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 2,
+                tension: 0.1,
+                spanGaps: true,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'SNR (dB)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Stunde (UTC)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+})();
+</script>

@@ -1,0 +1,48 @@
+{% if top_locators %}
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th>Locator</th>
+                <th>Anzahl</th>
+                <th>Ø SNR</th>
+                <th>Ø Entf.</th>
+                <th>Max Entf.</th>
+                <th>Land</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loc in top_locators %}
+            <tr>
+                <td><strong>{{ loc.locator }}</strong></td>
+                <td>{{ loc.count }}</td>
+                <td>
+                    {% if loc.avg_snr %}
+                        {{ loc.avg_snr|floatformat:1 }} dB
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if loc.avg_distance_km %}
+                        {{ loc.avg_distance_km|floatformat:0 }} km
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if loc.max_distance_km %}
+                        {{ loc.max_distance_km|floatformat:0 }} km
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ loc.locator_country|default:"-" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="text-muted text-center py-4">Keine Locator-Daten verfügbar</p>
+{% endif %}

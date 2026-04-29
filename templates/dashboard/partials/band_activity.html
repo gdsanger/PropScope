@@ -1,0 +1,52 @@
+<canvas id="band-activity-chart" height="80"></canvas>
+
+<script>
+(function() {
+    const ctx = document.getElementById('band-activity-chart');
+    if (!ctx) return;
+
+    const data = {{ band_activity|safe }};
+
+    if (!data || data.length === 0) {
+        ctx.parentElement.innerHTML = '<p class="text-muted text-center py-4">Keine Daten verfügbar</p>';
+        return;
+    }
+
+    const labels = data.map(d => d.band);
+    const counts = data.map(d => d.count);
+
+    // Generate distinct colors for each band
+    const colors = [
+        'rgba(255, 99, 132, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(255, 206, 86, 0.8)',
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(153, 102, 255, 0.8)',
+        'rgba(255, 159, 64, 0.8)',
+        'rgba(199, 199, 199, 0.8)',
+    ];
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: counts,
+                backgroundColor: colors.slice(0, data.length),
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'right'
+                }
+            }
+        }
+    });
+})();
+</script>
