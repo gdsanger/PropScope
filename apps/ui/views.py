@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 from datetime import timedelta
 import json
 from apps.analysis.services import StatisticsService
+from apps.geo.forms import MaidenheadAreaForm
+from apps.geo.services import MaidenheadService
 
 
 def home(request):
@@ -170,4 +172,64 @@ def _get_filters_from_request(request):
     if date_to := request.GET.get('date_to'):
         filters['date_to'] = date_to
     return filters
+
+
+def maidenhead_area_create_modal(request):
+    """HTMX endpoint: Load modal for creating a MaidenheadArea."""
+    locator = request.GET.get('locator', '').strip()
+
+    # Validate and calculate lat/lon
+    service = MaidenheadService()
+    error_message = None
+    initial_data = {'locator': locator}
+
+    if locator:
+        try:
+            normalized = service.normalize_locator(locator)
+            if service.is_valid_locator(normalized):
+                lat, lon = service.locator_to_latlon(normalized)
+                initial_data = {
+                    'locator': normalized,
+                    'center_lat': lat,
+                    'center_lon': lon,
+                    'is_ambiguous': False,
+                }
+            else:
+                error_message = f"Ungültiges Locator-Format: {locator}"
+        except Exception as e:
+            error_message = f"Fehler beim Verarbeiten des Locators: {str(e)}"
+
+    form = MaidenheadAreaForm(initial=initial_data)
+
+    return render(request, 'dashboard/modals/maidenhead_area_create.html', {
+        'form': form,
+        'locator': locator,
+        'error_message': error_message,
+    })
+
+
+def maidenhead_area_create(request):
+    """HTMX endpoint: Handle POST to create MaidenheadArea."""
+    if request.method == 'POST':
+        form = MaidenheadAreaForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            # Return success response that closes modal and shows success message
+            return HttpResponse(
+                '<script>'
+                'document.getElementById("modal-container").innerHTML = ""; '
+                'window.location.reload();'  # Reload page to show updated data
+                '</script>'
+            )
+        else:
+            # Re-render modal with errors
+            return render(request, 'dashboard/modals/maidenhead_area_create.html', {
+                'form': form,
+                'locator': form.data.get('locator', ''),
+            })
+
+    # GET request - redirect to modal view
+    return maidenhead_area_create_modal(request)
 
