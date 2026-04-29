@@ -1,0 +1,40 @@
+{% if top_callsigns %}
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th>Rufzeichen</th>
+                <th>Anzahl</th>
+                <th>Ø SNR</th>
+                <th>Max DX</th>
+                <th>Zuletzt</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cs in top_callsigns %}
+            <tr>
+                <td><strong>{{ cs.callsign }}</strong></td>
+                <td>{{ cs.count }}</td>
+                <td>
+                    {% if cs.avg_snr %}
+                        {{ cs.avg_snr|floatformat:1 }} dB
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if cs.max_distance_km %}
+                        {{ cs.max_distance_km|floatformat:0 }} km
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>{{ cs.last_heard|date:"Y-m-d H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="text-muted text-center py-4">Keine Callsign-Daten verfügbar</p>
+{% endif %}

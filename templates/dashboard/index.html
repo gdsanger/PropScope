@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - PropScope{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="h3">PropScope Dashboard</h1>
+            <p class="text-muted">Übersicht über empfangene CQ-Rufe und Propagationsdaten</p>
+        </div>
+    </div>
+
+    <!-- KPI Cards Section -->
+    <div class="row g-3 mb-4" id="kpi-cards">
+        {% include "dashboard/partials/kpi_cards.html" %}
+    </div>
+
+    <!-- Charts Row 1: Activity and Distance -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Aktivität nach Stunde</h5>
+                    {% include "dashboard/partials/activity_by_hour.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Entfernung nach Stunde</h5>
+                    {% include "dashboard/partials/distance_by_hour.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2: SNR and Band Activity -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">SNR nach Stunde</h5>
+                    {% include "dashboard/partials/snr_by_hour.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Aktivität je Band</h5>
+                    {% include "dashboard/partials/band_activity.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top DX Table -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Top DX</h5>
+                    {% include "dashboard/partials/top_dx.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Row: Top Callsigns and Locators -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Top Rufzeichen</h5>
+                    {% include "dashboard/partials/top_callsigns.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Top Locator</h5>
+                    {% include "dashboard/partials/top_locators.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

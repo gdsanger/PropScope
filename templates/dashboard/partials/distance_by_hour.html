@@ -1,0 +1,70 @@
+<canvas id="distance-by-hour-chart" height="80"></canvas>
+
+<script>
+(function() {
+    const ctx = document.getElementById('distance-by-hour-chart');
+    if (!ctx) return;
+
+    const data = {{ distance_by_hour|safe }};
+
+    // Create array for all hours (0-23) with default null values
+    const hours = Array.from({length: 24}, (_, i) => i);
+    const avgDistances = hours.map(hour => {
+        const found = data.find(d => d.hour === hour);
+        return found && found.avg_distance_km ? found.avg_distance_km : null;
+    });
+    const maxDistances = hours.map(hour => {
+        const found = data.find(d => d.hour === hour);
+        return found && found.max_distance_km ? found.max_distance_km : null;
+    });
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: hours,
+            datasets: [{
+                label: 'Durchschnitt',
+                data: avgDistances,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                tension: 0.1,
+                spanGaps: true
+            }, {
+                label: 'Maximum',
+                data: maxDistances,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                tension: 0.1,
+                spanGaps: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Entfernung (km)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Stunde (UTC)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+})();
+</script>

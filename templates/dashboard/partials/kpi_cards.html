@@ -1,0 +1,66 @@
+<!-- KPI Cards -->
+<div class="col-md-4 col-lg-2">
+    <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body text-center">
+            <div class="text-muted small">CQ gesamt</div>
+            <div class="h4 mb-0">{{ summary.cq_count|default:"0" }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+    <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body text-center">
+            <div class="text-muted small">Rufzeichen</div>
+            <div class="h4 mb-0">{{ summary.unique_callsigns|default:"0" }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+    <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body text-center">
+            <div class="text-muted small">Locator</div>
+            <div class="h4 mb-0">{{ summary.unique_locators|default:"0" }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+    <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body text-center">
+            <div class="text-muted small">Bänder</div>
+            <div class="h4 mb-0">{{ summary.unique_bands|default:"0" }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+    <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body text-center">
+            <div class="text-muted small">Max DX</div>
+            <div class="h4 mb-0">
+                {% if summary.max_distance_km %}
+                    {{ summary.max_distance_km|floatformat:0 }} km
+                {% else %}
+                    - km
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-4 col-lg-2">
+    <div class="card border-0 shadow-sm rounded-4 h-100">
+        <div class="card-body text-center">
+            <div class="text-muted small">Ø SNR</div>
+            <div class="h4 mb-0">
+                {% if summary.avg_snr %}
+                    {{ summary.avg_snr|floatformat:1 }} dB
+                {% else %}
+                    - dB
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
