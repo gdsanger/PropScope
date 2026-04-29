@@ -4,10 +4,10 @@ Adds computed fields based on callsign, locator, and station configuration.
 """
 
 from typing import Optional, Dict, Any
-from apps.geo.utils import maidenhead_to_latlon, haversine_distance, frequency_to_band
-from apps.callsign.utils import extract_prefix, generate_qrz_url
+from apps.geo.utils import maidenhead_to_latlon, haversine_distance
 from apps.geo.models import MaidenheadArea
-from apps.callsign.models import CallsignPrefix
+from apps.callsign.services import CallsignService
+from apps.cq.services import BandService
 
 
 class SignalEnricher:
@@ -25,6 +25,8 @@ class SignalEnricher:
         """
         self.station_lat = station_lat
         self.station_lon = station_lon
+        self.callsign_service = CallsignService()
+        self.band_service = BandService()
 
     def enrich_signal_data(self, signal_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -38,13 +40,14 @@ class SignalEnricher:
         """
         enriched = signal_data.copy()
 
-        # Generate QRZ URL
+        # Generate QRZ URL using CallsignService
         if 'callsign' in enriched and enriched['callsign']:
-            enriched['qrz_url'] = generate_qrz_url(enriched['callsign'])
+            enriched['qrz_url'] = self.callsign_service.get_qrz_url(enriched['callsign'])
 
-        # Determine band from frequency
+        # Determine band from frequency using BandService
         if 'frequency_mhz' in enriched:
-            enriched['band'] = frequency_to_band(enriched['frequency_mhz'])
+            band_name = self.band_service.get_band_name(enriched['frequency_mhz'])
+            enriched['band'] = band_name if band_name else f"{enriched['frequency_mhz']:.3f}MHz"
 
         # Process locator if present
         if 'locator' in enriched and enriched['locator']:
@@ -79,24 +82,11 @@ class SignalEnricher:
                 # No data for this locator or database not available
                 pass
 
-        # Look up callsign prefix
+        # Look up callsign prefix using CallsignService
         if 'callsign' in enriched and enriched['callsign']:
-            prefix = extract_prefix(enriched['callsign'])
-            try:
-                prefix_data = CallsignPrefix.objects.get(prefix=prefix)
-                enriched['callsign_country'] = prefix_data.country
-                enriched['callsign_continent'] = prefix_data.continent
-            except (CallsignPrefix.DoesNotExist, Exception):
-                # No data for this prefix, try shorter prefixes
-                # Try progressively shorter prefixes
-                for length in range(len(prefix) - 1, 0, -1):
-                    short_prefix = prefix[:length]
-                    try:
-                        prefix_data = CallsignPrefix.objects.get(prefix=short_prefix)
-                        enriched['callsign_country'] = prefix_data.country
-                        enriched['callsign_continent'] = prefix_data.continent
-                        break
-                    except (CallsignPrefix.DoesNotExist, Exception):
-                        continue
+            country_info = self.callsign_service.detect_country(enriched['callsign'])
+            if country_info:
+                enriched['callsign_country'] = country_info.get('country')
+                enriched['callsign_continent'] = country_info.get('continent')
 
         return enriched

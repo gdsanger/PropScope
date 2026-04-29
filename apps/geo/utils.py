@@ -113,38 +113,23 @@ def frequency_to_band(frequency_mhz: float) -> str:
     """
     Convert frequency in MHz to amateur radio band designation.
 
+    DEPRECATED: This function now uses the BandDefinition database table.
+    For new code, use BandService directly instead.
+
     Args:
         frequency_mhz: Frequency in MHz
 
     Returns:
         Band designation (e.g., "20m", "40m", "160m")
     """
-    # Amateur radio band allocations
-    if 1.8 <= frequency_mhz < 2.0:
-        return "160m"
-    elif 3.5 <= frequency_mhz < 4.0:
-        return "80m"
-    elif 5.3 <= frequency_mhz < 5.5:
-        return "60m"
-    elif 7.0 <= frequency_mhz < 7.3:
-        return "40m"
-    elif 10.1 <= frequency_mhz < 10.15:
-        return "30m"
-    elif 14.0 <= frequency_mhz < 14.35:
-        return "20m"
-    elif 18.068 <= frequency_mhz < 18.168:
-        return "17m"
-    elif 21.0 <= frequency_mhz < 21.45:
-        return "15m"
-    elif 24.89 <= frequency_mhz < 24.99:
-        return "12m"
-    elif 28.0 <= frequency_mhz < 29.7:
-        return "10m"
-    elif 50.0 <= frequency_mhz < 54.0:
-        return "6m"
-    elif 144.0 <= frequency_mhz < 148.0:
-        return "2m"
-    elif 420.0 <= frequency_mhz < 450.0:
-        return "70cm"
+    # Use BandService for database-driven band lookup
+    from apps.cq.services import BandService
+
+    service = BandService()
+    band_name = service.get_band_name(frequency_mhz)
+
+    # Return band name if found, otherwise frequency in MHz format
+    if band_name:
+        return band_name
     else:
         return f"{frequency_mhz:.3f}MHz"
