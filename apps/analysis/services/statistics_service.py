@@ -142,6 +142,7 @@ class StatisticsService:
             last_heard    – latest timestamp
             avg_snr       – average SNR
             max_distance_km – maximum observed distance
+            qrz_url       – QRZ.com URL for the callsign
         """
         qs = self._apply_filters(HeardSignal.objects.all(), filters)
 
@@ -153,6 +154,7 @@ class StatisticsService:
                 last_heard=Max("timestamp"),
                 avg_snr=Avg("snr"),
                 max_distance_km=Max("distance_km"),
+                qrz_url=Max("qrz_url"),  # Get any qrz_url (they should all be the same for a callsign)
             )
             .order_by("-count")
         )
@@ -165,6 +167,7 @@ class StatisticsService:
                 "last_heard": row["last_heard"],
                 "avg_snr": round(row["avg_snr"], 1) if row["avg_snr"] is not None else None,
                 "max_distance_km": row["max_distance_km"],
+                "qrz_url": row["qrz_url"],
             }
             for row in rows
         ]

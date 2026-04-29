@@ -22,7 +22,13 @@
                         {{ signal.callsign }}
                     {% endif %}
                 </td>
-                <td>{{ signal.locator|default:"-" }}</td>
+                <td>
+                    {% if signal.locator %}
+                        <a href="https://k7fry.com/grid/?qth={{ signal.locator }}" target="_blank" rel="noopener noreferrer">{{ signal.locator }}</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
                 <td><span class="badge bg-secondary">{{ signal.band }}</span></td>
                 <td>{{ signal.snr|floatformat:0 }} dB</td>
                 <td><strong>{{ signal.distance_km|floatformat:0 }} km</strong></td>
