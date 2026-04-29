@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # PropScope apps
+    'apps.core',
     'apps.ingest',
     'apps.cq',
     'apps.geo',
