@@ -10,7 +10,7 @@ from typing import Optional
 from django.db import transaction, IntegrityError
 from apps.ingest.models import ImportRun
 from apps.cq.models import HeardSignal
-from apps.ui.models import PropScopeSettings
+from apps.ui.models import PropScopeSettings, StationProfile
 from apps.ingest.services.parser import WsjtxLineParser
 from apps.ingest.services.enrichment import SignalEnricher
 
@@ -50,6 +50,14 @@ class WsjtxLogImporter:
         # Create enricher with station coordinates
         station_lat = settings.station_latitude if settings else None
         station_lon = settings.station_longitude if settings else None
+
+        # If no coordinates in settings, try to get from default StationProfile
+        if not (station_lat and station_lon):
+            station_profile = StationProfile.objects.filter(is_default=True, is_active=True).first()
+            if station_profile:
+                station_lat = station_profile.latitude
+                station_lon = station_profile.longitude
+
         enricher = SignalEnricher(station_lat=station_lat, station_lon=station_lon)
 
         # Create import run
