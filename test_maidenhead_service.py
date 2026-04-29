@@ -195,6 +195,52 @@ def test_service_is_stateless():
     print("✓ Service statefulness tests passed")
 
 
+def test_get_grid_map_url():
+    """Test grid map URL generation."""
+    service = MaidenheadService()
+
+    print("\nTesting grid map URL generation...")
+
+    # Test valid 4-char locator
+    url = service.get_grid_map_url("JN68")
+    assert url == "https://k7fry.com/grid/?qth=JN68", f"Expected specific URL, got {url}"
+
+    # Test valid 6-char locator
+    url = service.get_grid_map_url("JN68qv")
+    assert url == "https://k7fry.com/grid/?qth=JN68QV", f"Expected specific URL, got {url}"
+
+    # Test normalization (lowercase)
+    url = service.get_grid_map_url("jn68")
+    assert url == "https://k7fry.com/grid/?qth=JN68", f"Expected normalized URL, got {url}"
+
+    # Test whitespace stripping
+    url = service.get_grid_map_url(" jn68 ")
+    assert url == "https://k7fry.com/grid/?qth=JN68", f"Expected normalized URL, got {url}"
+
+    # Test multiple locators
+    test_cases = [
+        ("JN68", "https://k7fry.com/grid/?qth=JN68"),
+        ("JO21", "https://k7fry.com/grid/?qth=JO21"),
+        ("MN72", "https://k7fry.com/grid/?qth=MN72"),
+        ("AA00", "https://k7fry.com/grid/?qth=AA00"),
+        ("RR99", "https://k7fry.com/grid/?qth=RR99"),
+    ]
+    for locator, expected_url in test_cases:
+        url = service.get_grid_map_url(locator)
+        assert url == expected_url, f"For {locator}, expected {expected_url}, got {url}"
+
+    # Test invalid locators raise exception
+    invalid_locators = ["ZZ99", "JN6", "1234", "", "ABCD"]
+    for locator in invalid_locators:
+        try:
+            service.get_grid_map_url(locator)
+            assert False, f"Expected exception for {locator}"
+        except InvalidMaidenheadLocatorError as e:
+            assert "Invalid" in str(e) or locator in str(e)
+
+    print("✓ Grid map URL generation tests passed")
+
+
 def main():
     """Run all tests."""
     print("=" * 60)
@@ -209,6 +255,7 @@ def main():
         test_distance_calculation()
         test_distance_between_locators()
         test_service_is_stateless()
+        test_get_grid_map_url()
 
         print("\n" + "=" * 60)
         print("✓ ALL TESTS PASSED")

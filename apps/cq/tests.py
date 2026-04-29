@@ -1,6 +1,96 @@
 from django.test import TestCase
-from apps.cq.models import BandDefinition
+from apps.cq.models import BandDefinition, HeardSignal
 from apps.cq.services import BandService
+from apps.ingest.models import ImportRun
+from django.utils import timezone
+
+
+class HeardSignalModelTest(TestCase):
+    """Tests for HeardSignal model"""
+
+    def setUp(self):
+        """Set up test data"""
+        # Create an import run for foreign key relationship
+        self.import_run = ImportRun.objects.create(
+            file_path="/tmp/test.txt",
+            status="completed",
+        )
+
+    def test_locator_map_url_with_valid_locator(self):
+        """Test locator_map_url property with valid 4-character locator."""
+        signal = HeardSignal(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="20m",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ DL1ABC JN68",
+            raw_line="test line",
+            raw_hash="abc123",
+            callsign="DL1ABC",
+            locator="JN68",
+        )
+        self.assertEqual(signal.locator_map_url, "https://k7fry.com/grid/?qth=JN68")
+
+    def test_locator_map_url_with_6_char_locator(self):
+        """Test locator_map_url property with valid 6-character locator."""
+        signal = HeardSignal(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="20m",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ DL1ABC JN68qv",
+            raw_line="test line",
+            raw_hash="abc456",
+            callsign="DL1ABC",
+            locator="JN68qv",
+        )
+        self.assertEqual(signal.locator_map_url, "https://k7fry.com/grid/?qth=JN68QV")
+
+    def test_locator_map_url_with_no_locator(self):
+        """Test locator_map_url property returns None when locator is None."""
+        signal = HeardSignal(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="20m",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ DL1ABC",
+            raw_line="test line",
+            raw_hash="abc789",
+            callsign="DL1ABC",
+            locator=None,
+        )
+        self.assertIsNone(signal.locator_map_url)
+
+    def test_locator_map_url_with_empty_locator(self):
+        """Test locator_map_url property returns None when locator is empty."""
+        signal = HeardSignal(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="20m",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ DL1ABC",
+            raw_line="test line",
+            raw_hash="abc101112",
+            callsign="DL1ABC",
+            locator="",
+        )
+        self.assertIsNone(signal.locator_map_url)
 
 
 class BandServiceTest(TestCase):

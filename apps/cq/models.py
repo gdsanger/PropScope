@@ -114,3 +114,27 @@ class HeardSignal(models.Model):
     def __str__(self):
         locator_str = f" {self.locator}" if self.locator else ""
         return f"{self.callsign}{locator_str} @ {self.timestamp} ({self.band}, {self.snr}dB)"
+
+    @property
+    def locator_map_url(self):
+        """
+        Generate a k7fry.com grid map URL for this signal's Maidenhead locator.
+
+        Returns:
+            URL string for k7fry.com grid map, or None if no locator is present
+
+        Example:
+            >>> signal = HeardSignal(locator="JN68")
+            >>> signal.locator_map_url
+            "https://k7fry.com/grid/?qth=JN68"
+
+            >>> signal = HeardSignal(locator=None)
+            >>> signal.locator_map_url
+            None
+        """
+        if not self.locator:
+            return None
+
+        from apps.geo.services import MaidenheadService
+        service = MaidenheadService()
+        return service.get_grid_map_url(self.locator)

@@ -313,3 +313,60 @@ class MaidenheadServiceTests(TestCase):
         lat, lon = self.service.locator_to_latlon("RR99")
         self.assertLess(lat, 90)
         self.assertLess(lon, 180)
+
+    # ========== Grid Map URL Tests ==========
+
+    def test_get_grid_map_url_valid_4_char_locator(self):
+        """Test grid map URL generation for valid 4-character locator."""
+        url = self.service.get_grid_map_url("JN68")
+        self.assertEqual(url, "https://k7fry.com/grid/?qth=JN68")
+
+    def test_get_grid_map_url_valid_6_char_locator(self):
+        """Test grid map URL generation for valid 6-character locator."""
+        url = self.service.get_grid_map_url("JN68qv")
+        self.assertEqual(url, "https://k7fry.com/grid/?qth=JN68QV")
+
+    def test_get_grid_map_url_normalizes_lowercase(self):
+        """Test grid map URL normalizes lowercase locator."""
+        url = self.service.get_grid_map_url("jn68")
+        self.assertEqual(url, "https://k7fry.com/grid/?qth=JN68")
+
+    def test_get_grid_map_url_strips_whitespace(self):
+        """Test grid map URL strips whitespace from locator."""
+        url = self.service.get_grid_map_url(" jn68 ")
+        self.assertEqual(url, "https://k7fry.com/grid/?qth=JN68")
+
+    def test_get_grid_map_url_multiple_locators(self):
+        """Test grid map URL generation for multiple different locators."""
+        test_cases = [
+            ("JN68", "https://k7fry.com/grid/?qth=JN68"),
+            ("JO21", "https://k7fry.com/grid/?qth=JO21"),
+            ("MN72", "https://k7fry.com/grid/?qth=MN72"),
+            ("AA00", "https://k7fry.com/grid/?qth=AA00"),
+            ("RR99", "https://k7fry.com/grid/?qth=RR99"),
+        ]
+        for locator, expected_url in test_cases:
+            with self.subTest(locator=locator):
+                url = self.service.get_grid_map_url(locator)
+                self.assertEqual(url, expected_url)
+
+    def test_get_grid_map_url_invalid_locator_raises_exception(self):
+        """Test that invalid locators raise InvalidMaidenheadLocatorError."""
+        invalid_locators = [
+            "ZZ99",     # Out of range
+            "JN6",      # Too short
+            "1234",     # All digits
+            "",         # Empty
+            "ABCD",     # All letters
+        ]
+        for locator in invalid_locators:
+            with self.subTest(locator=locator):
+                with self.assertRaises(InvalidMaidenheadLocatorError):
+                    self.service.get_grid_map_url(locator)
+
+    def test_get_grid_map_url_exception_message_contains_locator(self):
+        """Test that exception message contains the invalid locator."""
+        try:
+            self.service.get_grid_map_url("INVALID")
+        except InvalidMaidenheadLocatorError as e:
+            self.assertIn("INVALID", str(e))
