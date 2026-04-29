@@ -1,4 +1,5 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.urls import reverse
 from django.db import IntegrityError
 from apps.ui.models import StationProfile
 
@@ -202,4 +203,86 @@ class StationProfileModelTests(TestCase):
 
         self.assertAlmostEqual(profile.latitude, 48.123456, places=6)
         self.assertAlmostEqual(profile.longitude, 8.987654, places=6)
+
+
+class DashboardViewTests(TestCase):
+    """Tests for the dashboard views."""
+
+    def setUp(self):
+        """Set up test client."""
+        self.client = Client()
+
+    def test_dashboard_view_loads(self):
+        """Test that dashboard view loads successfully."""
+        response = self.client.get(reverse('ui:dashboard'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/index.html')
+
+    def test_dashboard_view_context_has_summary(self):
+        """Test that dashboard context contains summary data."""
+        response = self.client.get(reverse('ui:dashboard'))
+        self.assertIn('summary', response.context)
+        self.assertIn('top_dx', response.context)
+        self.assertIn('top_callsigns', response.context)
+        self.assertIn('top_locators', response.context)
+
+    def test_dashboard_kpi_cards_partial_loads(self):
+        """Test that KPI cards partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-kpi-cards'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/kpi_cards.html')
+
+    def test_dashboard_activity_by_hour_partial_loads(self):
+        """Test that activity by hour partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-activity-by-hour'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/activity_by_hour.html')
+
+    def test_dashboard_distance_by_hour_partial_loads(self):
+        """Test that distance by hour partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-distance-by-hour'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/distance_by_hour.html')
+
+    def test_dashboard_snr_by_hour_partial_loads(self):
+        """Test that SNR by hour partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-snr-by-hour'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/snr_by_hour.html')
+
+    def test_dashboard_band_activity_partial_loads(self):
+        """Test that band activity partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-band-activity'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/band_activity.html')
+
+    def test_dashboard_top_dx_partial_loads(self):
+        """Test that top DX partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-top-dx'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/top_dx.html')
+
+    def test_dashboard_top_callsigns_partial_loads(self):
+        """Test that top callsigns partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-top-callsigns'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/top_callsigns.html')
+
+    def test_dashboard_top_locators_partial_loads(self):
+        """Test that top locators partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-top-locators'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/top_locators.html')
+
+    def test_dashboard_with_date_filter(self):
+        """Test that dashboard accepts date filter parameters."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'date_from': '2026-04-01', 'date_to': '2026-04-30'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('filters', response.context)
+        self.assertEqual(response.context['filters']['date_from'], '2026-04-01')
+        self.assertEqual(response.context['filters']['date_to'], '2026-04-30')
+
 
