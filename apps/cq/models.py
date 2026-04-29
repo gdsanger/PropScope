@@ -23,6 +23,12 @@ class HeardSignal(models.Model):
     audio_frequency = models.IntegerField(help_text="Audio frequency in Hz")
     raw_message = models.CharField(max_length=100, help_text="Raw decoded message")
     raw_line = models.TextField(help_text="Complete raw line from ALL.TXT")
+    raw_hash = models.CharField(
+        max_length=64,
+        unique=True,
+        db_index=True,
+        help_text="SHA256 hash of raw_line for deduplication"
+    )
 
     # Callsign information
     callsign = models.CharField(max_length=32, db_index=True, help_text="Callsign")
