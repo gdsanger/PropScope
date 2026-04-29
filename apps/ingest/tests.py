@@ -349,6 +349,80 @@ class WsjtxLineParserTests(TestCase):
         self.assertTrue(self.parser.is_cq_line("CQ"))
         self.assertFalse(self.parser.is_cq_line("DL1ABC K1XYZ RR73"))
 
+    def test_parse_timestamp_correct_format(self):
+        """Test timestamp parsing with correct YYMMDD format."""
+        # Example from issue: 260428_145500 should be 2026-04-28 14:55:00
+        line = "260428_145500     7.074 Rx FT8    -19  0.3 1133 CQ DL1ABC JN68"
+        parsed = self.parser.parse_line(line)
+
+        self.assertIsNotNone(parsed)
+        self.assertEqual(parsed.timestamp.year, 2026)
+        self.assertEqual(parsed.timestamp.month, 4)
+        self.assertEqual(parsed.timestamp.day, 28)
+        self.assertEqual(parsed.timestamp.hour, 14)
+        self.assertEqual(parsed.timestamp.minute, 55)
+        self.assertEqual(parsed.timestamp.second, 0)
+
+    def test_parse_timestamp_example_from_issue(self):
+        """Test timestamp parsing with example from issue: 260419_185200."""
+        line = "260419_185200     7.074 Rx FT8    -19  0.3 1133 CQ EX7CQ MN72"
+        parsed = self.parser.parse_line(line)
+
+        self.assertIsNotNone(parsed)
+        # Should be 2026-04-19 18:52:00, NOT 2019-04-26
+        self.assertEqual(parsed.timestamp.year, 2026)
+        self.assertEqual(parsed.timestamp.month, 4)
+        self.assertEqual(parsed.timestamp.day, 19)
+        self.assertEqual(parsed.timestamp.hour, 18)
+        self.assertEqual(parsed.timestamp.minute, 52)
+        self.assertEqual(parsed.timestamp.second, 0)
+
+    def test_parse_timestamp_direct_parsing(self):
+        """Test the _parse_timestamp method directly."""
+        # Test case 1: 260428_145500 -> 2026-04-28 14:55:00
+        dt = self.parser._parse_timestamp("260428_145500")
+        self.assertIsNotNone(dt)
+        self.assertEqual(dt.year, 2026)
+        self.assertEqual(dt.month, 4)
+        self.assertEqual(dt.day, 28)
+        self.assertEqual(dt.hour, 14)
+        self.assertEqual(dt.minute, 55)
+        self.assertEqual(dt.second, 0)
+
+        # Test case 2: 260419_185200 -> 2026-04-19 18:52:00
+        dt = self.parser._parse_timestamp("260419_185200")
+        self.assertIsNotNone(dt)
+        self.assertEqual(dt.year, 2026)
+        self.assertEqual(dt.month, 4)
+        self.assertEqual(dt.day, 19)
+        self.assertEqual(dt.hour, 18)
+        self.assertEqual(dt.minute, 52)
+        self.assertEqual(dt.second, 0)
+
+        # Test case 3: Different date
+        dt = self.parser._parse_timestamp("250315_120000")
+        self.assertIsNotNone(dt)
+        self.assertEqual(dt.year, 2025)
+        self.assertEqual(dt.month, 3)
+        self.assertEqual(dt.day, 15)
+        self.assertEqual(dt.hour, 12)
+        self.assertEqual(dt.minute, 0)
+        self.assertEqual(dt.second, 0)
+
+    def test_parse_timestamp_utc_timezone(self):
+        """Test that parsed timestamps are in UTC timezone."""
+        dt = self.parser._parse_timestamp("260428_145500")
+        self.assertIsNotNone(dt)
+        self.assertEqual(dt.tzinfo, dt_timezone.utc)
+
+    def test_parse_timestamp_invalid_format(self):
+        """Test that invalid timestamp format returns None."""
+        # Invalid formats should return None
+        self.assertIsNone(self.parser._parse_timestamp("invalid"))
+        self.assertIsNone(self.parser._parse_timestamp(""))
+        self.assertIsNone(self.parser._parse_timestamp("26-04-28_145500"))
+        self.assertIsNone(self.parser._parse_timestamp("260428145500"))  # Missing underscore
+
 
 class MaidenheadUtilsTests(TestCase):
     """Tests for Maidenhead locator utilities."""
