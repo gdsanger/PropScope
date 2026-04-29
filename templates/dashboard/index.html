@@ -5,9 +5,18 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row mb-4">
-        <div class="col">
+        <div class="col-md-8">
             <h1 class="h3">PropScope Dashboard</h1>
             <p class="text-muted">Übersicht über empfangene CQ-Rufe und Propagationsdaten</p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-md-end">
+            <div class="btn-group" role="group" aria-label="Zeitraumfilter">
+                <a href="?period=today" class="btn btn-sm btn-outline-primary {% if period == 'today' %}active{% endif %}">Heute</a>
+                <a href="?period=24h" class="btn btn-sm btn-outline-primary {% if period == '24h' %}active{% endif %}">24h</a>
+                <a href="?period=7d" class="btn btn-sm btn-outline-primary {% if period == '7d' %}active{% endif %}">7 Tage</a>
+                <a href="?period=30d" class="btn btn-sm btn-outline-primary {% if period == '30d' %}active{% endif %}">30 Tage</a>
+                <a href="?" class="btn btn-sm btn-outline-primary {% if not period %}active{% endif %}">Alle</a>
+            </div>
         </div>
     </div>
 

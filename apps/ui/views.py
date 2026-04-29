@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.utils import timezone
+from datetime import timedelta
 import json
 from apps.analysis.services import StatisticsService
 
@@ -15,10 +17,27 @@ def dashboard(request):
 
     # Get filter parameters from request
     filters = {}
+    period = request.GET.get('period')
+
+    # Calculate date range based on period
+    if period:
+        now = timezone.now()
+        if period == 'today':
+            filters['date_from'] = now.date().isoformat()
+        elif period == '24h':
+            filters['date_from'] = (now - timedelta(hours=24)).isoformat()
+        elif period == '7d':
+            filters['date_from'] = (now - timedelta(days=7)).isoformat()
+        elif period == '30d':
+            filters['date_from'] = (now - timedelta(days=30)).isoformat()
+
+    # Allow manual date filters to override period
     if date_from := request.GET.get('date_from'):
         filters['date_from'] = date_from
+        period = None  # Clear period if manual dates are used
     if date_to := request.GET.get('date_to'):
         filters['date_to'] = date_to
+        period = None
 
     # Get all dashboard data
     summary = stats_service.get_summary(filters)
@@ -38,6 +57,7 @@ def dashboard(request):
         'top_callsigns': top_callsigns,
         'top_locators': top_locators,
         'filters': filters,
+        'period': period,
     }
 
     return render(request, 'dashboard/index.html', context)

@@ -2,8 +2,9 @@
 <div class="col-md-4 col-lg-2">
     <div class="card border-0 shadow-sm rounded-4 h-100">
         <div class="card-body text-center">
-            <div class="text-muted small">CQ gesamt</div>
-            <div class="h4 mb-0">{{ summary.cq_count|default:"0" }}</div>
+            <div class="fs-4 mb-2">📡</div>
+            <div class="text-muted small mb-1">CQ gesamt</div>
+            <div class="h3 mb-0 fw-bold">{{ summary.cq_count|default:"0" }}</div>
         </div>
     </div>
 </div>
@@ -11,8 +12,9 @@
 <div class="col-md-4 col-lg-2">
     <div class="card border-0 shadow-sm rounded-4 h-100">
         <div class="card-body text-center">
-            <div class="text-muted small">Rufzeichen</div>
-            <div class="h4 mb-0">{{ summary.unique_callsigns|default:"0" }}</div>
+            <div class="fs-4 mb-2">🌍</div>
+            <div class="text-muted small mb-1">Rufzeichen</div>
+            <div class="h3 mb-0 fw-bold">{{ summary.unique_callsigns|default:"0" }}</div>
         </div>
     </div>
 </div>
@@ -20,8 +22,9 @@
 <div class="col-md-4 col-lg-2">
     <div class="card border-0 shadow-sm rounded-4 h-100">
         <div class="card-body text-center">
-            <div class="text-muted small">Locator</div>
-            <div class="h4 mb-0">{{ summary.unique_locators|default:"0" }}</div>
+            <div class="fs-4 mb-2">📍</div>
+            <div class="text-muted small mb-1">Locator</div>
+            <div class="h3 mb-0 fw-bold">{{ summary.unique_locators|default:"0" }}</div>
         </div>
     </div>
 </div>
@@ -29,8 +32,9 @@
 <div class="col-md-4 col-lg-2">
     <div class="card border-0 shadow-sm rounded-4 h-100">
         <div class="card-body text-center">
-            <div class="text-muted small">Bänder</div>
-            <div class="h4 mb-0">{{ summary.unique_bands|default:"0" }}</div>
+            <div class="fs-4 mb-2">📻</div>
+            <div class="text-muted small mb-1">Bänder</div>
+            <div class="h3 mb-0 fw-bold">{{ summary.unique_bands|default:"0" }}</div>
         </div>
     </div>
 </div>
@@ -38,12 +42,14 @@
 <div class="col-md-4 col-lg-2">
     <div class="card border-0 shadow-sm rounded-4 h-100">
         <div class="card-body text-center">
-            <div class="text-muted small">Max DX</div>
-            <div class="h4 mb-0">
+            <div class="fs-4 mb-2">📏</div>
+            <div class="text-muted small mb-1">Max DX</div>
+            <div class="h3 mb-0 fw-bold">
                 {% if summary.max_distance_km %}
-                    {{ summary.max_distance_km|floatformat:0 }} km
+                    {{ summary.max_distance_km|floatformat:0 }}
+                    <small class="text-muted fs-6 fw-normal">km</small>
                 {% else %}
-                    - km
+                    -
                 {% endif %}
             </div>
         </div>
@@ -53,12 +59,14 @@
 <div class="col-md-4 col-lg-2">
     <div class="card border-0 shadow-sm rounded-4 h-100">
         <div class="card-body text-center">
-            <div class="text-muted small">Ø SNR</div>
-            <div class="h4 mb-0">
+            <div class="fs-4 mb-2">📶</div>
+            <div class="text-muted small mb-1">Ø SNR</div>
+            <div class="h3 mb-0 fw-bold">
                 {% if summary.avg_snr %}
-                    {{ summary.avg_snr|floatformat:1 }} dB
+                    {{ summary.avg_snr|floatformat:1 }}
+                    <small class="text-muted fs-6 fw-normal">dB</small>
                 {% else %}
-                    - dB
+                    -
                 {% endif %}
             </div>
         </div>

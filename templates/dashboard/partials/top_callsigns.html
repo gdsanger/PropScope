@@ -1,13 +1,14 @@
+{% load dashboard_extras %}
+
 {% if top_callsigns %}
 <div class="table-responsive">
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover align-middle">
         <thead>
             <tr>
                 <th>Rufzeichen</th>
-                <th>Anzahl</th>
-                <th>Ø SNR</th>
-                <th>Max DX</th>
-                <th>Zuletzt</th>
+                <th class="text-center">Anzahl</th>
+                <th class="text-center">Ø SNR</th>
+                <th class="text-end">Max DX</th>
             </tr>
         </thead>
         <tbody>
@@ -15,32 +16,45 @@
             <tr>
                 <td>
                     {% if cs.qrz_url %}
-                        <a href="{{ cs.qrz_url }}" target="_blank" rel="noopener noreferrer"><strong>{{ cs.callsign }}</strong></a>
+                        <a href="{{ cs.qrz_url }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none fw-semibold">
+                            {{ cs.callsign }}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-box-arrow-up-right ms-1" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                                <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                            </svg>
+                        </a>
                     {% else %}
-                        <strong>{{ cs.callsign }}</strong>
+                        <span class="fw-semibold">{{ cs.callsign }}</span>
                     {% endif %}
                 </td>
-                <td>{{ cs.count }}</td>
-                <td>
+                <td class="text-center">
+                    <span class="badge bg-light text-dark">{{ cs.count }}</span>
+                </td>
+                <td class="text-center {{ cs.avg_snr|snr_color }}">
                     {% if cs.avg_snr %}
-                        {{ cs.avg_snr|floatformat:1 }} dB
+                        <span class="fw-medium">{{ cs.avg_snr|floatformat:1 }} dB</span>
                     {% else %}
-                        -
+                        <span class="text-muted">-</span>
                     {% endif %}
                 </td>
-                <td>
+                <td class="text-end">
                     {% if cs.max_distance_km %}
-                        {{ cs.max_distance_km|floatformat:0 }} km
+                        <strong>{{ cs.max_distance_km|floatformat:0 }} km</strong>
                     {% else %}
-                        -
+                        <span class="text-muted">-</span>
                     {% endif %}
                 </td>
-                <td>{{ cs.last_heard|date:"Y-m-d H:i" }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 {% else %}
-<p class="text-muted text-center py-4">Keine Callsign-Daten verfügbar</p>
+<div class="alert alert-info text-center mb-0" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle mb-2" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+    </svg>
+    <p class="mb-0">Keine Callsign-Daten im gewählten Zeitraum verfügbar</p>
+</div>
 {% endif %}
