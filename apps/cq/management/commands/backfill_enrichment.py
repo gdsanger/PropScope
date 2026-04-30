@@ -5,6 +5,7 @@ This command re-enriches HeardSignal records that are missing enrichment fields 
 - qrz_url
 - band
 - distance_km
+- azimuth_deg
 - callsign_country, callsign_continent
 - locator_country, locator_continent, locator_ambiguous
 
@@ -234,6 +235,9 @@ class Command(BaseCommand):
             ) | qs.filter(
                 locator_country__isnull=True,
                 locator__isnull=False
+            ) | qs.filter(
+                azimuth_deg__isnull=True,
+                locator__isnull=False
             )
 
         if limit:
@@ -289,6 +293,12 @@ class Command(BaseCommand):
                     if enriched.get('distance_km'):
                         if full_rebuild or signal.distance_km is None:
                             updates['distance_km'] = enriched['distance_km']
+                            updates_needed = True
+
+                    # Azimuth
+                    if enriched.get('azimuth_deg') is not None:
+                        if full_rebuild or signal.azimuth_deg is None:
+                            updates['azimuth_deg'] = enriched['azimuth_deg']
                             updates_needed = True
 
                     # Callsign country/continent
