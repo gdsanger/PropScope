@@ -95,6 +95,9 @@ class HeardSignal(models.Model):
     # Distance
     distance_km = models.FloatField(null=True, blank=True, db_index=True, help_text="Distance in kilometers")
 
+    # Direction (azimuth)
+    azimuth_deg = models.FloatField(null=True, blank=True, help_text="Azimuth/bearing from station to signal source in degrees (0-360)")
+
     # Meta fields
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

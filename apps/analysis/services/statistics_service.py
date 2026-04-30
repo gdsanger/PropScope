@@ -588,3 +588,149 @@ class StatisticsService:
             "distance_km": best_hour["max_distance_km"],
             "count": best_hour["count"],
         }
+
+    def get_recent_cqs(self, filters: dict | None = None, limit: int = 20) -> list[dict]:
+        """
+        Return the most recently received CQ signals.
+
+        Args:
+            filters: Optional filter dictionary.
+            limit:   Maximum number of results (default 20).
+
+        Returns a list of dicts ordered by timestamp descending, each with:
+            timestamp       – when the signal was received
+            callsign        – callsign of the transmitting station
+            locator         – Maidenhead locator
+            locator_country – country from locator
+            band            – band name
+            snr             – signal-to-noise ratio
+            distance_km     – distance in kilometres
+            qrz_url         – QRZ.com URL for the callsign
+        """
+        qs = self._apply_filters(HeardSignal.objects.all(), filters)
+
+        signals = qs.order_by("-timestamp").values(
+            "timestamp",
+            "callsign",
+            "locator",
+            "locator_country",
+            "band",
+            "snr",
+            "distance_km",
+            "qrz_url",
+        )[:limit]
+
+        return list(signals)
+
+    def get_current_dx_summary(self, minutes: int = 60) -> dict:
+        """
+        Return a summary of current DX activity in the last N minutes.
+
+        Args:
+            minutes: Time window in minutes (default 60).
+
+        Returns a dict with:
+            max_distance_km   – maximum distance in the time window
+            avg_distance_km   – average distance
+            count             – number of CQ signals
+            top_country       – most active country
+            best_snr          – strongest signal SNR
+
+        Returns empty values if no data is available.
+        """
+        from django.utils import timezone
+        from datetime import timedelta
+
+        now = timezone.now()
+        datetime_from = now - timedelta(minutes=minutes)
+
+        filters = {"datetime_from": datetime_from.isoformat()}
+        qs = self._apply_filters(HeardSignal.objects.all(), filters)
+
+        # Get aggregate stats
+        agg = qs.aggregate(
+            max_distance_km=Max("distance_km"),
+            avg_distance_km=Avg("distance_km"),
+            count=Count("id"),
+            best_snr=Max("snr"),
+        )
+
+        # Get most active country
+        top_country_row = (
+            qs.exclude(locator_country__isnull=True)
+            .exclude(locator_country="")
+            .values("locator_country")
+            .annotate(count=Count("id"))
+            .order_by("-count")
+            .first()
+        )
+
+        return {
+            "max_distance_km": agg["max_distance_km"],
+            "avg_distance_km": round(agg["avg_distance_km"], 1) if agg["avg_distance_km"] is not None else None,
+            "count": agg["count"],
+            "top_country": top_country_row["locator_country"] if top_country_row else None,
+            "best_snr": agg["best_snr"],
+            "minutes": minutes,
+        }
+
+    def get_activity_by_direction(self, filters: dict | None = None) -> list[dict]:
+        """
+        Aggregate CQ signals by direction (azimuth buckets).
+
+        Groups signals into 8 compass directions: N, NE, E, SE, S, SW, W, NW.
+
+        Returns a list of dicts ordered by direction, each with:
+            direction       – compass direction (N, NE, E, SE, S, SW, W, NW)
+            count           – number of CQ signals from that direction
+            avg_distance_km – average distance for that direction
+
+        Signals without azimuth data are excluded.
+        """
+        qs = self._apply_filters(
+            HeardSignal.objects.filter(azimuth_deg__isnull=False),
+            filters,
+        )
+
+        from django.db.models import Case, When, Value, CharField
+
+        # Bucket azimuth into 8 directions
+        # N: 337.5-22.5, NE: 22.5-67.5, E: 67.5-112.5, SE: 112.5-157.5
+        # S: 157.5-202.5, SW: 202.5-247.5, W: 247.5-292.5, NW: 292.5-337.5
+        direction_buckets = Case(
+            When(azimuth_deg__gte=337.5, then=Value("N")),
+            When(azimuth_deg__lt=22.5, then=Value("N")),
+            When(azimuth_deg__gte=22.5, azimuth_deg__lt=67.5, then=Value("NE")),
+            When(azimuth_deg__gte=67.5, azimuth_deg__lt=112.5, then=Value("E")),
+            When(azimuth_deg__gte=112.5, azimuth_deg__lt=157.5, then=Value("SE")),
+            When(azimuth_deg__gte=157.5, azimuth_deg__lt=202.5, then=Value("S")),
+            When(azimuth_deg__gte=202.5, azimuth_deg__lt=247.5, then=Value("SW")),
+            When(azimuth_deg__gte=247.5, azimuth_deg__lt=292.5, then=Value("W")),
+            When(azimuth_deg__gte=292.5, azimuth_deg__lt=337.5, then=Value("NW")),
+            default=Value("Unknown"),
+            output_field=CharField(),
+        )
+
+        rows = (
+            qs.annotate(direction=direction_buckets)
+            .values("direction")
+            .annotate(
+                count=Count("id"),
+                avg_distance_km=Avg("distance_km"),
+            )
+            .order_by("direction")
+        )
+
+        # Define the order of directions
+        direction_order = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+        result_dict = {row["direction"]: row for row in rows}
+
+        # Return in proper compass order
+        return [
+            {
+                "direction": direction,
+                "count": result_dict[direction]["count"] if direction in result_dict else 0,
+                "avg_distance_km": round(result_dict[direction]["avg_distance_km"], 1) if direction in result_dict and result_dict[direction]["avg_distance_km"] is not None else None,
+            }
+            for direction in direction_order
+        ]

@@ -84,17 +84,17 @@
         </div>
     </div>
 
-    <!-- Charts Row 3: Continent Activity and Best DX Time -->
+    <!-- Charts Row 3: Band Activity, Continent Activity, Direction Activity, DX Now -->
     <div class="row g-4 mb-4">
         <div class="col-lg-6">
-           
+
             <div class="card border-0 shadow-sm rounded-4">
                 <div class="card-body">
                     <h5 class="card-title">Aktivität je Band</h5>
                     {% include "dashboard/partials/band_activity.html" %}
                 </div>
             </div>
-           
+
         </div>
         <div class="col-lg-6">
              <div class="card border-0 shadow-sm rounded-4">
@@ -107,6 +107,27 @@
         </div>
     </div>
 
+    <!-- Charts Row 4: Direction Activity and DX Now -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">🧭 Aktivität nach Richtung</h5>
+                    {% include "dashboard/partials/direction_activity.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">📡 DX Jetzt</h5>
+                    <p class="text-muted small mb-3">Aktuelle Propagation (letzte 60 Minuten)</p>
+                    {% include "dashboard/partials/dx_now.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Top DX Table -->
     <div class="row mb-4">
         <div class="col">
@@ -114,6 +135,18 @@
                 <div class="card-body">
                     <h5 class="card-title">Top DX</h5>
                     {% include "dashboard/partials/top_dx.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent CQs Table -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">📻 Letzte CQs</h5>
+                    {% include "dashboard/partials/recent_cqs.html" %}
                 </div>
             </div>
         </div>
