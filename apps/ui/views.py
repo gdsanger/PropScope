@@ -229,10 +229,12 @@ def dashboard_propagation_heatmap(request):
     filters = _get_filters_from_request(request)
     heatmap_data = stats_service.get_propagation_heatmap(filters)
     dx_mode = request.GET.get('dx_mode') == 'true'
+    period = request.GET.get('period')
 
     return render(request, 'dashboard/partials/propagation_heatmap.html', {
         'heatmap_data': json.dumps(heatmap_data),
         'dx_mode': dx_mode,
+        'period': period,
     })
 
 
