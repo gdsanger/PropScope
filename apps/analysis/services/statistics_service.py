@@ -680,9 +680,12 @@ class StatisticsService:
 
         Groups signals into 8 compass directions: N, NE, E, SE, S, SW, W, NW.
 
+        Uses distinct callsign count to avoid distortion from stations that
+        send multiple CQ frames (e.g., FT8 beacon stations).
+
         Returns a list of dicts ordered by direction, each with:
             direction       – compass direction (N, NE, E, SE, S, SW, W, NW)
-            count           – number of CQ signals from that direction
+            count           – number of distinct callsigns from that direction
             avg_distance_km – average distance for that direction
 
         Signals without azimuth data are excluded.
@@ -715,7 +718,7 @@ class StatisticsService:
             qs.annotate(direction=direction_buckets)
             .values("direction")
             .annotate(
-                count=Count("id"),
+                count=Count("callsign", distinct=True),
                 avg_distance_km=Avg("distance_km"),
             )
             .order_by("direction")
