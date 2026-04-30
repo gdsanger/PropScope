@@ -274,6 +274,12 @@ class DashboardViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'dashboard/partials/top_locators.html')
 
+    def test_dashboard_direction_activity_partial_loads(self):
+        """Test that direction activity partial loads successfully."""
+        response = self.client.get(reverse('ui:dashboard-direction-activity'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/partials/direction_activity.html')
+
     def test_dashboard_with_date_filter(self):
         """Test that dashboard accepts date filter parameters."""
         response = self.client.get(
