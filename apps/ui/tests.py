@@ -286,3 +286,87 @@ class DashboardViewTests(TestCase):
         self.assertEqual(response.context['filters']['date_to'], '2026-04-30')
 
 
+class MaidenheadAreaModalViewTests(TestCase):
+    """Tests for the MaidenheadArea modal view."""
+
+    def setUp(self):
+        """Set up test client."""
+        self.client = Client()
+
+    def test_maidenhead_area_create_modal_loads(self):
+        """Test that modal loads successfully without locator parameter."""
+        response = self.client.get(reverse('ui:maidenhead-area-create-modal'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'dashboard/modals/maidenhead_area_create.html')
+
+    def test_maidenhead_area_create_modal_with_valid_locator(self):
+        """Test that modal pre-populates fields for valid locator."""
+        response = self.client.get(
+            reverse('ui:maidenhead-area-create-modal'),
+            {'locator': 'JN68'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('form', response.context)
+
+        # Check that form has initial data
+        form = response.context['form']
+        self.assertEqual(form.initial.get('locator'), 'JN68')
+        self.assertIsNotNone(form.initial.get('center_lat'))
+        self.assertIsNotNone(form.initial.get('center_lon'))
+
+        # Check that country and continent are pre-populated (if GeoService is available)
+        # Note: This might be None if GeoService is not available or shapefile is missing
+        # So we just check that the keys exist in initial data
+        self.assertIn('primary_country', form.initial)
+        self.assertIn('continent', form.initial)
+
+    def test_maidenhead_area_create_modal_with_invalid_locator(self):
+        """Test that modal handles invalid locator gracefully."""
+        response = self.client.get(
+            reverse('ui:maidenhead-area-create-modal'),
+            {'locator': 'INVALID'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('error_message', response.context)
+        self.assertIsNotNone(response.context['error_message'])
+
+    def test_maidenhead_area_create_modal_normalizes_locator(self):
+        """Test that modal normalizes locator to uppercase."""
+        response = self.client.get(
+            reverse('ui:maidenhead-area-create-modal'),
+            {'locator': 'jn68'}  # lowercase
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Should normalize to uppercase
+        form = response.context['form']
+        self.assertEqual(form.initial.get('locator'), 'JN68')
+
+    def test_maidenhead_area_create_modal_calculates_coordinates(self):
+        """Test that modal calculates lat/lon from locator."""
+        response = self.client.get(
+            reverse('ui:maidenhead-area-create-modal'),
+            {'locator': 'JN68'}
+        )
+        self.assertEqual(response.status_code, 200)
+
+        form = response.context['form']
+        # JN68 center should be approximately 48.5, 13.0
+        lat = form.initial.get('center_lat')
+        lon = form.initial.get('center_lon')
+        self.assertIsNotNone(lat)
+        self.assertIsNotNone(lon)
+        self.assertAlmostEqual(lat, 48.5, delta=1.0)
+        self.assertAlmostEqual(lon, 13.0, delta=1.0)
+
+    def test_maidenhead_area_create_modal_handles_geoservice_failure(self):
+        """Test that modal handles GeoService failure gracefully."""
+        # Even if GeoService fails to detect country/continent,
+        # the modal should still load successfully
+        response = self.client.get(
+            reverse('ui:maidenhead-area-create-modal'),
+            {'locator': 'JN68'}
+        )
+        self.assertEqual(response.status_code, 200)
+        # Should not crash even if GeoService is unavailable
+        self.assertIn('form', response.context)

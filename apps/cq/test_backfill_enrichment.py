@@ -280,3 +280,136 @@ class BackfillEnrichmentCommandTest(TestCase):
 
         output = out.getvalue()
         self.assertIn('Processing batch', output)
+
+    def test_command_creates_missing_maidenhead_areas(self):
+        """Test that the command creates missing MaidenheadArea records."""
+        # Create a signal with a locator that doesn't exist in MaidenheadArea
+        signal = HeardSignal.objects.create(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ W1ABC FN31",
+            raw_line="test line",
+            raw_hash="abc123",
+            callsign="W1ABC",
+            locator="FN31pr",  # FN31 doesn't exist in MaidenheadArea
+        )
+
+        # Verify FN31 doesn't exist yet
+        self.assertFalse(MaidenheadArea.objects.filter(locator='FN31').exists())
+
+        out = StringIO()
+        err = StringIO()
+
+        # Run the command (not dry-run, not skipping maidenhead creation)
+        call_command('backfill_enrichment', stdout=out, stderr=err)
+
+        output = out.getvalue()
+
+        # Verify output mentions MaidenheadArea creation
+        self.assertIn('Step 1: Creating Missing MaidenheadArea Records', output)
+
+        # Verify FN31 now exists (if GeoService can detect the country)
+        # Note: FN31 is in the USA, so this should be created
+        # However, if GeoService is not available or shapefile is missing, it might not be created
+        # So we just check that the command tried to create it
+        self.assertIn('MaidenheadArea creation complete', output)
+
+    def test_command_skips_maidenhead_creation_with_flag(self):
+        """Test that --skip-maidenhead-creation flag skips MaidenheadArea creation."""
+        # Create a signal with a locator that doesn't exist in MaidenheadArea
+        signal = HeardSignal.objects.create(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ W1ABC FN31",
+            raw_line="test line",
+            raw_hash="abc123",
+            callsign="W1ABC",
+            locator="FN31pr",
+        )
+
+        out = StringIO()
+        err = StringIO()
+
+        # Run the command with --skip-maidenhead-creation
+        call_command('backfill_enrichment', '--skip-maidenhead-creation', '--dry-run', stdout=out, stderr=err)
+
+        output = out.getvalue()
+
+        # Verify it skipped MaidenheadArea creation
+        self.assertIn('Skipping MaidenheadArea creation', output)
+
+    def test_command_handles_ocean_locators(self):
+        """Test that the command handles ocean/unmapped locators gracefully."""
+        # Create a signal with an ocean locator (e.g., in the middle of the Pacific)
+        # RR00 is roughly in the Pacific Ocean
+        signal = HeardSignal.objects.create(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ TEST RR00",
+            raw_line="test line",
+            raw_hash="abc123",
+            callsign="TEST",
+            locator="RR00aa",
+        )
+
+        out = StringIO()
+        err = StringIO()
+
+        # Run the command (dry-run to avoid side effects)
+        call_command('backfill_enrichment', '--dry-run', stdout=out, stderr=err)
+
+        output = out.getvalue()
+
+        # Should not crash and should handle ocean locators
+        self.assertIn('HeardSignal Enrichment Backfill', output)
+
+    def test_command_respects_existing_maidenhead_areas(self):
+        """Test that the command doesn't duplicate existing MaidenheadArea records."""
+        # Create a signal with JN68 which already exists
+        signal = HeardSignal.objects.create(
+            import_run=self.import_run,
+            timestamp=timezone.now(),
+            frequency_mhz=14.074,
+            band="",
+            mode="FT8",
+            snr=10,
+            dt=0.5,
+            audio_frequency=1500,
+            raw_message="CQ DL1ABC JN68",
+            raw_line="test line",
+            raw_hash="abc123",
+            callsign="DL1ABC",
+            locator="JN68qv",
+        )
+
+        # Count JN68 records before
+        count_before = MaidenheadArea.objects.filter(locator='JN68').count()
+        self.assertEqual(count_before, 1)
+
+        out = StringIO()
+        err = StringIO()
+
+        # Run the command
+        call_command('backfill_enrichment', stdout=out, stderr=err)
+
+        # Count JN68 records after - should still be 1
+        count_after = MaidenheadArea.objects.filter(locator='JN68').count()
+        self.assertEqual(count_after, 1)

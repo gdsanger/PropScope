@@ -5,7 +5,7 @@ from datetime import timedelta
 import json
 from apps.analysis.services import StatisticsService
 from apps.geo.forms import MaidenheadAreaForm
-from apps.geo.services import MaidenheadService
+from apps.geo.services import MaidenheadService, GeoService
 
 
 def home(request):
@@ -194,6 +194,18 @@ def maidenhead_area_create_modal(request):
                     'center_lon': lon,
                     'is_ambiguous': False,
                 }
+
+                # Use GeoService to auto-detect country and continent
+                try:
+                    geo_service = GeoService()
+                    country, continent = geo_service.get_country_continent(lat, lon)
+                    if country:
+                        initial_data['primary_country'] = country
+                    if continent:
+                        initial_data['continent'] = continent
+                except Exception as geo_error:
+                    # GeoService failed, but don't show error - just skip auto-population
+                    pass
             else:
                 error_message = f"Ungültiges Locator-Format: {locator}"
         except Exception as e:
