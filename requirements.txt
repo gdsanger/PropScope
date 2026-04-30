@@ -2,3 +2,5 @@ Django>=5.0,<6.0
 psycopg2-binary>=2.9,<3.0
 python-dotenv>=1.0,<2.0
 requests>=2.31,<3.0
+geopandas>=0.14,<1.0
+shapely>=2.0,<3.0

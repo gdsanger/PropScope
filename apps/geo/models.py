@@ -26,6 +26,24 @@ class MaidenheadArea(models.Model):
     )
     notes = models.TextField(blank=True, help_text="Additional notes")
 
+    # Auto-detected fields from GeoService
+    country_auto = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        help_text="Country automatically detected from Natural Earth data"
+    )
+    continent_auto = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        help_text="Continent automatically detected from Natural Earth data"
+    )
+    auto_detected = models.BooleanField(
+        default=False,
+        help_text="True if country_auto and continent_auto were set by GeoService"
+    )
+
     class Meta:
         ordering = ['locator']
         verbose_name = "Maidenhead Area"
