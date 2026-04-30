@@ -5,6 +5,8 @@ Aggregates received CQ signals and provides data for dashboards,
 reports, and notifications. Independent of UI, templates, and charts.
 """
 
+from datetime import date, datetime
+
 from django.db.models import (
     Avg,
     Count,
@@ -39,6 +41,41 @@ class StatisticsService:
         max_snr           – maximum SNR in dB
     """
 
+    def _normalize_date_value(self, value):
+        """
+        Normalize a date filter value to a date object.
+
+        Accepts:
+        - date objects (returned as-is)
+        - datetime objects (returns .date())
+        - ISO date strings "YYYY-MM-DD" (parsed to date)
+        - ISO datetime strings with timezone (parsed and converted to date)
+
+        Returns None if value cannot be parsed.
+        """
+        if isinstance(value, date):
+            # Already a date object (or datetime which is subclass of date)
+            if isinstance(value, datetime):
+                return value.date()
+            return value
+
+        if isinstance(value, str):
+            # Try parsing as ISO datetime first (supports timezone)
+            try:
+                dt = datetime.fromisoformat(value)
+                return dt.date()
+            except (ValueError, TypeError):
+                pass
+
+            # Try parsing as date string YYYY-MM-DD
+            try:
+                return datetime.strptime(value, "%Y-%m-%d").date()
+            except (ValueError, TypeError):
+                pass
+
+        # If we can't parse, return None (filter will be ignored)
+        return None
+
     def _apply_filters(self, queryset, filters: dict | None = None):
         """
         Apply filter dictionary to a HeardSignal queryset.
@@ -54,10 +91,14 @@ class StatisticsService:
             return queryset
 
         if date_from := filters.get("date_from"):
-            queryset = queryset.filter(timestamp__date__gte=date_from)
+            normalized_date = self._normalize_date_value(date_from)
+            if normalized_date:
+                queryset = queryset.filter(timestamp__date__gte=normalized_date)
 
         if date_to := filters.get("date_to"):
-            queryset = queryset.filter(timestamp__date__lte=date_to)
+            normalized_date = self._normalize_date_value(date_to)
+            if normalized_date:
+                queryset = queryset.filter(timestamp__date__lte=normalized_date)
 
         if band := filters.get("band"):
             queryset = queryset.filter(band=band)
