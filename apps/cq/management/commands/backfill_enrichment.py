@@ -7,6 +7,9 @@ This command re-enriches HeardSignal records that are missing enrichment fields 
 - distance_km
 - callsign_country, callsign_continent
 - locator_country, locator_continent, locator_ambiguous
+
+It also creates missing MaidenheadArea records for any 4-character locators found in HeardSignal
+records that don't have a corresponding entry in the MaidenheadArea table.
 """
 
 from django.core.management.base import BaseCommand
@@ -14,6 +17,8 @@ from django.db import transaction
 from apps.cq.models import HeardSignal
 from apps.ui.models import PropScopeSettings, StationProfile
 from apps.ingest.services.enrichment import SignalEnricher
+from apps.geo.models import MaidenheadArea
+from apps.geo.services import MaidenheadService, GeoService
 
 
 class Command(BaseCommand):
@@ -46,6 +51,116 @@ class Command(BaseCommand):
             action='store_true',
             help='Full rebuild: Re-enrich all records, overwriting existing enrichment data'
         )
+        parser.add_argument(
+            '--skip-maidenhead-creation',
+            action='store_true',
+            help='Skip automatic creation of missing MaidenheadArea records'
+        )
+
+    def _create_missing_maidenhead_areas(self, dry_run: bool):
+        """
+        Create MaidenheadArea records for any 4-character locators found in HeardSignal
+        records that don't have a corresponding entry in the MaidenheadArea table.
+        """
+        maidenhead_service = MaidenheadService()
+        geo_service = None  # Lazy-loaded
+
+        # Get all distinct 4-character locators from HeardSignal records
+        distinct_locators = HeardSignal.objects.filter(
+            locator__isnull=False
+        ).values_list('locator', flat=True).distinct()
+
+        # Normalize to 4-character format
+        locators_4char = set()
+        for locator in distinct_locators:
+            if locator and len(locator) >= 4:
+                locator_4char = locator[:4].upper()
+                # Validate the locator
+                if maidenhead_service.is_valid_locator(locator_4char):
+                    locators_4char.add(locator_4char)
+
+        # Check which ones are missing from MaidenheadArea
+        existing_locators = set(
+            MaidenheadArea.objects.filter(
+                locator__in=locators_4char
+            ).values_list('locator', flat=True)
+        )
+
+        missing_locators = locators_4char - existing_locators
+
+        self.stdout.write(f'Total distinct 4-char locators in HeardSignal: {len(locators_4char)}')
+        self.stdout.write(f'Already in MaidenheadArea: {len(existing_locators)}')
+        self.stdout.write(f'Missing from MaidenheadArea: {len(missing_locators)}')
+
+        if not missing_locators:
+            self.stdout.write(self.style.SUCCESS('No missing MaidenheadArea records to create'))
+            return
+
+        # Create missing records
+        created_count = 0
+        ocean_count = 0
+        error_count = 0
+
+        for locator in sorted(missing_locators):
+            try:
+                # Calculate center coordinates
+                lat, lon = maidenhead_service.locator_to_latlon(locator)
+
+                # Try to get country and continent from GeoService
+                country = None
+                continent = None
+                try:
+                    if geo_service is None:
+                        geo_service = GeoService()
+                    country, continent = geo_service.get_country_continent(lat, lon)
+                except Exception:
+                    # GeoService failed, continue without auto-detection
+                    pass
+
+                if country and continent:
+                    # Create the MaidenheadArea record
+                    if not dry_run:
+                        MaidenheadArea.objects.create(
+                            locator=locator,
+                            center_lat=lat,
+                            center_lon=lon,
+                            primary_country=country,
+                            continent=continent,
+                            is_ambiguous=False,
+                            notes="Auto-created by backfill_enrichment",
+                            country_auto=country,
+                            continent_auto=continent,
+                            auto_detected=True
+                        )
+
+                    created_count += 1
+
+                    if self.verbosity >= 2:
+                        self.stdout.write(f'  ✓ Created {locator}: {country}, {continent}')
+                else:
+                    # Ocean or unmapped area - don't create a record
+                    ocean_count += 1
+                    if self.verbosity >= 2:
+                        self.stdout.write(
+                            self.style.WARNING(
+                                f'  ~ Skipped {locator}: No country detected (ocean/unmapped area)'
+                            )
+                        )
+
+            except Exception as e:
+                error_count += 1
+                self.stdout.write(
+                    self.style.ERROR(f'  ✗ Error processing {locator}: {str(e)}')
+                )
+
+        # Summary
+        self.stdout.write(self.style.SUCCESS(f'\nMaidenheadArea creation complete:'))
+        self.stdout.write(f'  Created: {created_count}')
+        self.stdout.write(f'  Skipped (ocean/unmapped): {ocean_count}')
+        self.stdout.write(f'  Errors: {error_count}')
+
+        if dry_run:
+            self.stdout.write(self.style.WARNING('  DRY RUN - No records were actually created'))
 
     def handle(self, *args, **options):
         batch_size = options['batch_size']
@@ -53,6 +168,7 @@ class Command(BaseCommand):
         dry_run = options['dry_run']
         force = options['force']
         full = options['full']
+        skip_maidenhead_creation = options['skip_maidenhead_creation']
         # Store verbosity from options for use throughout the command
         self.verbosity = options.get('verbosity', 1)
 
@@ -68,6 +184,16 @@ class Command(BaseCommand):
 
         if dry_run:
             self.stdout.write(self.style.WARNING('DRY RUN MODE - No changes will be saved'))
+
+        # Step 1: Create missing MaidenheadArea records
+        if not skip_maidenhead_creation:
+            self.stdout.write('\n' + self.style.SUCCESS('=== Step 1: Creating Missing MaidenheadArea Records ==='))
+            self._create_missing_maidenhead_areas(dry_run)
+        else:
+            self.stdout.write('\n' + self.style.WARNING('Skipping MaidenheadArea creation (--skip-maidenhead-creation)'))
+
+        # Step 2: Enrich HeardSignal records
+        self.stdout.write('\n' + self.style.SUCCESS('=== Step 2: Enriching HeardSignal Records ==='))
 
         # Get station coordinates from settings
         settings = PropScopeSettings.objects.filter(is_active=True).first()
