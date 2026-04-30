@@ -31,7 +31,11 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-^%&0w^@d8#gmujgd(a@30okp3&
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
+CSRF_TRUSTED_ORIGINS = [
 
+    "https://afu.angermeier.net:8443",
+
+]
 
 # Application definition
 
