@@ -53,7 +53,27 @@
         border: 1px solid #dee2e6;
         border-radius: 3px;
     }
+    .dx-filter-toggle {
+        display: flex;
+        gap: 0;
+        margin-bottom: 15px;
+    }
+    .dx-filter-toggle .btn {
+        font-size: 0.85rem;
+        padding: 0.375rem 0.75rem;
+    }
 </style>
+
+<div class="dx-filter-toggle">
+    <a href="?{% if period %}period={{ period }}{% endif %}"
+       class="btn btn-sm {% if not dx_mode %}btn-primary{% else %}btn-outline-primary{% endif %}">
+        Alle
+    </a>
+    <a href="?{% if period %}period={{ period }}&{% endif %}dx_mode=true"
+       class="btn btn-sm {% if dx_mode %}btn-primary{% else %}btn-outline-primary{% endif %}">
+        DX (&gt;3000 km)
+    </a>
+</div>
 
 <div id="propagationHeatmapContainer">
     <div class="heatmap-container">
@@ -90,6 +110,7 @@
     const table = document.getElementById('heatmapTable');
     const tbody = document.getElementById('heatmapBody');
     const maxCountLabel = document.getElementById('maxCountLabel');
+    const dxMode = {{ dx_mode|lower }};
 
     if (!container) return;
 
@@ -166,8 +187,9 @@
 
             cell.appendChild(content);
 
-            // Add tooltip
-            cell.title = `Zeit: ${String(hour).padStart(2, '0')}:00 UTC\nRichtung: ${direction}\nSignale: ${count} (distinct Rufzeichen)`;
+            // Add tooltip with DX mode info
+            const modeText = dxMode ? '\nModus: DX (>3000 km)' : '';
+            cell.title = `Zeit: ${String(hour).padStart(2, '0')}:00 UTC\nRichtung: ${direction}\nSignale: ${count} (distinct Rufzeichen)${modeText}`;
 
             row.appendChild(cell);
         });
