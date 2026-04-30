@@ -2,7 +2,7 @@
 Tests for the StatisticsService.
 """
 
-from datetime import datetime, timezone as dt_timezone
+from datetime import datetime, timedelta, timezone as dt_timezone
 
 from django.test import TestCase
 from django.utils import timezone
@@ -678,6 +678,32 @@ class StatisticsServiceActivityByDirectionTest(TestCase):
         # Should still have 6 signals (excluding the one without azimuth)
         total_count = sum(r["count"] for r in result)
         self.assertEqual(total_count, 6)
+
+    def test_activity_by_direction_distinct_callsign(self):
+        # Test that multiple CQ frames from same callsign are counted only once
+        run = make_import_run()
+        ts = datetime(2026, 4, 10, 10, 0, 0, tzinfo=dt_timezone.utc)
+
+        # Create multiple signals from the same callsign in the same direction (West)
+        # This simulates an FT8 beacon station sending repeated CQ frames
+        make_signal(run, timestamp=ts, callsign="F1CQ", locator="JN18", azimuth_deg=270.0, distance_km=800.0)
+        make_signal(run, timestamp=ts + timedelta(seconds=15), callsign="F1CQ", locator="JN18", azimuth_deg=270.0, distance_km=800.0)
+        make_signal(run, timestamp=ts + timedelta(seconds=30), callsign="F1CQ", locator="JN18", azimuth_deg=270.0, distance_km=800.0)
+        make_signal(run, timestamp=ts + timedelta(seconds=45), callsign="F1CQ", locator="JN18", azimuth_deg=270.0, distance_km=800.0)
+
+        # Add another station from the same direction
+        make_signal(run, timestamp=ts, callsign="F2ABC", locator="JN19", azimuth_deg=275.0, distance_km=900.0)
+
+        result = self.service.get_activity_by_direction()
+        result_dict = {r["direction"]: r for r in result}
+
+        # West should count only 3 distinct callsigns (W1 from setUp + F1CQ + F2ABC), not 6 frames
+        self.assertEqual(result_dict["W"]["count"], 3)
+
+        # Total should be 8 (6 from setUp + 2 distinct new ones from this test)
+        total_count = sum(r["count"] for r in result)
+        self.assertEqual(total_count, 8)
+
 
 
 class StatisticsServiceActivityByDirectionEmptyTest(TestCase):
