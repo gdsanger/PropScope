@@ -236,7 +236,8 @@ class WsjtxLogImporter:
                     locator_alt_country=enriched.get('locator_alt_country'),
                     locator_continent=enriched.get('locator_continent'),
                     locator_ambiguous=enriched.get('locator_ambiguous', False),
-                    distance_km=enriched.get('distance_km')
+                    distance_km=enriched.get('distance_km'),
+                    azimuth_deg=enriched.get('azimuth_deg')
                 )
             return True
         except IntegrityError:
