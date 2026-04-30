@@ -450,3 +450,40 @@ class StatisticsServiceFilterTest(TestCase):
         result = self.service.get_summary(filters={"band": "10m"})
         self.assertEqual(result["cq_count"], 0)
 
+    def test_filter_by_iso_datetime_string(self):
+        """Test that ISO datetime strings (with timezone) are properly handled."""
+        # This is the regression test for the bug where period=24h sends ISO datetime strings
+        # Filter from April 10 to April 20 should only get the second signal (ts2)
+        result = self.service.get_summary(filters={
+            "date_from": "2026-04-10T00:00:00.000000+00:00",
+            "date_to": "2026-04-20T23:59:59.999999+00:00"
+        })
+        self.assertEqual(result["cq_count"], 1)
+
+    def test_filter_by_iso_datetime_string_no_microseconds(self):
+        """Test ISO datetime strings without microseconds."""
+        result = self.service.get_summary(filters={
+            "date_from": "2026-04-01T00:00:00+00:00"
+        })
+        self.assertEqual(result["cq_count"], 2)
+
+    def test_filter_date_from_datetime_object(self):
+        """Test that datetime objects are properly handled."""
+        from datetime import datetime, timezone as dt_timezone
+        dt = datetime(2026, 4, 10, 0, 0, 0, tzinfo=dt_timezone.utc)
+        result = self.service.get_summary(filters={"date_from": dt})
+        self.assertEqual(result["cq_count"], 1)
+
+    def test_filter_date_from_date_object(self):
+        """Test that date objects are properly handled."""
+        from datetime import date
+        d = date(2026, 4, 10)
+        result = self.service.get_summary(filters={"date_from": d})
+        self.assertEqual(result["cq_count"], 1)
+
+    def test_filter_invalid_date_ignored(self):
+        """Test that invalid date filters are ignored instead of crashing."""
+        # Invalid date should be ignored, so all signals should be returned
+        result = self.service.get_summary(filters={"date_from": "invalid-date"})
+        self.assertEqual(result["cq_count"], 2)
+
