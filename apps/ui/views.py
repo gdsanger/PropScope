@@ -26,6 +26,14 @@ def dashboard(request):
         now = timezone.now()
         if period == 'today':
             filters['date_from'] = now.date().isoformat()
+        elif period == '1h':
+            filters['date_from'] = (now - timedelta(hours=1)).isoformat()
+        elif period == '3h':
+            filters['date_from'] = (now - timedelta(hours=3)).isoformat()
+        elif period == '6h':
+            filters['date_from'] = (now - timedelta(hours=6)).isoformat()
+        elif period == '12h':
+            filters['date_from'] = (now - timedelta(hours=12)).isoformat()
         elif period == '24h':
             filters['date_from'] = (now - timedelta(hours=24)).isoformat()
         elif period == '7d':
