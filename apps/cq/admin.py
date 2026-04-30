@@ -13,7 +13,7 @@ class BandDefinitionAdmin(admin.ModelAdmin):
 
 @admin.register(HeardSignal)
 class HeardSignalAdmin(admin.ModelAdmin):
-    list_display = ['id', 'timestamp', 'callsign', 'locator', 'band', 'snr', 'distance_km', 'mode']
+    list_display = ['id', 'timestamp', 'callsign', 'locator', 'band', 'snr', 'distance_km', 'mode','azimuth_deg']
     list_filter = ['band', 'mode', 'timestamp', 'locator_ambiguous']
     search_fields = ['callsign', 'locator', 'raw_message']
     readonly_fields = ['created_at', 'updated_at']
@@ -35,7 +35,7 @@ class HeardSignalAdmin(admin.ModelAdmin):
             'fields': ('locator', 'locator_lat', 'locator_lon', 'locator_country', 'locator_alt_country', 'locator_continent', 'locator_ambiguous')
         }),
         ('Distance', {
-            'fields': ('distance_km',)
+            'fields': ('distance_km','azimuth_deg')
         }),
         ('Meta', {
             'fields': ('created_at', 'updated_at'),
