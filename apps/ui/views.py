@@ -60,6 +60,11 @@ def dashboard(request):
     top_callsigns = stats_service.get_cq_count_by_callsign(filters)[:10]
     top_locators = stats_service.get_cq_count_by_locator(filters)[:10]
 
+    # New features
+    recent_cqs = stats_service.get_recent_cqs(filters, limit=20)
+    dx_now = stats_service.get_current_dx_summary(minutes=60)
+    direction_activity = stats_service.get_activity_by_direction(filters)
+
     context = {
         'summary': summary,
         'activity_by_hour': json.dumps(activity_by_hour),
@@ -70,6 +75,9 @@ def dashboard(request):
         'top_dx': top_dx,
         'top_callsigns': top_callsigns,
         'top_locators': top_locators,
+        'recent_cqs': recent_cqs,
+        'dx_now': dx_now,
+        'direction_activity': json.dumps(direction_activity),
         'filters': filters,
         'period': period,
     }
@@ -169,6 +177,38 @@ def dashboard_continent_activity(request):
 
     return render(request, 'dashboard/partials/continent_activity.html', {
         'continent_activity': json.dumps(continent_activity)
+    })
+
+
+def dashboard_recent_cqs(request):
+    """HTMX partial: Recent CQs table."""
+    stats_service = StatisticsService()
+    filters = _get_filters_from_request(request)
+    recent_cqs = stats_service.get_recent_cqs(filters, limit=20)
+
+    return render(request, 'dashboard/partials/recent_cqs.html', {
+        'recent_cqs': recent_cqs
+    })
+
+
+def dashboard_dx_now(request):
+    """HTMX partial: DX Now summary."""
+    stats_service = StatisticsService()
+    dx_now = stats_service.get_current_dx_summary(minutes=60)
+
+    return render(request, 'dashboard/partials/dx_now.html', {
+        'dx_now': dx_now
+    })
+
+
+def dashboard_direction_activity(request):
+    """HTMX partial: Direction activity chart."""
+    stats_service = StatisticsService()
+    filters = _get_filters_from_request(request)
+    direction_activity = stats_service.get_activity_by_direction(filters)
+
+    return render(request, 'dashboard/partials/direction_activity.html', {
+        'direction_activity': json.dumps(direction_activity)
     })
 
 

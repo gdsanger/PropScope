@@ -88,6 +88,19 @@ class SignalEnricher:
                     enriched['distance_km'] = distance
                     logger.debug(f"Distance calculated: {distance:.2f} km")
 
+                    # Calculate azimuth (bearing) from station to signal
+                    try:
+                        from apps.geo.services import MaidenheadService
+                        maidenhead_service = MaidenheadService()
+                        azimuth = maidenhead_service.calculate_azimuth(
+                            self.station_lat, self.station_lon,
+                            lat, lon
+                        )
+                        enriched['azimuth_deg'] = azimuth
+                        logger.debug(f"Azimuth calculated: {azimuth:.1f}°")
+                    except Exception as e:
+                        logger.warning(f"Failed to calculate azimuth: {e}")
+
                 # Try GeoService for auto-detection first
                 try:
                     logger.debug(f"Calling GeoService for locator {locator} (lat={lat}, lon={lon})")
