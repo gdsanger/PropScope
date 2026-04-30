@@ -285,6 +285,123 @@ class DashboardViewTests(TestCase):
         self.assertEqual(response.context['filters']['date_from'], '2026-04-01')
         self.assertEqual(response.context['filters']['date_to'], '2026-04-30')
 
+    def test_dashboard_with_period_filter_1h(self):
+        """Test that dashboard accepts 1h period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': '1h'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], '1h')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_period_filter_3h(self):
+        """Test that dashboard accepts 3h period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': '3h'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], '3h')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_period_filter_6h(self):
+        """Test that dashboard accepts 6h period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': '6h'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], '6h')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_period_filter_12h(self):
+        """Test that dashboard accepts 12h period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': '12h'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], '12h')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_period_filter_24h(self):
+        """Test that dashboard accepts 24h period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': '24h'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], '24h')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_period_filter_today(self):
+        """Test that dashboard accepts today period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': 'today'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], 'today')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_period_filter_7d(self):
+        """Test that dashboard accepts 7d period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': '7d'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], '7d')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_period_filter_30d(self):
+        """Test that dashboard accepts 30d period filter."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': '30d'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], '30d')
+        self.assertIn('filters', response.context)
+        self.assertIn('date_from', response.context['filters'])
+
+    def test_dashboard_with_invalid_period_filter(self):
+        """Test that dashboard handles invalid period filter gracefully."""
+        response = self.client.get(
+            reverse('ui:dashboard'),
+            {'period': 'invalid'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertEqual(response.context['period'], 'invalid')
+        # Invalid period should not create a filter
+        self.assertNotIn('date_from', response.context['filters'])
+
+    def test_dashboard_without_period_filter(self):
+        """Test that dashboard works without period filter (all data)."""
+        response = self.client.get(reverse('ui:dashboard'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('period', response.context)
+        self.assertIsNone(response.context['period'])
+        # No period means no date filter
+        self.assertNotIn('date_from', response.context['filters'])
+
 
 class MaidenheadAreaModalViewTests(TestCase):
     """Tests for the MaidenheadArea modal view."""
