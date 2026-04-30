@@ -4,8 +4,12 @@ Uses Natural Earth shapefile data for offline geographic lookups.
 """
 
 import os
+import logging
 from typing import Optional, Tuple
 from pathlib import Path
+
+
+logger = logging.getLogger(__name__)
 
 
 class GeoService:
@@ -41,9 +45,13 @@ class GeoService:
             FileNotFoundError: If shapefile is not found
             ImportError: If geopandas is not installed
         """
+        logger.info("Starting GeoService geodata loading process")
+
         try:
             import geopandas as gpd
-        except ImportError:
+            logger.debug("geopandas import successful")
+        except ImportError as e:
+            logger.error(f"Failed to import geopandas: {e}")
             raise ImportError(
                 "geopandas is required for GeoService. "
                 "Install with: pip install geopandas"
@@ -53,13 +61,24 @@ class GeoService:
         project_root = Path(__file__).resolve().parent.parent.parent.parent
         shapefile_path = project_root / "geo" / "ne_110m_admin_0_countries.shp"
 
+        logger.debug(f"Project root: {project_root}")
+        logger.debug(f"Shapefile path: {shapefile_path}")
+
         if not shapefile_path.exists():
+            logger.error(f"Shapefile not found at: {shapefile_path}")
             raise FileNotFoundError(
                 f"Natural Earth shapefile not found at: {shapefile_path}"
             )
 
         # Load shapefile
-        GeoService._geodata = gpd.read_file(str(shapefile_path))
+        logger.info(f"Loading shapefile from: {shapefile_path}")
+        try:
+            GeoService._geodata = gpd.read_file(str(shapefile_path))
+            logger.info(f"Shapefile loaded successfully. Records: {len(GeoService._geodata)}")
+            logger.debug(f"Shapefile columns: {list(GeoService._geodata.columns)}")
+        except Exception as e:
+            logger.error(f"Failed to load shapefile: {e}", exc_info=True)
+            raise
 
     def get_country_continent(
         self,
@@ -92,20 +111,29 @@ class GeoService:
             - Border regions return the first matching country
             - Results are cached for performance
         """
+        logger.debug(f"get_country_continent called with lat={lat}, lon={lon}")
+
         # Check cache first
         cache_key = (lat, lon)
         if cache_key in GeoService._cache:
-            return GeoService._cache[cache_key]
+            result = GeoService._cache[cache_key]
+            logger.debug(f"Cache HIT for ({lat}, {lon}): {result}")
+            return result
+
+        logger.debug(f"Cache MISS for ({lat}, {lon})")
 
         # Validate coordinates
         if not (-90 <= lat <= 90) or not (-180 <= lon <= 180):
+            logger.warning(f"Invalid coordinates: lat={lat}, lon={lon}")
             result = (None, None)
             GeoService._cache[cache_key] = result
             return result
 
         try:
             from shapely.geometry import Point
-        except ImportError:
+            logger.debug("shapely.geometry.Point import successful")
+        except ImportError as e:
+            logger.error(f"Failed to import shapely: {e}")
             raise ImportError(
                 "shapely is required for GeoService. "
                 "Install with: pip install shapely"
@@ -113,9 +141,11 @@ class GeoService:
 
         # Create point (IMPORTANT: lon, lat order for shapely!)
         point = Point(lon, lat)
+        logger.debug(f"Created Point({lon}, {lat})")
 
         # Find matching country
         if GeoService._geodata is not None:
+            logger.debug(f"Searching in {len(GeoService._geodata)} polygons")
             # Check which polygon contains the point
             matches = GeoService._geodata[GeoService._geodata.contains(point)]
 
@@ -128,16 +158,20 @@ class GeoService:
                 country = first_match.get('NAME', first_match.get('ADMIN'))
                 continent = first_match.get('CONTINENT')
 
+                logger.info(f"Match FOUND for ({lat}, {lon}): country={country}, continent={continent}")
                 result = (country, continent)
             else:
                 # No match found (ocean, unmapped area)
+                logger.info(f"No match for ({lat}, {lon}) - likely ocean or unmapped area")
                 result = (None, None)
         else:
             # Geodata not loaded
+            logger.error("Geodata is None - shapefile not loaded properly")
             result = (None, None)
 
         # Cache result
         GeoService._cache[cache_key] = result
+        logger.debug(f"Cached result for ({lat}, {lon}): {result}")
         return result
 
     def clear_cache(self):
