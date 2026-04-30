@@ -39,7 +39,12 @@ class Command(BaseCommand):
         parser.add_argument(
             '--force',
             action='store_true',
-            help='Re-enrich all records, even if they already have enrichment data'
+            help='Re-enrich all records, even if they already have enrichment data (legacy alias for --full)'
+        )
+        parser.add_argument(
+            '--full',
+            action='store_true',
+            help='Full rebuild: Re-enrich all records, overwriting existing enrichment data'
         )
 
     def handle(self, *args, **options):
@@ -47,8 +52,19 @@ class Command(BaseCommand):
         limit = options.get('limit')
         dry_run = options['dry_run']
         force = options['force']
+        full = options['full']
+        # Store verbosity from options for use throughout the command
+        self.verbosity = options.get('verbosity', 1)
+
+        # --full and --force are aliases; use either one
+        full_rebuild = full or force
 
         self.stdout.write(self.style.SUCCESS('=== HeardSignal Enrichment Backfill ==='))
+
+        if full_rebuild:
+            self.stdout.write(self.style.WARNING('FULL REBUILD MODE - Will re-enrich all records, overwriting existing data'))
+        else:
+            self.stdout.write('DEFAULT MODE - Will only enrich records with missing data')
 
         if dry_run:
             self.stdout.write(self.style.WARNING('DRY RUN MODE - No changes will be saved'))
@@ -81,7 +97,7 @@ class Command(BaseCommand):
         # Build queryset
         qs = HeardSignal.objects.all()
 
-        if not force:
+        if not full_rebuild:
             # Only get records missing enrichment data
             qs = qs.filter(
                 qrz_url__isnull=True
@@ -132,48 +148,59 @@ class Command(BaseCommand):
                     updates = {}
 
                     # QRZ URL
-                    if not signal.qrz_url and enriched.get('qrz_url'):
-                        updates['qrz_url'] = enriched['qrz_url']
-                        updates_needed = True
+                    if enriched.get('qrz_url'):
+                        if full_rebuild or not signal.qrz_url:
+                            updates['qrz_url'] = enriched['qrz_url']
+                            updates_needed = True
 
                     # Band
-                    if (not signal.band or signal.band == '') and enriched.get('band'):
-                        updates['band'] = enriched['band']
-                        updates_needed = True
+                    if enriched.get('band'):
+                        if full_rebuild or not signal.band or signal.band == '':
+                            updates['band'] = enriched['band']
+                            updates_needed = True
 
                     # Distance
-                    if signal.distance_km is None and enriched.get('distance_km'):
-                        updates['distance_km'] = enriched['distance_km']
-                        updates_needed = True
+                    if enriched.get('distance_km'):
+                        if full_rebuild or signal.distance_km is None:
+                            updates['distance_km'] = enriched['distance_km']
+                            updates_needed = True
 
                     # Callsign country/continent
-                    if not signal.callsign_country and enriched.get('callsign_country'):
-                        updates['callsign_country'] = enriched['callsign_country']
-                        updates_needed = True
-                    if not signal.callsign_continent and enriched.get('callsign_continent'):
-                        updates['callsign_continent'] = enriched['callsign_continent']
-                        updates_needed = True
+                    if enriched.get('callsign_country'):
+                        if full_rebuild or not signal.callsign_country:
+                            updates['callsign_country'] = enriched['callsign_country']
+                            updates_needed = True
+                    if enriched.get('callsign_continent'):
+                        if full_rebuild or not signal.callsign_continent:
+                            updates['callsign_continent'] = enriched['callsign_continent']
+                            updates_needed = True
 
                     # Locator enrichment
                     if signal.locator:
-                        if not signal.locator_country and enriched.get('locator_country'):
-                            updates['locator_country'] = enriched['locator_country']
-                            updates_needed = True
-                        if not signal.locator_alt_country and enriched.get('locator_alt_country'):
-                            updates['locator_alt_country'] = enriched['locator_alt_country']
-                            updates_needed = True
-                        if not signal.locator_continent and enriched.get('locator_continent'):
-                            updates['locator_continent'] = enriched['locator_continent']
-                            updates_needed = True
+                        if enriched.get('locator_country'):
+                            if full_rebuild or not signal.locator_country:
+                                updates['locator_country'] = enriched['locator_country']
+                                updates_needed = True
+                        if enriched.get('locator_alt_country'):
+                            if full_rebuild or not signal.locator_alt_country:
+                                updates['locator_alt_country'] = enriched['locator_alt_country']
+                                updates_needed = True
+                        if enriched.get('locator_continent'):
+                            if full_rebuild or not signal.locator_continent:
+                                updates['locator_continent'] = enriched['locator_continent']
+                                updates_needed = True
                         if enriched.get('locator_ambiguous') is not None:
-                            updates['locator_ambiguous'] = enriched['locator_ambiguous']
-                            updates_needed = True
-                        if signal.locator_lat is None and enriched.get('locator_lat'):
-                            updates['locator_lat'] = enriched['locator_lat']
-                            updates_needed = True
-                        if signal.locator_lon is None and enriched.get('locator_lon'):
-                            updates['locator_lon'] = enriched['locator_lon']
-                            updates_needed = True
+                            if full_rebuild or signal.locator_ambiguous is None:
+                                updates['locator_ambiguous'] = enriched['locator_ambiguous']
+                                updates_needed = True
+                        if enriched.get('locator_lat'):
+                            if full_rebuild or signal.locator_lat is None:
+                                updates['locator_lat'] = enriched['locator_lat']
+                                updates_needed = True
+                        if enriched.get('locator_lon'):
+                            if full_rebuild or signal.locator_lon is None:
+                                updates['locator_lon'] = enriched['locator_lon']
+                                updates_needed = True
 
                     if updates_needed:
                         if not dry_run:
