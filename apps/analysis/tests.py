@@ -529,3 +529,167 @@ class StatisticsServiceFilterTest(TestCase):
         })
         self.assertEqual(result["cq_count"], 1)
 
+
+class StatisticsServiceRecentCqsTest(TestCase):
+    """Tests for get_recent_cqs()."""
+
+    def setUp(self):
+        self.service = StatisticsService()
+        run = make_import_run()
+
+        ts1 = datetime(2026, 4, 10, 10, 0, 0, tzinfo=dt_timezone.utc)
+        ts2 = datetime(2026, 4, 10, 11, 0, 0, tzinfo=dt_timezone.utc)
+        ts3 = datetime(2026, 4, 10, 12, 0, 0, tzinfo=dt_timezone.utc)
+
+        make_signal(run, timestamp=ts1, callsign="DL1ABC", locator="JN68", band="40m", snr=-5, distance_km=500.0)
+        make_signal(run, timestamp=ts2, callsign="G4XYZ", locator="IO91", band="20m", snr=-15, distance_km=1500.0)
+        make_signal(run, timestamp=ts3, callsign="VE3ABC", locator="FN03", band="20m", snr=-20, distance_km=7000.0)
+
+    def test_recent_cqs_returns_latest_first(self):
+        result = self.service.get_recent_cqs(limit=10)
+        self.assertEqual(len(result), 3)
+        # Should be ordered by timestamp descending
+        self.assertEqual(result[0]["callsign"], "VE3ABC")
+        self.assertEqual(result[1]["callsign"], "G4XYZ")
+        self.assertEqual(result[2]["callsign"], "DL1ABC")
+
+    def test_recent_cqs_respects_limit(self):
+        result = self.service.get_recent_cqs(limit=2)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]["callsign"], "VE3ABC")
+        self.assertEqual(result[1]["callsign"], "G4XYZ")
+
+    def test_recent_cqs_with_filters(self):
+        result = self.service.get_recent_cqs(filters={"band": "20m"}, limit=10)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]["callsign"], "VE3ABC")
+        self.assertEqual(result[1]["callsign"], "G4XYZ")
+
+    def test_recent_cqs_empty(self):
+        result = self.service.get_recent_cqs(filters={"band": "10m"}, limit=10)
+        self.assertEqual(len(result), 0)
+
+
+class StatisticsServiceCurrentDxSummaryTest(TestCase):
+    """Tests for get_current_dx_summary()."""
+
+    def setUp(self):
+        self.service = StatisticsService()
+        run = make_import_run()
+
+        # Create signals in the last 30 minutes
+        now = timezone.now()
+        ts1 = now - timezone.timedelta(minutes=10)
+        ts2 = now - timezone.timedelta(minutes=20)
+        ts3 = now - timezone.timedelta(minutes=30)
+
+        make_signal(run, timestamp=ts1, callsign="DL1ABC", locator="JN68", locator_country="Germany", band="40m", snr=-5, distance_km=500.0)
+        make_signal(run, timestamp=ts2, callsign="G4XYZ", locator="IO91", locator_country="United Kingdom", band="20m", snr=-15, distance_km=1500.0)
+        make_signal(run, timestamp=ts3, callsign="VE3ABC", locator="FN03", locator_country="United States", band="20m", snr=-10, distance_km=7000.0)
+
+    def test_current_dx_summary_counts(self):
+        result = self.service.get_current_dx_summary(minutes=60)
+        self.assertEqual(result["count"], 3)
+        self.assertEqual(result["minutes"], 60)
+
+    def test_current_dx_summary_distances(self):
+        result = self.service.get_current_dx_summary(minutes=60)
+        self.assertEqual(result["max_distance_km"], 7000.0)
+        self.assertAlmostEqual(result["avg_distance_km"], 3000.0, delta=1.0)
+
+    def test_current_dx_summary_snr(self):
+        result = self.service.get_current_dx_summary(minutes=60)
+        self.assertEqual(result["best_snr"], -5)
+
+    def test_current_dx_summary_top_country(self):
+        result = self.service.get_current_dx_summary(minutes=60)
+        # All countries appear once, so any is valid
+        self.assertIn(result["top_country"], ["Germany", "United Kingdom", "United States"])
+
+    def test_current_dx_summary_narrow_window(self):
+        # Only signals from last 15 minutes
+        result = self.service.get_current_dx_summary(minutes=15)
+        # Should get signals from 10 and 15 minutes ago (2 signals)
+        # The 30-minute old signal should be excluded
+        self.assertGreaterEqual(result["count"], 1)  # At least the most recent signal
+        self.assertLessEqual(result["count"], 2)  # At most 2 signals
+
+    def test_current_dx_summary_empty(self):
+        # Create a new service with no recent data
+        service = StatisticsService()
+        result = service.get_current_dx_summary(minutes=1)
+        self.assertEqual(result["count"], 0)
+        self.assertIsNone(result["max_distance_km"])
+
+
+class StatisticsServiceActivityByDirectionTest(TestCase):
+    """Tests for get_activity_by_direction()."""
+
+    def setUp(self):
+        self.service = StatisticsService()
+        run = make_import_run()
+
+        ts = datetime(2026, 4, 10, 10, 0, 0, tzinfo=dt_timezone.utc)
+
+        # Create signals from different directions
+        # N: 0°, NE: 45°, E: 90°, SE: 135°, S: 180°, SW: 225°, W: 270°, NW: 315°
+        make_signal(run, timestamp=ts, callsign="N1", locator="JN68", azimuth_deg=10.0, distance_km=500.0)
+        make_signal(run, timestamp=ts, callsign="NE1", locator="JN69", azimuth_deg=45.0, distance_km=600.0)
+        make_signal(run, timestamp=ts, callsign="NE2", locator="JN70", azimuth_deg=50.0, distance_km=700.0)
+        make_signal(run, timestamp=ts, callsign="E1", locator="JN71", azimuth_deg=90.0, distance_km=800.0)
+        make_signal(run, timestamp=ts, callsign="S1", locator="JN72", azimuth_deg=180.0, distance_km=900.0)
+        make_signal(run, timestamp=ts, callsign="W1", locator="JN73", azimuth_deg=270.0, distance_km=1000.0)
+
+    def test_activity_by_direction_groups_correctly(self):
+        result = self.service.get_activity_by_direction()
+        # Result should have 8 directions in order
+        self.assertEqual(len(result), 8)
+        directions = [r["direction"] for r in result]
+        self.assertEqual(directions, ["N", "NE", "E", "SE", "S", "SW", "W", "NW"])
+
+    def test_activity_by_direction_counts(self):
+        result = self.service.get_activity_by_direction()
+        result_dict = {r["direction"]: r for r in result}
+
+        self.assertEqual(result_dict["N"]["count"], 1)
+        self.assertEqual(result_dict["NE"]["count"], 2)
+        self.assertEqual(result_dict["E"]["count"], 1)
+        self.assertEqual(result_dict["SE"]["count"], 0)
+        self.assertEqual(result_dict["S"]["count"], 1)
+        self.assertEqual(result_dict["SW"]["count"], 0)
+        self.assertEqual(result_dict["W"]["count"], 1)
+        self.assertEqual(result_dict["NW"]["count"], 0)
+
+    def test_activity_by_direction_avg_distance(self):
+        result = self.service.get_activity_by_direction()
+        result_dict = {r["direction"]: r for r in result}
+
+        self.assertEqual(result_dict["N"]["avg_distance_km"], 500.0)
+        self.assertAlmostEqual(result_dict["NE"]["avg_distance_km"], 650.0, delta=1.0)
+        self.assertEqual(result_dict["E"]["avg_distance_km"], 800.0)
+
+    def test_activity_by_direction_excludes_no_azimuth(self):
+        # Create a signal without azimuth
+        run = make_import_run()
+        ts = datetime(2026, 4, 10, 10, 0, 0, tzinfo=dt_timezone.utc)
+        make_signal(run, timestamp=ts, callsign="NO_AZ", locator="JN74", azimuth_deg=None, distance_km=1100.0)
+
+        result = self.service.get_activity_by_direction()
+        # Should still have 6 signals (excluding the one without azimuth)
+        total_count = sum(r["count"] for r in result)
+        self.assertEqual(total_count, 6)
+
+
+class StatisticsServiceActivityByDirectionEmptyTest(TestCase):
+    """Tests for get_activity_by_direction() with empty database."""
+
+    def test_activity_by_direction_empty(self):
+        # Test with empty data (no signals in database)
+        service = StatisticsService()
+        result = service.get_activity_by_direction()
+        # Should still return 8 directions with 0 counts
+        self.assertEqual(len(result), 8)
+        total_count = sum(r["count"] for r in result)
+        self.assertEqual(total_count, 0)
+
+
