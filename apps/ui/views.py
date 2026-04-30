@@ -49,6 +49,14 @@ def dashboard(request):
         filters['date_to'] = date_to
         period = None
 
+    # Get DX mode from request
+    dx_mode = request.GET.get('dx_mode') == 'true'
+
+    # Apply DX filter if enabled
+    heatmap_filters = filters.copy()
+    if dx_mode:
+        heatmap_filters['min_distance_km'] = 3000
+
     # Get all dashboard data
     summary = stats_service.get_summary(filters)
     activity_by_hour = stats_service.get_activity_by_hour(filters)
@@ -64,7 +72,7 @@ def dashboard(request):
     recent_cqs = stats_service.get_recent_cqs(filters, limit=20)
     dx_now = stats_service.get_current_dx_summary(minutes=60)
     direction_activity = stats_service.get_activity_by_direction(filters)
-    propagation_heatmap = stats_service.get_propagation_heatmap(filters)
+    propagation_heatmap = stats_service.get_propagation_heatmap(heatmap_filters)
 
     context = {
         'summary': summary,
@@ -82,6 +90,7 @@ def dashboard(request):
         'heatmap_data': json.dumps(propagation_heatmap),
         'filters': filters,
         'period': period,
+        'dx_mode': dx_mode,
     }
 
     return render(request, 'dashboard/index.html', context)
@@ -219,9 +228,13 @@ def dashboard_propagation_heatmap(request):
     stats_service = StatisticsService()
     filters = _get_filters_from_request(request)
     heatmap_data = stats_service.get_propagation_heatmap(filters)
+    dx_mode = request.GET.get('dx_mode') == 'true'
+    period = request.GET.get('period')
 
     return render(request, 'dashboard/partials/propagation_heatmap.html', {
-        'heatmap_data': json.dumps(heatmap_data)
+        'heatmap_data': json.dumps(heatmap_data),
+        'dx_mode': dx_mode,
+        'period': period,
     })
 
 
@@ -236,6 +249,9 @@ def _get_filters_from_request(request):
         filters['datetime_from'] = datetime_from
     if datetime_to := request.GET.get('datetime_to'):
         filters['datetime_to'] = datetime_to
+    if dx_mode := request.GET.get('dx_mode'):
+        if dx_mode == 'true':
+            filters['min_distance_km'] = 3000
     return filters
 
 
