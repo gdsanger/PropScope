@@ -20,6 +20,7 @@ urlpatterns = [
     path('dashboard/partials/recent-cqs/', views.dashboard_recent_cqs, name='dashboard-recent-cqs'),
     path('dashboard/partials/dx-now/', views.dashboard_dx_now, name='dashboard-dx-now'),
     path('dashboard/partials/direction-activity/', views.dashboard_direction_activity, name='dashboard-direction-activity'),
+    path('dashboard/partials/propagation-heatmap/', views.dashboard_propagation_heatmap, name='dashboard-propagation-heatmap'),
 
     # MaidenheadArea management
     path('dashboard/maidenhead-area/create-modal/', views.maidenhead_area_create_modal, name='maidenhead-area-create-modal'),

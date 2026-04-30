@@ -1,0 +1,189 @@
+<style>
+    .heatmap-container {
+        overflow-x: auto;
+    }
+    .heatmap-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+    }
+    .heatmap-table th,
+    .heatmap-table td {
+        border: 1px solid #dee2e6;
+        padding: 0;
+        text-align: center;
+        min-width: 35px;
+        height: 40px;
+    }
+    .heatmap-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        padding: 8px;
+    }
+    .heatmap-table td.heatmap-cell {
+        cursor: pointer;
+        position: relative;
+        transition: transform 0.1s;
+    }
+    .heatmap-table td.heatmap-cell:hover {
+        transform: scale(1.1);
+        z-index: 10;
+        border: 2px solid #0d6efd;
+    }
+    .heatmap-cell-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    .heatmap-legend {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 15px;
+        font-size: 0.85rem;
+    }
+    .heatmap-legend-gradient {
+        width: 200px;
+        height: 20px;
+        background: linear-gradient(to right, #f0f0f0, #dceaff, #0d6efd);
+        border: 1px solid #dee2e6;
+        border-radius: 3px;
+    }
+</style>
+
+<div id="propagationHeatmapContainer">
+    <div class="heatmap-container">
+        <table class="heatmap-table" id="heatmapTable">
+            <thead>
+                <tr>
+                    <th>Richtung \ Stunde</th>
+                </tr>
+            </thead>
+            <tbody id="heatmapBody">
+            </tbody>
+        </table>
+    </div>
+    <div class="heatmap-legend">
+        <span>Aktivität:</span>
+        <div class="heatmap-legend-gradient"></div>
+        <span><strong>0</strong></span>
+        <span style="margin-left: auto;"><strong id="maxCountLabel">Max</strong></span>
+    </div>
+</div>
+
+<div id="propagationHeatmapEmpty" class="d-none alert alert-info text-center mb-0" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle mb-2" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+    </svg>
+    <p class="mb-0">Keine Propagationsdaten verfügbar</p>
+</div>
+
+<script>
+(function() {
+    const container = document.getElementById('propagationHeatmapContainer');
+    const emptyState = document.getElementById('propagationHeatmapEmpty');
+    const table = document.getElementById('heatmapTable');
+    const tbody = document.getElementById('heatmapBody');
+    const maxCountLabel = document.getElementById('maxCountLabel');
+
+    if (!container) return;
+
+    const data = {{ heatmap_data|safe }};
+
+    // Check if we have any data
+    const hasData = data && data.data && data.data.length > 0 && data.max_count > 0;
+
+    if (!hasData) {
+        container.style.display = 'none';
+        emptyState.classList.remove('d-none');
+        return;
+    }
+
+    // Update max count label
+    maxCountLabel.textContent = `${data.max_count}`;
+
+    // Generate color based on value using a blue color scale
+    function getColor(value, maxValue) {
+        if (value === 0) {
+            return '#f0f0f0';
+        }
+        // Use blue color scale (light to dark)
+        const intensity = maxValue > 0 ? Math.sqrt(value / maxValue) : 0; // Square root for better visual distribution
+        const baseR = 220, baseG = 235, baseB = 255; // Light blue
+        const targetR = 13, targetG = 110, targetB = 253; // Bootstrap primary blue
+
+        const r = Math.round(baseR + (targetR - baseR) * intensity);
+        const g = Math.round(baseG + (targetG - baseG) * intensity);
+        const b = Math.round(baseB + (targetB - baseB) * intensity);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // Get text color based on background intensity
+    function getTextColor(value, maxValue) {
+        if (value === 0) return '#6c757d';
+        const intensity = maxValue > 0 ? Math.sqrt(value / maxValue) : 0;
+        return intensity > 0.5 ? '#ffffff' : '#212529';
+    }
+
+    // Create header row with hours
+    const headerRow = table.querySelector('thead tr');
+    data.hours.forEach(hour => {
+        const th = document.createElement('th');
+        th.textContent = String(hour).padStart(2, '0');
+        th.style.fontSize = '0.75rem';
+        headerRow.appendChild(th);
+    });
+
+    // Create data rows for each direction
+    data.directions.forEach((direction, dirIdx) => {
+        const row = document.createElement('tr');
+
+        // Direction label cell
+        const labelCell = document.createElement('th');
+        labelCell.textContent = direction;
+        labelCell.style.textAlign = 'left';
+        labelCell.style.paddingLeft = '10px';
+        row.appendChild(labelCell);
+
+        // Hour cells
+        data.hours.forEach(hour => {
+            const point = data.data.find(p => p.hour === hour && p.direction_index === dirIdx);
+            const count = point ? point.count : 0;
+
+            const cell = document.createElement('td');
+            cell.className = 'heatmap-cell';
+            cell.style.backgroundColor = getColor(count, data.max_count);
+
+            const content = document.createElement('div');
+            content.className = 'heatmap-cell-content';
+            content.textContent = count > 0 ? count : '';
+            content.style.color = getTextColor(count, data.max_count);
+
+            cell.appendChild(content);
+
+            // Add tooltip
+            cell.title = `Zeit: ${String(hour).padStart(2, '0')}:00 UTC\nRichtung: ${direction}\nSignale: ${count} (distinct Rufzeichen)`;
+
+            row.appendChild(cell);
+        });
+
+        tbody.appendChild(row);
+    });
+
+    // Add Bootstrap tooltip support if available
+    if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('.heatmap-cell'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl, {
+                placement: 'top',
+                trigger: 'hover'
+            });
+        });
+    }
+})();
+</script>

@@ -64,6 +64,7 @@ def dashboard(request):
     recent_cqs = stats_service.get_recent_cqs(filters, limit=20)
     dx_now = stats_service.get_current_dx_summary(minutes=60)
     direction_activity = stats_service.get_activity_by_direction(filters)
+    propagation_heatmap = stats_service.get_propagation_heatmap(filters)
 
     context = {
         'summary': summary,
@@ -78,6 +79,7 @@ def dashboard(request):
         'recent_cqs': recent_cqs,
         'dx_now': dx_now,
         'direction_activity': json.dumps(direction_activity),
+        'heatmap_data': json.dumps(propagation_heatmap),
         'filters': filters,
         'period': period,
     }
@@ -209,6 +211,17 @@ def dashboard_direction_activity(request):
 
     return render(request, 'dashboard/partials/direction_activity.html', {
         'direction_activity': json.dumps(direction_activity)
+    })
+
+
+def dashboard_propagation_heatmap(request):
+    """HTMX partial: Propagation heatmap (direction vs. time)."""
+    stats_service = StatisticsService()
+    filters = _get_filters_from_request(request)
+    heatmap_data = stats_service.get_propagation_heatmap(filters)
+
+    return render(request, 'dashboard/partials/propagation_heatmap.html', {
+        'heatmap_data': json.dumps(heatmap_data)
     })
 
 

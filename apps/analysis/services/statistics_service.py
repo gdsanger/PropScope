@@ -737,3 +737,97 @@ class StatisticsService:
             }
             for direction in direction_order
         ]
+
+    def get_propagation_heatmap(self, filters: dict | None = None) -> dict:
+        """
+        Aggregate CQ signals by hour (UTC) and direction for heatmap visualization.
+
+        Creates a 2D heatmap showing signal activity patterns:
+        - X-axis: Hour of day (0-23, UTC)
+        - Y-axis: Direction (N, NE, E, SE, S, SW, W, NW)
+        - Value: Count of distinct callsigns (to avoid beacon distortion)
+
+        This visualization helps identify:
+        - Propagation patterns over the day
+        - Greyline effects (e.g., West at night, East in morning)
+        - Antenna characteristics across time
+
+        Returns a dict with:
+            hours      – list of all hours 0-23
+            directions – list of directions [N, NE, E, SE, S, SW, W, NW]
+            data       – 2D array [hour][direction] with counts
+            max_count  – maximum count value (for color scaling)
+
+        Signals without azimuth data are excluded.
+        """
+        qs = self._apply_filters(
+            HeardSignal.objects.filter(azimuth_deg__isnull=False),
+            filters,
+        )
+
+        from django.db.models import Case, When, Value, CharField
+        from django.db.models.functions import ExtractHour
+
+        # Bucket azimuth into 8 directions (same as get_activity_by_direction)
+        direction_buckets = Case(
+            When(azimuth_deg__gte=337.5, then=Value("N")),
+            When(azimuth_deg__lt=22.5, then=Value("N")),
+            When(azimuth_deg__gte=22.5, azimuth_deg__lt=67.5, then=Value("NE")),
+            When(azimuth_deg__gte=67.5, azimuth_deg__lt=112.5, then=Value("E")),
+            When(azimuth_deg__gte=112.5, azimuth_deg__lt=157.5, then=Value("SE")),
+            When(azimuth_deg__gte=157.5, azimuth_deg__lt=202.5, then=Value("S")),
+            When(azimuth_deg__gte=202.5, azimuth_deg__lt=247.5, then=Value("SW")),
+            When(azimuth_deg__gte=247.5, azimuth_deg__lt=292.5, then=Value("W")),
+            When(azimuth_deg__gte=292.5, azimuth_deg__lt=337.5, then=Value("NW")),
+            default=Value("Unknown"),
+            output_field=CharField(),
+        )
+
+        # Annotate with hour and direction, then aggregate
+        rows = (
+            qs.annotate(
+                hour=ExtractHour("timestamp"),
+                direction=direction_buckets,
+            )
+            .values("hour", "direction")
+            .annotate(count=Count("callsign", distinct=True))
+        )
+
+        # Build 2D data structure
+        direction_order = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+        hours = list(range(24))
+
+        # Initialize data structure with zeros
+        data_dict = {hour: {direction: 0 for direction in direction_order} for hour in hours}
+
+        # Fill in actual counts
+        for row in rows:
+            hour = row["hour"]
+            direction = row["direction"]
+            count = row["count"]
+            if direction in direction_order and hour in hours:
+                data_dict[hour][direction] = count
+
+        # Convert to 2D array format for Chart.js
+        # Each element is [hour, direction_index, count]
+        max_count = 0
+        heatmap_points = []
+
+        for hour in hours:
+            for dir_idx, direction in enumerate(direction_order):
+                count = data_dict[hour][direction]
+                heatmap_points.append({
+                    "hour": hour,
+                    "direction": direction,
+                    "direction_index": dir_idx,
+                    "count": count,
+                })
+                if count > max_count:
+                    max_count = count
+
+        return {
+            "hours": hours,
+            "directions": direction_order,
+            "data": heatmap_points,
+            "max_count": max_count,
+        }
