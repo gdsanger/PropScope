@@ -27,19 +27,19 @@ def dashboard(request):
         if period == 'today':
             filters['date_from'] = now.date().isoformat()
         elif period == '1h':
-            filters['date_from'] = (now - timedelta(hours=1)).isoformat()
+            filters['datetime_from'] = (now - timedelta(hours=1)).isoformat()
         elif period == '3h':
-            filters['date_from'] = (now - timedelta(hours=3)).isoformat()
+            filters['datetime_from'] = (now - timedelta(hours=3)).isoformat()
         elif period == '6h':
-            filters['date_from'] = (now - timedelta(hours=6)).isoformat()
+            filters['datetime_from'] = (now - timedelta(hours=6)).isoformat()
         elif period == '12h':
-            filters['date_from'] = (now - timedelta(hours=12)).isoformat()
+            filters['datetime_from'] = (now - timedelta(hours=12)).isoformat()
         elif period == '24h':
-            filters['date_from'] = (now - timedelta(hours=24)).isoformat()
+            filters['datetime_from'] = (now - timedelta(hours=24)).isoformat()
         elif period == '7d':
-            filters['date_from'] = (now - timedelta(days=7)).isoformat()
+            filters['date_from'] = (now - timedelta(days=7)).date().isoformat()
         elif period == '30d':
-            filters['date_from'] = (now - timedelta(days=30)).isoformat()
+            filters['date_from'] = (now - timedelta(days=30)).date().isoformat()
 
     # Allow manual date filters to override period
     if date_from := request.GET.get('date_from'):
@@ -179,6 +179,10 @@ def _get_filters_from_request(request):
         filters['date_from'] = date_from
     if date_to := request.GET.get('date_to'):
         filters['date_to'] = date_to
+    if datetime_from := request.GET.get('datetime_from'):
+        filters['datetime_from'] = datetime_from
+    if datetime_to := request.GET.get('datetime_to'):
+        filters['datetime_to'] = datetime_to
     return filters
 
 
