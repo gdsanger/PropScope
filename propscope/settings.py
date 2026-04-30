@@ -165,3 +165,68 @@ GRAPH_SENDER_ADDRESS = os.getenv('GRAPH_SENDER_ADDRESS', '')
 WSJTX_ALL_TXT_PATH = os.getenv('WSJTX_ALL_TXT_PATH', '')
 WSJTX_POLL_INTERVAL = int(os.getenv('WSJTX_POLL_INTERVAL', '30'))
 
+# Logging Configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {name} {module} {funcName}:{lineno} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'level': 'INFO',
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / 'logs' / 'propscope.log',
+            'maxBytes': 10 * 1024 * 1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+            'level': 'DEBUG',
+        },
+        'geo_file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR / 'logs' / 'geo_service.log',
+            'maxBytes': 10 * 1024 * 1024,  # 10MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+            'level': 'DEBUG',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'apps.geo.services.geo_service': {
+            'handlers': ['console', 'geo_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'apps.ingest.services.enrichment': {
+            'handlers': ['console', 'geo_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'apps.geo': {
+            'handlers': ['console', 'geo_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO',
+    },
+}
+
