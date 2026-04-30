@@ -682,3 +682,47 @@ class WsjtxImporterTests(TestCase):
         # Position should be at or near end of file (equal to file size)
         self.assertEqual(saved_position, file_size, "Position should match file size after reading entire file")
 
+    def test_azimuth_deg_persisted(self):
+        """
+        Test that azimuth_deg is correctly persisted to the database.
+        This verifies the fix for issue #641.
+        """
+        from apps.geo.utils import maidenhead_to_latlon
+
+        # Create settings with station coordinates to enable azimuth calculation
+        station_lat, station_lon = maidenhead_to_latlon('JN68qv')  # Stuttgart area
+        settings = PropScopeSettings.objects.create(
+            name='test_settings',
+            is_active=True,
+            station_locator='JN68qv',
+            station_latitude=station_lat,
+            station_longitude=station_lon,
+            wsjtx_last_position=0
+        )
+
+        importer = WsjtxLogImporter()
+
+        # Run import
+        import_run = importer.import_file(
+            file_path=self.test_file_path,
+            incremental=False,
+            settings=settings
+        )
+
+        # Assert import completed successfully
+        self.assertEqual(import_run.status, 'completed')
+
+        # Check that HeardSignal records have azimuth_deg populated
+        from apps.cq.models import HeardSignal
+        signals_with_azimuth = HeardSignal.objects.filter(azimuth_deg__isnull=False)
+
+        # We should have at least some signals with azimuth data
+        # (all CQ signals with valid locators should have azimuth calculated)
+        self.assertGreater(signals_with_azimuth.count(), 0,
+                          "At least one signal should have azimuth_deg populated")
+
+        # Verify that azimuth values are in valid range (0-360 degrees)
+        for signal in signals_with_azimuth:
+            self.assertGreaterEqual(signal.azimuth_deg, 0.0)
+            self.assertLessEqual(signal.azimuth_deg, 360.0)
+
