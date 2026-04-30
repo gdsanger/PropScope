@@ -8,6 +8,7 @@ from apps.geo.utils import maidenhead_to_latlon, haversine_distance
 from apps.geo.models import MaidenheadArea
 from apps.callsign.services import CallsignService
 from apps.cq.services import BandService
+from apps.geo.services import GeoService
 
 
 class SignalEnricher:
@@ -27,6 +28,13 @@ class SignalEnricher:
         self.station_lon = station_lon
         self.callsign_service = CallsignService()
         self.band_service = BandService()
+        self.geo_service = None  # Lazy-loaded to avoid startup overhead
+
+    def _get_geo_service(self) -> GeoService:
+        """Lazy-load GeoService to avoid loading geodata on every enricher init."""
+        if self.geo_service is None:
+            self.geo_service = GeoService()
+        return self.geo_service
 
     def enrich_signal_data(self, signal_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -66,11 +74,25 @@ class SignalEnricher:
                         lat, lon
                     )
                     enriched['distance_km'] = distance
+
+                # Try GeoService for auto-detection first
+                try:
+                    geo_service = self._get_geo_service()
+                    country_auto, continent_auto = geo_service.get_country_continent(lat, lon)
+                    if country_auto:
+                        enriched['locator_country_auto'] = country_auto
+                    if continent_auto:
+                        enriched['locator_continent_auto'] = continent_auto
+                except Exception:
+                    # GeoService failed, continue without auto-detection
+                    pass
+
             except ValueError:
                 # Invalid locator format
                 pass
 
-            # Look up locator in MaidenheadArea table
+            # Look up locator in MaidenheadArea table (manual override)
+            # Manual values take precedence over auto-detected values
             locator_4char = locator[:4].upper() if len(locator) >= 4 else locator.upper()
             try:
                 area = MaidenheadArea.objects.get(locator=locator_4char)
@@ -79,8 +101,11 @@ class SignalEnricher:
                 enriched['locator_continent'] = area.continent
                 enriched['locator_ambiguous'] = area.is_ambiguous
             except (MaidenheadArea.DoesNotExist, Exception):
-                # No data for this locator or database not available
-                pass
+                # No manual data for this locator, use auto-detected values if available
+                if 'locator_country_auto' in enriched and 'locator_country' not in enriched:
+                    enriched['locator_country'] = enriched['locator_country_auto']
+                if 'locator_continent_auto' in enriched and 'locator_continent' not in enriched:
+                    enriched['locator_continent'] = enriched['locator_continent_auto']
 
         # Look up callsign prefix using CallsignService
         if 'callsign' in enriched and enriched['callsign']:

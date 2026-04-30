@@ -1,16 +1,17 @@
 """
-Unit tests for MaidenheadService.
+Unit tests for MaidenheadService and GeoService.
 
 Tests cover:
 - Locator validation
 - Locator normalization
 - Coordinate calculation
 - Distance calculation
+- Country and continent detection
 - Error handling
 """
 
 from django.test import TestCase
-from apps.geo.services import MaidenheadService, InvalidMaidenheadLocatorError
+from apps.geo.services import MaidenheadService, InvalidMaidenheadLocatorError, GeoService
 
 
 class MaidenheadServiceTests(TestCase):
@@ -370,3 +371,168 @@ class MaidenheadServiceTests(TestCase):
             self.service.get_grid_map_url("INVALID")
         except InvalidMaidenheadLocatorError as e:
             self.assertIn("INVALID", str(e))
+
+class GeoServiceTests(TestCase):
+    """Test suite for GeoService."""
+
+    def setUp(self):
+        """Initialize service instance for tests."""
+        self.service = GeoService()
+        # Clear cache before each test
+        self.service.clear_cache()
+
+    # ========== Country & Continent Detection Tests ==========
+
+    def test_germany_detection(self):
+        """Test detection of Germany from coordinates."""
+        # Frankfurt, Germany
+        lat, lon = 50.1109, 8.6821
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertEqual(country, "Germany")
+        self.assertEqual(continent, "Europe")
+
+    def test_usa_detection(self):
+        """Test detection of USA from coordinates."""
+        # New York, USA
+        lat, lon = 40.7128, -74.0060
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertEqual(country, "United States of America")
+        self.assertEqual(continent, "North America")
+
+    def test_japan_detection(self):
+        """Test detection of Japan from coordinates."""
+        # Tokyo, Japan
+        lat, lon = 35.6762, 139.6503
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertEqual(country, "Japan")
+        self.assertEqual(continent, "Asia")
+
+    def test_uk_detection(self):
+        """Test detection of UK from coordinates."""
+        # London, UK
+        lat, lon = 51.5074, -0.1278
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertEqual(country, "United Kingdom")
+        self.assertEqual(continent, "Europe")
+
+    def test_australia_detection(self):
+        """Test detection of Australia from coordinates."""
+        # Sydney, Australia
+        lat, lon = -33.8688, 151.2093
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertEqual(country, "Australia")
+        self.assertEqual(continent, "Oceania")
+
+    def test_brazil_detection(self):
+        """Test detection of Brazil from coordinates."""
+        # Rio de Janeiro, Brazil
+        lat, lon = -22.9068, -43.1729
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertEqual(country, "Brazil")
+        self.assertEqual(continent, "South America")
+
+    def test_ocean_point_returns_none(self):
+        """Test that points in ocean return None."""
+        # Middle of Atlantic Ocean
+        lat, lon = 0.0, -30.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertIsNone(country)
+        self.assertIsNone(continent)
+
+    def test_pacific_ocean_returns_none(self):
+        """Test that points in Pacific Ocean return None."""
+        # Middle of Pacific Ocean
+        lat, lon = 0.0, -150.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertIsNone(country)
+        self.assertIsNone(continent)
+
+    # ========== Edge Cases ==========
+
+    def test_invalid_latitude_high(self):
+        """Test invalid latitude (too high) returns None."""
+        lat, lon = 91.0, 0.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertIsNone(country)
+        self.assertIsNone(continent)
+
+    def test_invalid_latitude_low(self):
+        """Test invalid latitude (too low) returns None."""
+        lat, lon = -91.0, 0.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertIsNone(country)
+        self.assertIsNone(continent)
+
+    def test_invalid_longitude_high(self):
+        """Test invalid longitude (too high) returns None."""
+        lat, lon = 0.0, 181.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertIsNone(country)
+        self.assertIsNone(continent)
+
+    def test_invalid_longitude_low(self):
+        """Test invalid longitude (too low) returns None."""
+        lat, lon = 0.0, -181.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        self.assertIsNone(country)
+        self.assertIsNone(continent)
+
+    def test_north_pole(self):
+        """Test detection at North Pole."""
+        # North Pole - should return None as it's not in any country
+        lat, lon = 90.0, 0.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        # North Pole is not in any country
+        self.assertIsNone(country)
+
+    def test_south_pole(self):
+        """Test detection at South Pole."""
+        # South Pole - Antarctica
+        lat, lon = -90.0, 0.0
+        country, continent = self.service.get_country_continent(lat, lon)
+        # South Pole may or may not be in a mapped region
+        # Just check it doesn't crash
+        self.assertIsInstance(country, (str, type(None)))
+        self.assertIsInstance(continent, (str, type(None)))
+
+    # ========== Caching Tests ==========
+
+    def test_cache_stores_results(self):
+        """Test that cache stores results for repeated queries."""
+        lat, lon = 51.5074, -0.1278
+        
+        # First call
+        result1 = self.service.get_country_continent(lat, lon)
+        
+        # Second call should use cache
+        result2 = self.service.get_country_continent(lat, lon)
+        
+        self.assertEqual(result1, result2)
+        # Verify cache contains the key
+        self.assertIn((lat, lon), GeoService._cache)
+
+    def test_clear_cache(self):
+        """Test that clear_cache removes cached results."""
+        lat, lon = 51.5074, -0.1278
+        
+        # Store in cache
+        self.service.get_country_continent(lat, lon)
+        self.assertGreater(len(GeoService._cache), 0)
+        
+        # Clear cache
+        self.service.clear_cache()
+        self.assertEqual(len(GeoService._cache), 0)
+
+    # ========== Singleton Tests ==========
+
+    def test_singleton_pattern(self):
+        """Test that GeoService uses singleton pattern."""
+        service1 = GeoService()
+        service2 = GeoService()
+        self.assertIs(service1, service2)
+
+    def test_geodata_loaded_once(self):
+        """Test that geodata is loaded only once."""
+        service1 = GeoService()
+        service2 = GeoService()
+        self.assertIs(service1._geodata, service2._geodata)
