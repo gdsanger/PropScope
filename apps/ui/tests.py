@@ -295,7 +295,7 @@ class DashboardViewTests(TestCase):
         self.assertIn('period', response.context)
         self.assertEqual(response.context['period'], '1h')
         self.assertIn('filters', response.context)
-        self.assertIn('date_from', response.context['filters'])
+        self.assertIn('datetime_from', response.context['filters'])
 
     def test_dashboard_with_period_filter_3h(self):
         """Test that dashboard accepts 3h period filter."""
@@ -307,7 +307,7 @@ class DashboardViewTests(TestCase):
         self.assertIn('period', response.context)
         self.assertEqual(response.context['period'], '3h')
         self.assertIn('filters', response.context)
-        self.assertIn('date_from', response.context['filters'])
+        self.assertIn('datetime_from', response.context['filters'])
 
     def test_dashboard_with_period_filter_6h(self):
         """Test that dashboard accepts 6h period filter."""
@@ -319,7 +319,7 @@ class DashboardViewTests(TestCase):
         self.assertIn('period', response.context)
         self.assertEqual(response.context['period'], '6h')
         self.assertIn('filters', response.context)
-        self.assertIn('date_from', response.context['filters'])
+        self.assertIn('datetime_from', response.context['filters'])
 
     def test_dashboard_with_period_filter_12h(self):
         """Test that dashboard accepts 12h period filter."""
@@ -331,7 +331,7 @@ class DashboardViewTests(TestCase):
         self.assertIn('period', response.context)
         self.assertEqual(response.context['period'], '12h')
         self.assertIn('filters', response.context)
-        self.assertIn('date_from', response.context['filters'])
+        self.assertIn('datetime_from', response.context['filters'])
 
     def test_dashboard_with_period_filter_24h(self):
         """Test that dashboard accepts 24h period filter."""
@@ -343,7 +343,7 @@ class DashboardViewTests(TestCase):
         self.assertIn('period', response.context)
         self.assertEqual(response.context['period'], '24h')
         self.assertIn('filters', response.context)
-        self.assertIn('date_from', response.context['filters'])
+        self.assertIn('datetime_from', response.context['filters'])
 
     def test_dashboard_with_period_filter_today(self):
         """Test that dashboard accepts today period filter."""

@@ -487,3 +487,45 @@ class StatisticsServiceFilterTest(TestCase):
         result = self.service.get_summary(filters={"date_from": "invalid-date"})
         self.assertEqual(result["cq_count"], 2)
 
+    def test_filter_by_datetime_from(self):
+        """Test filtering by datetime_from for precise time filtering."""
+        # Signal 1: 2026-04-01 10:00:00
+        # Signal 2: 2026-04-15 10:00:00
+        # Filter from April 1 at 11:00 should only get signal 2
+        result = self.service.get_summary(filters={
+            "datetime_from": "2026-04-01T11:00:00+00:00"
+        })
+        self.assertEqual(result["cq_count"], 1)
+
+    def test_filter_by_datetime_to(self):
+        """Test filtering by datetime_to for precise time filtering."""
+        # Signal 1: 2026-04-01 10:00:00
+        # Signal 2: 2026-04-15 10:00:00
+        # Filter to April 1 at 11:00 should only get signal 1
+        result = self.service.get_summary(filters={
+            "datetime_to": "2026-04-01T11:00:00+00:00"
+        })
+        self.assertEqual(result["cq_count"], 1)
+
+    def test_filter_by_datetime_range(self):
+        """Test filtering by both datetime_from and datetime_to."""
+        # Signal 1: 2026-04-01 10:00:00
+        # Signal 2: 2026-04-15 10:00:00
+        # Filter from April 1 at 09:00 to April 1 at 11:00 should only get signal 1
+        result = self.service.get_summary(filters={
+            "datetime_from": "2026-04-01T09:00:00+00:00",
+            "datetime_to": "2026-04-01T11:00:00+00:00"
+        })
+        self.assertEqual(result["cq_count"], 1)
+
+    def test_datetime_filter_takes_precedence_over_date_filter(self):
+        """Test that datetime_from takes precedence over date_from."""
+        # Signal 1: 2026-04-01 10:00:00
+        # Signal 2: 2026-04-15 10:00:00
+        # date_from would match both, but datetime_from should only match signal 2
+        result = self.service.get_summary(filters={
+            "date_from": "2026-04-01",
+            "datetime_from": "2026-04-01T11:00:00+00:00"
+        })
+        self.assertEqual(result["cq_count"], 1)
+

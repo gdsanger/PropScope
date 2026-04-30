@@ -29,6 +29,8 @@ class StatisticsService:
     Supported filter keys:
         date_from         – ISO date string, e.g. "2026-04-01"
         date_to           – ISO date string, e.g. "2026-04-30"
+        datetime_from     – ISO datetime string, e.g. "2026-04-01T12:00:00+00:00"
+        datetime_to       – ISO datetime string, e.g. "2026-04-30T23:59:59+00:00"
         band              – band name, e.g. "40m"
         mode              – mode string, e.g. "FT8"
         callsign          – exact callsign match
@@ -76,6 +78,29 @@ class StatisticsService:
         # If we can't parse, return None (filter will be ignored)
         return None
 
+    def _normalize_datetime_value(self, value):
+        """
+        Normalize a datetime filter value to a datetime object.
+
+        Accepts:
+        - datetime objects (returned as-is)
+        - ISO datetime strings with timezone (parsed to datetime)
+
+        Returns None if value cannot be parsed.
+        """
+        if isinstance(value, datetime):
+            return value
+
+        if isinstance(value, str):
+            # Try parsing as ISO datetime (supports timezone)
+            try:
+                return datetime.fromisoformat(value)
+            except (ValueError, TypeError):
+                pass
+
+        # If we can't parse, return None (filter will be ignored)
+        return None
+
     def _apply_filters(self, queryset, filters: dict | None = None):
         """
         Apply filter dictionary to a HeardSignal queryset.
@@ -90,12 +115,21 @@ class StatisticsService:
         if not filters:
             return queryset
 
-        if date_from := filters.get("date_from"):
+        # Datetime filters take precedence over date filters for more precise filtering
+        if datetime_from := filters.get("datetime_from"):
+            normalized_datetime = self._normalize_datetime_value(datetime_from)
+            if normalized_datetime:
+                queryset = queryset.filter(timestamp__gte=normalized_datetime)
+        elif date_from := filters.get("date_from"):
             normalized_date = self._normalize_date_value(date_from)
             if normalized_date:
                 queryset = queryset.filter(timestamp__date__gte=normalized_date)
 
-        if date_to := filters.get("date_to"):
+        if datetime_to := filters.get("datetime_to"):
+            normalized_datetime = self._normalize_datetime_value(datetime_to)
+            if normalized_datetime:
+                queryset = queryset.filter(timestamp__lte=normalized_datetime)
+        elif date_to := filters.get("date_to"):
             normalized_date = self._normalize_date_value(date_to)
             if normalized_date:
                 queryset = queryset.filter(timestamp__date__lte=normalized_date)
