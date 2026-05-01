@@ -831,3 +831,49 @@ class StatisticsService:
             "data": heatmap_points,
             "max_count": max_count,
         }
+
+    def get_map_spots(self, filters=None):
+        """
+        Get spots data for map visualization with coordinates.
+
+        Returns distinct callsign + locator + band spots with all relevant fields.
+        Only includes spots with valid coordinates (locator_lat and locator_lon).
+
+        Args:
+            filters: Optional dict with filter criteria (see class docstring)
+
+        Returns:
+            List of dicts with spot information including coordinates
+        """
+        queryset = self._apply_filters(HeardSignal.objects.all(), filters)
+
+        # Only include spots with valid coordinates
+        queryset = queryset.filter(
+            locator_lat__isnull=False,
+            locator_lon__isnull=False
+        )
+
+        # Get distinct spots by callsign + locator + band
+        # Use the latest (most recent) spot for each combination
+        spots = []
+        seen = set()
+
+        for signal in queryset.order_by('-timestamp'):
+            key = (signal.callsign, signal.locator, signal.band)
+            if key not in seen:
+                seen.add(key)
+                spots.append({
+                    'timestamp': signal.timestamp.isoformat(),
+                    'callsign': signal.callsign,
+                    'locator': signal.locator,
+                    'lat': signal.locator_lat,
+                    'lon': signal.locator_lon,
+                    'country': signal.locator_country or signal.callsign_country or 'Unknown',
+                    'band': signal.band,
+                    'snr': signal.snr,
+                    'distance_km': signal.distance_km,
+                    'qrz_url': signal.qrz_url,
+                    'locator_map_url': signal.locator_map_url,
+                })
+
+        return spots
