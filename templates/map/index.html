@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}Propagation Map - PropScope{% endblock %}
+
+{% block extra_css %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""/>
+<style>
+    #map {
+        height: 600px;
+        width: 100%;
+        border-radius: 0.5rem;
+    }
+    .map-container {
+        position: relative;
+    }
+    .band-filter {
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1 class="h3">Propagation Map</h1>
+            <p class="text-muted">Geografische Visualisierung empfangener CQ-Rufe</p>
+        </div>
+    </div>
+
+    {% if not station_profile %}
+    <!-- Empty State: No Station Profile -->
+    <div class="alert alert-warning" role="alert">
+        <h4 class="alert-heading">Kein Standard-StationProfile konfiguriert</h4>
+        <p>Bitte zuerst eigenen Standort im Admin-Bereich pflegen.</p>
+        <hr>
+        <p class="mb-0">Die Karte benötigt einen konfigurierten Standort als Referenzpunkt für die Darstellung.</p>
+    </div>
+    {% else %}
+
+    <!-- Filter Controls -->
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Filter</h5>
+
+                    <!-- Time Period Filter -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Zeitraum:</label>
+                        <div class="btn-group" role="group" aria-label="Zeitfilter">
+                            <a href="?period=1h{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == '1h' %}active{% endif %}">1h</a>
+                            <a href="?period=3h{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == '3h' %}active{% endif %}">3h</a>
+                            <a href="?period=6h{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == '6h' %}active{% endif %}">6h</a>
+                            <a href="?period=12h{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == '12h' %}active{% endif %}">12h</a>
+                            <a href="?period=24h{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == '24h' %}active{% endif %}">24h</a>
+                            <a href="?period=today{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == 'today' %}active{% endif %}">Heute</a>
+                            <a href="?period=7d{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == '7d' %}active{% endif %}">7 Tage</a>
+                            <a href="?period=30d{% if dx_mode %}&dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if period == '30d' %}active{% endif %}">30 Tage</a>
+                            <a href="?{% if dx_mode %}dx_mode=true{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary {% if not period %}active{% endif %}">Alle</a>
+                        </div>
+                    </div>
+
+                    <!-- DX Filter -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Entfernung:</label>
+                        <div class="btn-group" role="group" aria-label="DX Filter">
+                            <a href="?{% if period %}period={{ period }}{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-success {% if not dx_mode %}active{% endif %}">Alle</a>
+                            <a href="?dx_mode=true{% if period %}&period={{ period }}{% endif %}{% if band %}&band={{ band }}{% endif %}"
+                               class="btn btn-sm btn-outline-success {% if dx_mode %}active{% endif %}">DX > 3000 km</a>
+                        </div>
+                    </div>
+
+                    <!-- Band Filter -->
+                    <div class="band-filter">
+                        <label class="form-label fw-bold">Band:</label>
+                        <div class="btn-group" role="group" aria-label="Bandfilter">
+                            <a href="?{% if period %}period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if not band %}active{% endif %}">Alle</a>
+                            <a href="?band=40m{% if period %}&period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if band == '40m' %}active{% endif %}">40m</a>
+                            <a href="?band=30m{% if period %}&period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if band == '30m' %}active{% endif %}">30m</a>
+                            <a href="?band=20m{% if period %}&period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if band == '20m' %}active{% endif %}">20m</a>
+                            <a href="?band=17m{% if period %}&period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if band == '17m' %}active{% endif %}">17m</a>
+                            <a href="?band=15m{% if period %}&period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if band == '15m' %}active{% endif %}">15m</a>
+                            <a href="?band=12m{% if period %}&period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if band == '12m' %}active{% endif %}">12m</a>
+                            <a href="?band=10m{% if period %}&period={{ period }}{% endif %}{% if dx_mode %}&dx_mode=true{% endif %}"
+                               class="btn btn-sm btn-outline-info {% if band == '10m' %}active{% endif %}">10m</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Container -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body">
+                    <div id="spots-info" class="mb-2">
+                        <small class="text-muted">Lade Daten...</small>
+                    </div>
+                    <div class="map-container">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+
+{% if station_profile %}
+<script>
+    // Initialize map centered on station
+    const stationLat = {{ station_profile.latitude }};
+    const stationLon = {{ station_profile.longitude }};
+
+    const map = L.map('map').setView([stationLat, stationLon], 4);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+    }).addTo(map);
+
+    // Create custom icon for home station
+    const homeIcon = L.icon({
+        iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJyZWQiPjxwYXRoIGQ9Ik0xMiAyQzguMTMgMiA1IDUuMTMgNSA5YzAgNS4yNSA3IDEzIDcgMTNzNy03Ljc1IDctMTNjMC0zLjg3LTMuMTMtNy03LTd6bTAgOS41Yy0xLjM4IDAtMi41LTEuMTItMi41LTIuNXMxLjEyLTIuNSAyLjUtMi41IDIuNSAxLjEyIDIuNSAyLjUtMS4xMiAyLjUtMi41IDIuNXoiLz48L3N2Zz4=',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+    });
+
+    // Create custom icon for received spots
+    const spotIcon = L.icon({
+        iconUrl: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJibHVlIj48cGF0aCBkPSJNMTIgMkM4LjEzIDIgNSA1LjEzIDUgOWMwIDUuMjUgNyAxMyA3IDEzczctNy43NSA3LTEzYzAtMy44Ny0zLjEzLTctNy03em0wIDkuNWMtMS4zOCAwLTIuNS0xLjEyLTIuNS0yLjVzMS4xMi0yLjUgMi41LTIuNSAyLjUgMS4xMiAyLjUgMi41LTEuMTIgMi41LTIuNSAyLjV6Ii8+PC9zdmc+',
+        iconSize: [24, 24],
+        iconAnchor: [12, 24],
+        popupAnchor: [0, -24]
+    });
+
+    // Add home station marker
+    const homeMarker = L.marker([stationLat, stationLon], { icon: homeIcon }).addTo(map);
+    homeMarker.bindPopup(`
+        <div style="min-width: 150px;">
+            <h6 class="mb-2"><strong>{{ station_profile.name }}</strong></h6>
+            {% if station_profile.callsign %}<p class="mb-1"><strong>Callsign:</strong> {{ station_profile.callsign }}</p>{% endif %}
+            <p class="mb-0"><strong>Locator:</strong> {{ station_profile.locator }}</p>
+        </div>
+    `);
+
+    // Fetch and display spots
+    const currentUrl = new URL(window.location.href);
+    const params = new URLSearchParams(currentUrl.search);
+
+    // Build API URL with same parameters
+    const apiUrl = '{% url "ui:map-spots-api" %}?' + params.toString();
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const spots = data.spots || [];
+            const station = data.station;
+
+            // Update info text
+            const infoDiv = document.getElementById('spots-info');
+            if (spots.length === 0) {
+                infoDiv.innerHTML = '<small class="text-warning">Keine Spots im gewählten Zeitraum vorhanden.</small>';
+            } else {
+                infoDiv.innerHTML = `<small class="text-success"><strong>${spots.length}</strong> Spots werden angezeigt</small>`;
+            }
+
+            // Add markers and lines for each spot
+            spots.forEach(spot => {
+                // Add marker
+                const marker = L.marker([spot.lat, spot.lon], { icon: spotIcon }).addTo(map);
+
+                // Format timestamp for display
+                const timestamp = new Date(spot.timestamp);
+                const timeStr = timestamp.toLocaleString('de-DE', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'UTC',
+                    timeZoneName: 'short'
+                });
+
+                // Bind popup with spot information
+                let popupContent = `
+                    <div style="min-width: 200px;">
+                        <h6 class="mb-2"><strong>${spot.callsign}</strong></h6>
+                        <p class="mb-1"><strong>Locator:</strong> ${spot.locator}</p>
+                        <p class="mb-1"><strong>Land:</strong> ${spot.country}</p>
+                        <p class="mb-1"><strong>Band:</strong> ${spot.band}</p>
+                        <p class="mb-1"><strong>SNR:</strong> ${spot.snr} dB</p>
+                `;
+
+                if (spot.distance_km !== null) {
+                    popupContent += `<p class="mb-1"><strong>Entfernung:</strong> ${Math.round(spot.distance_km)} km</p>`;
+                }
+
+                popupContent += `<p class="mb-2"><strong>Zeit:</strong> ${timeStr}</p>`;
+
+                // Add links
+                popupContent += '<div class="d-flex gap-2">';
+                if (spot.qrz_url) {
+                    popupContent += `<a href="${spot.qrz_url}" target="_blank" class="btn btn-sm btn-primary">QRZ</a>`;
+                }
+                if (spot.locator_map_url) {
+                    popupContent += `<a href="${spot.locator_map_url}" target="_blank" class="btn btn-sm btn-secondary">Locator Map</a>`;
+                }
+                popupContent += '</div></div>';
+
+                marker.bindPopup(popupContent);
+
+                // Draw straight line from station to spot
+                if (station && station.lat && station.lon) {
+                    const line = L.polyline(
+                        [[station.lat, station.lon], [spot.lat, spot.lon]],
+                        {
+                            color: 'blue',
+                            weight: 2,
+                            opacity: 0.4
+                        }
+                    ).addTo(map);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error loading spots:', error);
+            document.getElementById('spots-info').innerHTML =
+                '<small class="text-danger">Fehler beim Laden der Daten.</small>';
+        });
+</script>
+{% endif %}
+{% endblock %}
