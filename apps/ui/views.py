@@ -326,3 +326,108 @@ def maidenhead_area_create(request):
     # GET request - redirect to modal view
     return maidenhead_area_create_modal(request)
 
+
+def propagation_map(request):
+    """Map view showing propagation with received spots on a map."""
+    from apps.ui.models import StationProfile
+
+    # Get filter parameters from request
+    period = request.GET.get('period')
+    dx_mode = request.GET.get('dx_mode') == 'true'
+    band = request.GET.get('band', '')
+
+    # Calculate date range based on period
+    filters = {}
+    if period:
+        now = timezone.now()
+        if period == 'today':
+            filters['date_from'] = now.date().isoformat()
+        elif period == '1h':
+            filters['datetime_from'] = (now - timedelta(hours=1)).isoformat()
+        elif period == '3h':
+            filters['datetime_from'] = (now - timedelta(hours=3)).isoformat()
+        elif period == '6h':
+            filters['datetime_from'] = (now - timedelta(hours=6)).isoformat()
+        elif period == '12h':
+            filters['datetime_from'] = (now - timedelta(hours=12)).isoformat()
+        elif period == '24h':
+            filters['datetime_from'] = (now - timedelta(hours=24)).isoformat()
+        elif period == '7d':
+            filters['date_from'] = (now - timedelta(days=7)).date().isoformat()
+        elif period == '30d':
+            filters['date_from'] = (now - timedelta(days=30)).date().isoformat()
+
+    # Get station profile
+    station_profile = StationProfile.objects.filter(is_default=True, is_active=True).first()
+
+    context = {
+        'station_profile': station_profile,
+        'period': period,
+        'dx_mode': dx_mode,
+        'band': band,
+    }
+
+    return render(request, 'map/index.html', context)
+
+
+def map_spots_api(request):
+    """API endpoint: Return spots data as JSON for map visualization."""
+    from apps.ui.models import StationProfile
+
+    stats_service = StatisticsService()
+
+    # Get filters from request
+    filters = {}
+    period = request.GET.get('period')
+
+    # Calculate date range based on period
+    if period:
+        now = timezone.now()
+        if period == 'today':
+            filters['date_from'] = now.date().isoformat()
+        elif period == '1h':
+            filters['datetime_from'] = (now - timedelta(hours=1)).isoformat()
+        elif period == '3h':
+            filters['datetime_from'] = (now - timedelta(hours=3)).isoformat()
+        elif period == '6h':
+            filters['datetime_from'] = (now - timedelta(hours=6)).isoformat()
+        elif period == '12h':
+            filters['datetime_from'] = (now - timedelta(hours=12)).isoformat()
+        elif period == '24h':
+            filters['datetime_from'] = (now - timedelta(hours=24)).isoformat()
+        elif period == '7d':
+            filters['date_from'] = (now - timedelta(days=7)).date().isoformat()
+        elif period == '30d':
+            filters['date_from'] = (now - timedelta(days=30)).date().isoformat()
+
+    # Apply DX filter if enabled
+    if request.GET.get('dx') == 'true':
+        filters['min_distance_km'] = 3000
+
+    # Apply band filter if provided
+    if band := request.GET.get('band'):
+        filters['band'] = band
+
+    # Get station profile
+    station_profile = StationProfile.objects.filter(is_default=True, is_active=True).first()
+
+    # Build response data
+    response_data = {
+        'station': None,
+        'spots': []
+    }
+
+    if station_profile:
+        response_data['station'] = {
+            'name': station_profile.name,
+            'callsign': station_profile.callsign or '',
+            'locator': station_profile.locator,
+            'lat': station_profile.latitude,
+            'lon': station_profile.longitude,
+        }
+
+        # Get spots data
+        response_data['spots'] = stats_service.get_map_spots(filters)
+
+    return JsonResponse(response_data)
+

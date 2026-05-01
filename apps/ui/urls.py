@@ -7,6 +7,10 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('dashboard/', views.dashboard, name='dashboard'),
 
+    # Map
+    path('map/', views.propagation_map, name='propagation-map'),
+    path('map/api/spots/', views.map_spots_api, name='map-spots-api'),
+
     # HTMX partials
     path('dashboard/partials/kpi-cards/', views.dashboard_kpi_cards, name='dashboard-kpi-cards'),
     path('dashboard/partials/activity-by-hour/', views.dashboard_activity_by_hour, name='dashboard-activity-by-hour'),
