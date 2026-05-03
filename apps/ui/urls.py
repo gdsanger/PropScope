@@ -29,4 +29,7 @@ urlpatterns = [
     # MaidenheadArea management
     path('dashboard/maidenhead-area/create-modal/', views.maidenhead_area_create_modal, name='maidenhead-area-create-modal'),
     path('dashboard/maidenhead-area/create/', views.maidenhead_area_create, name='maidenhead-area-create'),
+
+    # Station detail pages
+    path('stations/<str:callsign>/', views.station_detail, name='station-detail'),
 ]
