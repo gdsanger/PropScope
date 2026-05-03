@@ -22,6 +22,7 @@ class ParsedWsjtxLine:
     is_cq: bool = False
     callsign: Optional[str] = None
     locator: Optional[str] = None
+    cq_target: Optional[str] = None
 
 
 class WsjtxLineParser:
@@ -40,6 +41,12 @@ class WsjtxLineParser:
     |              +----------------------------------- Frequency
     +-------------------------------------------------- Timestamp (YYMMDD_HHMMSS)
     """
+
+    # CQ target prefixes that should be recognized
+    CQ_TARGETS = {
+        'DX', 'NA', 'SA', 'EU', 'AS', 'AF', 'OC',
+        'RU', 'JA', 'CA'
+    }
 
     # Pattern for standard ALL.TXT line
     LINE_PATTERN = re.compile(
@@ -102,7 +109,7 @@ class WsjtxLineParser:
             audio_frequency = int(audio_freq_str)
 
             # Check if this is a CQ message
-            is_cq, callsign, locator = self._parse_cq_message(message)
+            is_cq, callsign, locator, cq_target = self._parse_cq_message(message)
 
             return ParsedWsjtxLine(
                 timestamp=timestamp,
@@ -115,7 +122,8 @@ class WsjtxLineParser:
                 raw_line=line,
                 is_cq=is_cq,
                 callsign=callsign,
-                locator=locator
+                locator=locator,
+                cq_target=cq_target
             )
 
         except (ValueError, IndexError) as e:
@@ -141,22 +149,47 @@ class WsjtxLineParser:
         except ValueError:
             return None
 
-    def _parse_cq_message(self, message: str) -> tuple[bool, Optional[str], Optional[str]]:
+    def _parse_cq_message(self, message: str) -> tuple[bool, Optional[str], Optional[str], Optional[str]]:
         """
-        Parse a message to check if it's a CQ and extract callsign and locator.
+        Parse a message to check if it's a CQ and extract callsign, locator, and CQ target.
+
+        Handles CQ messages with optional target prefixes:
+        - CQ CALLSIGN LOCATOR
+        - CQ TARGET CALLSIGN LOCATOR
+
+        where TARGET can be: DX, NA, SA, EU, AS, AF, OC, RU, JA, CA
 
         Args:
             message: The decoded message
 
         Returns:
-            Tuple of (is_cq, callsign, locator)
+            Tuple of (is_cq, callsign, locator, cq_target)
         """
-        match = self.CQ_PATTERN.search(message)
-        if match:
-            callsign = match.group(1)
-            locator = match.group(2) if match.group(2) else None
-            return (True, callsign, locator)
-        return (False, None, None)
+        if not message.startswith('CQ '):
+            return (False, None, None, None)
+
+        # Split message into tokens
+        tokens = message.split()
+
+        if len(tokens) < 2:
+            return (False, None, None, None)
+
+        # Start parsing after "CQ"
+        index = 1
+        cq_target = None
+
+        # Check if next token is a CQ target prefix
+        if len(tokens) > index and tokens[index].upper() in self.CQ_TARGETS:
+            cq_target = tokens[index].upper()
+            index += 1
+
+        # Extract callsign (next token after CQ or CQ TARGET)
+        callsign = tokens[index] if len(tokens) > index else None
+
+        # Extract locator (token after callsign)
+        locator = tokens[index + 1] if len(tokens) > index + 1 else None
+
+        return (True, callsign, locator, cq_target)
 
     def is_cq_line(self, line: str) -> bool:
         """

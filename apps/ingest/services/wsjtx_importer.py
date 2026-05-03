@@ -229,6 +229,7 @@ class WsjtxLogImporter:
                     callsign_country=enriched.get('callsign_country'),
                     callsign_continent=enriched.get('callsign_continent'),
                     qrz_url=enriched.get('qrz_url'),
+                    cq_target=parsed.cq_target,
                     locator=parsed.locator,
                     locator_lat=enriched.get('locator_lat'),
                     locator_lon=enriched.get('locator_lon'),
