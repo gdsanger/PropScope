@@ -75,7 +75,8 @@ class GreylineService:
             List of (latitude, longitude) tuples representing the greyline
         """
         if timestamp is None:
-            timestamp = datetime.utcnow()
+            from datetime import timezone
+            timestamp = datetime.now(timezone.utc)
 
         # Calculate day of year
         day_of_year = timestamp.timetuple().tm_yday

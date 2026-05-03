@@ -494,7 +494,7 @@ def station_detail(request, callsign):
 def greyline_api(request):
     """API endpoint: Return greyline (day/night terminator) coordinates as JSON."""
     from apps.geo.services.greyline_service import GreylineService
-    from datetime import datetime
+    from datetime import datetime, timezone
 
     greyline_service = GreylineService()
 
@@ -511,7 +511,7 @@ def greyline_api(request):
             }, status=400)
     else:
         # Use current UTC time
-        timestamp = datetime.utcnow()
+        timestamp = datetime.now(timezone.utc)
 
     # Get optional resolution parameter (number of points)
     resolution = int(request.GET.get('resolution', 360))
