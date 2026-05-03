@@ -431,3 +431,63 @@ def map_spots_api(request):
 
     return JsonResponse(response_data)
 
+
+def station_detail(request, callsign):
+    """
+    Station detail view showing history and statistics for a specific callsign.
+
+    Args:
+        request: HTTP request
+        callsign: The callsign to display
+    """
+    stats_service = StatisticsService()
+
+    # Normalize callsign
+    from apps.callsign.services import CallsignService
+    callsign_service = CallsignService()
+    normalized_callsign = callsign_service.normalize_callsign(callsign)
+
+    # Get filter parameters from request (optional date range filter)
+    filters = _get_filters_from_request(request)
+
+    # Get station summary
+    summary = stats_service.get_station_summary(normalized_callsign, filters)
+
+    # Check if station has any signals
+    if summary['total_signals'] == 0:
+        context = {
+            'callsign': normalized_callsign,
+            'no_data': True,
+        }
+        return render(request, 'stations/detail.html', context)
+
+    # Get detailed statistics
+    snr_over_time = stats_service.get_station_snr_over_time(normalized_callsign, filters)
+    activity_by_hour = stats_service.get_station_activity_by_hour(normalized_callsign, filters)
+    snr_by_hour = stats_service.get_station_snr_by_hour(normalized_callsign, filters)
+    band_distribution = stats_service.get_station_band_distribution(normalized_callsign, filters)
+    recent_signals = stats_service.get_recent_signals_for_station(normalized_callsign, limit=50, filters=filters)
+
+    # Check if station has a KnownStation entry
+    known_station = None
+    try:
+        from apps.callsign.models import KnownStation
+        known_station = KnownStation.objects.get(callsign=normalized_callsign, is_active=True)
+    except:
+        pass
+
+    context = {
+        'callsign': normalized_callsign,
+        'summary': summary,
+        'snr_over_time': json.dumps(snr_over_time),
+        'activity_by_hour': json.dumps(activity_by_hour),
+        'snr_by_hour': json.dumps(snr_by_hour),
+        'band_distribution': json.dumps(band_distribution),
+        'recent_signals': recent_signals,
+        'known_station': known_station,
+        'no_data': False,
+    }
+
+    return render(request, 'stations/detail.html', context)
+
+

@@ -154,6 +154,62 @@ class SignalEnricher:
                     enriched['locator_continent'] = enriched['locator_continent_auto']
                     logger.debug(f"Using auto-detected continent: {enriched['locator_continent_auto']}")
 
+        # If no locator in the message, check KnownStation table
+        elif 'callsign' in enriched and enriched['callsign']:
+            callsign = enriched['callsign']
+            logger.debug(f"No locator in message for {callsign}, checking KnownStation table")
+
+            try:
+                from apps.callsign.models import KnownStation
+                # Look up normalized callsign
+                normalized_callsign = self.callsign_service.normalize_callsign(callsign)
+                known_station = KnownStation.objects.get(
+                    callsign=normalized_callsign,
+                    is_active=True
+                )
+
+                logger.info(f"Found KnownStation for {callsign}: {known_station.fixed_locator}")
+
+                # Use fixed locator from KnownStation
+                enriched['locator'] = known_station.fixed_locator
+                enriched['locator_lat'] = known_station.fixed_latitude
+                enriched['locator_lon'] = known_station.fixed_longitude
+
+                if known_station.country:
+                    enriched['locator_country'] = known_station.country
+                if known_station.continent:
+                    enriched['locator_continent'] = known_station.continent
+
+                # Calculate distance if station coordinates are available
+                if (self.station_lat is not None and self.station_lon is not None and
+                    known_station.fixed_latitude is not None and known_station.fixed_longitude is not None):
+                    distance = haversine_distance(
+                        self.station_lat, self.station_lon,
+                        known_station.fixed_latitude, known_station.fixed_longitude
+                    )
+                    enriched['distance_km'] = distance
+                    logger.debug(f"Distance calculated from KnownStation: {distance:.2f} km")
+
+                    # Calculate azimuth
+                    try:
+                        from apps.geo.services import MaidenheadService
+                        maidenhead_service = MaidenheadService()
+                        azimuth = maidenhead_service.calculate_azimuth(
+                            self.station_lat, self.station_lon,
+                            known_station.fixed_latitude, known_station.fixed_longitude
+                        )
+                        enriched['azimuth_deg'] = azimuth
+                        logger.debug(f"Azimuth calculated from KnownStation: {azimuth:.1f}°")
+                    except Exception as e:
+                        logger.warning(f"Failed to calculate azimuth from KnownStation: {e}")
+
+            except Exception as e:
+                # KnownStation not found or error - not a problem
+                if hasattr(e, '__class__') and e.__class__.__name__ == 'DoesNotExist':
+                    logger.debug(f"No active KnownStation entry for {callsign}")
+                else:
+                    logger.debug(f"Error looking up KnownStation for {callsign}: {e}")
+
         # Look up callsign prefix using CallsignService
         if 'callsign' in enriched and enriched['callsign']:
             country_info = self.callsign_service.detect_country(enriched['callsign'])

@@ -877,3 +877,273 @@ class StatisticsService:
                 })
 
         return spots
+
+    # ========== Station-specific statistics ==========
+
+    def get_station_summary(self, callsign: str, filters: dict | None = None) -> dict:
+        """
+        Get summary statistics for a specific station.
+
+        Args:
+            callsign: The callsign to analyze
+            filters: Optional additional filters (date range, band, etc.)
+
+        Returns:
+            Dict with station summary including:
+            - total_signals: Total number of received signals
+            - first_heard: First time this station was heard
+            - last_heard: Last time this station was heard
+            - avg_snr: Average SNR
+            - max_snr: Maximum SNR
+            - min_snr: Minimum SNR
+            - avg_distance_km: Average distance
+            - max_distance_km: Maximum distance
+            - unique_bands: Number of unique bands
+            - unique_locators: Number of unique locators
+        """
+        # Start with base filters
+        if filters is None:
+            filters = {}
+
+        # Add callsign filter
+        station_filters = filters.copy()
+        station_filters['callsign'] = callsign
+
+        queryset = self._apply_filters(HeardSignal.objects.all(), station_filters)
+
+        if not queryset.exists():
+            return {
+                'callsign': callsign,
+                'total_signals': 0,
+                'first_heard': None,
+                'last_heard': None,
+                'avg_snr': None,
+                'max_snr': None,
+                'min_snr': None,
+                'avg_distance_km': None,
+                'max_distance_km': None,
+                'unique_bands': 0,
+                'unique_locators': 0,
+            }
+
+        # Aggregate statistics
+        stats = queryset.aggregate(
+            total_signals=Count('id'),
+            first_heard=Min('timestamp'),
+            last_heard=Max('timestamp'),
+            avg_snr=Avg('snr'),
+            max_snr=Max('snr'),
+            min_snr=Min('snr'),
+            avg_distance_km=Avg('distance_km'),
+            max_distance_km=Max('distance_km'),
+            unique_bands=Count('band', distinct=True),
+            unique_locators=Count('locator', distinct=True),
+        )
+
+        # Get the most recent signal for additional info
+        latest_signal = queryset.order_by('-timestamp').first()
+
+        return {
+            'callsign': callsign,
+            'total_signals': stats['total_signals'],
+            'first_heard': stats['first_heard'],
+            'last_heard': stats['last_heard'],
+            'avg_snr': round(stats['avg_snr'], 1) if stats['avg_snr'] is not None else None,
+            'max_snr': stats['max_snr'],
+            'min_snr': stats['min_snr'],
+            'avg_distance_km': round(stats['avg_distance_km'], 1) if stats['avg_distance_km'] is not None else None,
+            'max_distance_km': round(stats['max_distance_km'], 1) if stats['max_distance_km'] is not None else None,
+            'unique_bands': stats['unique_bands'],
+            'unique_locators': stats['unique_locators'],
+            'qrz_url': latest_signal.qrz_url if latest_signal else None,
+            'locator': latest_signal.locator if latest_signal else None,
+            'locator_country': latest_signal.locator_country if latest_signal else None,
+            'locator_continent': latest_signal.locator_continent if latest_signal else None,
+            'callsign_country': latest_signal.callsign_country if latest_signal else None,
+            'callsign_continent': latest_signal.callsign_continent if latest_signal else None,
+        }
+
+    def get_station_snr_over_time(self, callsign: str, filters: dict | None = None) -> list[dict]:
+        """
+        Get SNR values over time for a specific station.
+
+        Args:
+            callsign: The callsign to analyze
+            filters: Optional additional filters
+
+        Returns:
+            List of dicts with timestamp and snr
+        """
+        if filters is None:
+            filters = {}
+
+        station_filters = filters.copy()
+        station_filters['callsign'] = callsign
+
+        queryset = self._apply_filters(HeardSignal.objects.all(), station_filters)
+        queryset = queryset.order_by('timestamp')
+
+        return [
+            {
+                'timestamp': signal.timestamp.isoformat(),
+                'snr': signal.snr,
+                'band': signal.band,
+            }
+            for signal in queryset
+        ]
+
+    def get_station_activity_by_hour(self, callsign: str, filters: dict | None = None) -> list[dict]:
+        """
+        Get signal count by hour of day for a specific station.
+
+        Args:
+            callsign: The callsign to analyze
+            filters: Optional additional filters
+
+        Returns:
+            List of dicts with hour (0-23) and count
+        """
+        if filters is None:
+            filters = {}
+
+        station_filters = filters.copy()
+        station_filters['callsign'] = callsign
+
+        queryset = self._apply_filters(HeardSignal.objects.all(), station_filters)
+
+        # Aggregate by hour
+        rows = (
+            queryset
+            .annotate(hour=ExtractHour('timestamp'))
+            .values('hour')
+            .annotate(count=Count('id'))
+            .order_by('hour')
+        )
+
+        # Initialize all hours with 0
+        result = [{'hour': h, 'count': 0} for h in range(24)]
+
+        # Fill in actual counts
+        for row in rows:
+            hour = row['hour']
+            if 0 <= hour < 24:
+                result[hour]['count'] = row['count']
+
+        return result
+
+    def get_station_snr_by_hour(self, callsign: str, filters: dict | None = None) -> list[dict]:
+        """
+        Get average SNR by hour of day for a specific station.
+
+        Args:
+            callsign: The callsign to analyze
+            filters: Optional additional filters
+
+        Returns:
+            List of dicts with hour (0-23), avg_snr, and count
+        """
+        if filters is None:
+            filters = {}
+
+        station_filters = filters.copy()
+        station_filters['callsign'] = callsign
+
+        queryset = self._apply_filters(HeardSignal.objects.all(), station_filters)
+
+        # Aggregate by hour
+        rows = (
+            queryset
+            .annotate(hour=ExtractHour('timestamp'))
+            .values('hour')
+            .annotate(
+                avg_snr=Avg('snr'),
+                count=Count('id')
+            )
+            .order_by('hour')
+        )
+
+        # Initialize all hours with 0
+        result = [{'hour': h, 'avg_snr': None, 'count': 0} for h in range(24)]
+
+        # Fill in actual values
+        for row in rows:
+            hour = row['hour']
+            if 0 <= hour < 24:
+                result[hour]['avg_snr'] = round(row['avg_snr'], 1) if row['avg_snr'] is not None else None
+                result[hour]['count'] = row['count']
+
+        return result
+
+    def get_station_band_distribution(self, callsign: str, filters: dict | None = None) -> list[dict]:
+        """
+        Get signal count by band for a specific station.
+
+        Args:
+            callsign: The callsign to analyze
+            filters: Optional additional filters
+
+        Returns:
+            List of dicts with band, count, avg_snr, sorted by count descending
+        """
+        if filters is None:
+            filters = {}
+
+        station_filters = filters.copy()
+        station_filters['callsign'] = callsign
+
+        queryset = self._apply_filters(HeardSignal.objects.all(), station_filters)
+
+        rows = (
+            queryset
+            .values('band')
+            .annotate(
+                count=Count('id'),
+                avg_snr=Avg('snr')
+            )
+            .order_by('-count')
+        )
+
+        return [
+            {
+                'band': row['band'],
+                'count': row['count'],
+                'avg_snr': round(row['avg_snr'], 1) if row['avg_snr'] is not None else None,
+            }
+            for row in rows
+        ]
+
+    def get_recent_signals_for_station(self, callsign: str, limit: int = 50, filters: dict | None = None) -> list[dict]:
+        """
+        Get recent signals for a specific station.
+
+        Args:
+            callsign: The callsign to analyze
+            limit: Maximum number of signals to return
+            filters: Optional additional filters
+
+        Returns:
+            List of dicts with signal information
+        """
+        if filters is None:
+            filters = {}
+
+        station_filters = filters.copy()
+        station_filters['callsign'] = callsign
+
+        queryset = self._apply_filters(HeardSignal.objects.all(), station_filters)
+        queryset = queryset.order_by('-timestamp')[:limit]
+
+        return [
+            {
+                'timestamp': signal.timestamp.isoformat(),
+                'band': signal.band,
+                'mode': signal.mode,
+                'snr': signal.snr,
+                'locator': signal.locator,
+                'distance_km': round(signal.distance_km, 1) if signal.distance_km is not None else None,
+                'azimuth_deg': round(signal.azimuth_deg, 1) if signal.azimuth_deg is not None else None,
+                'raw_message': signal.raw_message,
+            }
+            for signal in queryset
+        ]
+

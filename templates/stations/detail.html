@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+
+{% block title %}{{ callsign }} - PropScope{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1>📻 {{ callsign }}</h1>
+
+            {% if no_data %}
+                <div class="alert alert-info">
+                    <strong>Keine Daten vorhanden</strong><br>
+                    Für dieses Rufzeichen wurden noch keine Signale empfangen.
+                </div>
+                <a href="{% url 'ui:dashboard' %}" class="btn btn-secondary">Zurück zum Dashboard</a>
+            {% else %}
+                <!-- Station Info Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Rufzeichen</h6>
+                                <h4 class="card-title">{{ callsign }}</h4>
+                                {% if summary.qrz_url %}
+                                    <a href="{{ summary.qrz_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                        QRZ.com <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Locator</h6>
+                                <h4 class="card-title">
+                                    {% if summary.locator %}
+                                        {{ summary.locator }}
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </h4>
+                                {% if summary.locator_country %}
+                                    <p class="mb-0 small">{{ summary.locator_country }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Entfernung</h6>
+                                <h4 class="card-title">
+                                    {% if summary.max_distance_km %}
+                                        {{ summary.max_distance_km|floatformat:0 }} km
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </h4>
+                                {% if summary.avg_distance_km %}
+                                    <p class="mb-0 small">Ø {{ summary.avg_distance_km|floatformat:0 }} km</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted">Signale</h6>
+                                <h4 class="card-title">{{ summary.total_signals }}</h4>
+                                <p class="mb-0 small">
+                                    {% if summary.first_heard %}
+                                        Erstmals: {{ summary.first_heard|date:"d.m.Y H:i" }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h6 class="text-muted mb-1">Zuletzt empfangen</h6>
+                                        <p>{{ summary.last_heard|date:"d.m.Y H:i" }} UTC</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h6 class="text-muted mb-1">SNR-Bereich</h6>
+                                        <p>{{ summary.min_snr }} dB bis {{ summary.max_snr }} dB (Ø {{ summary.avg_snr }} dB)</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h6 class="text-muted mb-1">Bänder</h6>
+                                        <p>{{ summary.unique_bands }} unterschiedliche Bänder</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h6 class="text-muted mb-1">Locators</h6>
+                                        <p>{{ summary.unique_locators }} unterschiedliche Locators</p>
+                                    </div>
+                                </div>
+
+                                {% if known_station %}
+                                    <div class="alert alert-info mb-0 mt-3">
+                                        <strong>📍 Known Station</strong><br>
+                                        Dieser Station wurde ein fester Locator zugeordnet: <strong>{{ known_station.fixed_locator }}</strong>
+                                        {% if known_station.notes %}
+                                            <br><small>{{ known_station.notes }}</small>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="row mb-4">
+                    <!-- SNR over Time -->
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>SNR über Zeit</h5>
+                            </div>
+                            <div class="card-body">
+                                <div style="position: relative; height: 300px;">
+                                    <canvas id="snrOverTimeChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <!-- Activity by Hour -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Empfänge nach Stunde (UTC)</h5>
+                            </div>
+                            <div class="card-body">
+                                <div style="position: relative; height: 300px;">
+                                    <canvas id="activityByHourChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SNR by Hour -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Durchschnittlicher SNR nach Stunde (UTC)</h5>
+                            </div>
+                            <div class="card-body">
+                                <div style="position: relative; height: 300px;">
+                                    <canvas id="snrByHourChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <!-- Band Distribution -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Bandverteilung</h5>
+                            </div>
+                            <div class="card-body">
+                                <div style="position: relative; height: 300px;">
+                                    <canvas id="bandDistributionChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Signals Table -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Letzte Empfänge</h5>
+                            </div>
+                            <div class="card-body" style="max-height: 350px; overflow-y: auto;">
+                                <table class="table table-sm table-hover">
+                                    <thead class="table-light sticky-top">
+                                        <tr>
+                                            <th>Zeit</th>
+                                            <th>Band</th>
+                                            <th>SNR</th>
+                                            <th>Locator</th>
+                                            <th>Entf.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for signal in recent_signals %}
+                                        <tr>
+                                            <td><small>{{ signal.timestamp|slice:":19" }}</small></td>
+                                            <td>{{ signal.band }}</td>
+                                            <td>{{ signal.snr }} dB</td>
+                                            <td>{{ signal.locator|default:"-" }}</td>
+                                            <td>
+                                                {% if signal.distance_km %}
+                                                    {{ signal.distance_km|floatformat:0 }} km
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{% url 'ui:dashboard' %}" class="btn btn-secondary mb-4">Zurück zum Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if not no_data %}
+<script>
+    // SNR Over Time Chart
+    const snrOverTimeData = {{ snr_over_time|safe }};
+    const snrOverTimeCtx = document.getElementById('snrOverTimeChart').getContext('2d');
+    new Chart(snrOverTimeCtx, {
+        type: 'line',
+        data: {
+            labels: snrOverTimeData.map(d => new Date(d.timestamp).toLocaleString('de-DE', {
+                day: '2-digit',
+                month: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            })),
+            datasets: [{
+                label: 'SNR (dB)',
+                data: snrOverTimeData.map(d => d.snr),
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                tension: 0.1,
+                pointRadius: 2,
+                pointHoverRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45,
+                        maxTicksLimit: 20
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'SNR (dB)'
+                    }
+                }
+            }
+        }
+    });
+
+    // Activity by Hour Chart
+    const activityByHourData = {{ activity_by_hour|safe }};
+    const activityByHourCtx = document.getElementById('activityByHourChart').getContext('2d');
+    new Chart(activityByHourCtx, {
+        type: 'bar',
+        data: {
+            labels: activityByHourData.map(d => d.hour + ':00'),
+            datasets: [{
+                label: 'Anzahl Empfänge',
+                data: activityByHourData.map(d => d.count),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgb(54, 162, 235)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Anzahl'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Stunde (UTC)'
+                    }
+                }
+            }
+        }
+    });
+
+    // SNR by Hour Chart
+    const snrByHourData = {{ snr_by_hour|safe }};
+    const snrByHourCtx = document.getElementById('snrByHourChart').getContext('2d');
+    new Chart(snrByHourCtx, {
+        type: 'line',
+        data: {
+            labels: snrByHourData.map(d => d.hour + ':00'),
+            datasets: [{
+                label: 'Durchschnittlicher SNR (dB)',
+                data: snrByHourData.map(d => d.avg_snr),
+                borderColor: 'rgb(255, 159, 64)',
+                backgroundColor: 'rgba(255, 159, 64, 0.1)',
+                tension: 0.1,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'SNR (dB)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Stunde (UTC)'
+                    }
+                }
+            }
+        }
+    });
+
+    // Band Distribution Chart
+    const bandDistributionData = {{ band_distribution|safe }};
+    const bandDistributionCtx = document.getElementById('bandDistributionChart').getContext('2d');
+    new Chart(bandDistributionCtx, {
+        type: 'doughnut',
+        data: {
+            labels: bandDistributionData.map(d => d.band),
+            datasets: [{
+                label: 'Anzahl Empfänge',
+                data: bandDistributionData.map(d => d.count),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right'
+                }
+            }
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}
