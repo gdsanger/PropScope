@@ -423,6 +423,154 @@ class WsjtxLineParserTests(TestCase):
         self.assertIsNone(self.parser._parse_timestamp("26-04-28_145500"))
         self.assertIsNone(self.parser._parse_timestamp("260428145500"))  # Missing underscore
 
+    def test_parse_cq_without_target(self):
+        """Test parsing CQ message without target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ BG7BUM OM67")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "BG7BUM")
+        self.assertEqual(locator, "OM67")
+        self.assertIsNone(cq_target)
+
+    def test_parse_cq_with_na_target(self):
+        """Test parsing CQ message with NA target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ NA BG7BUM OM67")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "BG7BUM")
+        self.assertEqual(locator, "OM67")
+        self.assertEqual(cq_target, "NA")
+
+    def test_parse_cq_with_dx_target(self):
+        """Test parsing CQ message with DX target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ DX BG7BUM OM67")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "BG7BUM")
+        self.assertEqual(locator, "OM67")
+        self.assertEqual(cq_target, "DX")
+
+    def test_parse_cq_with_eu_target(self):
+        """Test parsing CQ message with EU target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ EU DL1ABC JN68")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "DL1ABC")
+        self.assertEqual(locator, "JN68")
+        self.assertEqual(cq_target, "EU")
+
+    def test_parse_cq_with_as_target(self):
+        """Test parsing CQ message with AS target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ AS BG7BUM OM67")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "BG7BUM")
+        self.assertEqual(locator, "OM67")
+        self.assertEqual(cq_target, "AS")
+
+    def test_parse_cq_with_ru_target(self):
+        """Test parsing CQ message with RU target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ RU R0ABC NO56")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "R0ABC")
+        self.assertEqual(locator, "NO56")
+        self.assertEqual(cq_target, "RU")
+
+    def test_parse_cq_with_ja_target(self):
+        """Test parsing CQ message with JA target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ JA JH1CCN PM95")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "JH1CCN")
+        self.assertEqual(locator, "PM95")
+        self.assertEqual(cq_target, "JA")
+
+    def test_parse_cq_with_ca_target(self):
+        """Test parsing CQ message with CA target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ CA VE7ABC CN89")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "VE7ABC")
+        self.assertEqual(locator, "CN89")
+        self.assertEqual(cq_target, "CA")
+
+    def test_parse_cq_with_sa_target(self):
+        """Test parsing CQ message with SA target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ SA PY1ABC GG66")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "PY1ABC")
+        self.assertEqual(locator, "GG66")
+        self.assertEqual(cq_target, "SA")
+
+    def test_parse_cq_with_af_target(self):
+        """Test parsing CQ message with AF target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ AF ZS1ABC KG44")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "ZS1ABC")
+        self.assertEqual(locator, "KG44")
+        self.assertEqual(cq_target, "AF")
+
+    def test_parse_cq_with_oc_target(self):
+        """Test parsing CQ message with OC target prefix."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ OC VK2ABC QF56")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "VK2ABC")
+        self.assertEqual(locator, "QF56")
+        self.assertEqual(cq_target, "OC")
+
+    def test_parse_cq_with_target_no_locator(self):
+        """Test parsing CQ message with target but no locator."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ DX BG7BUM")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "BG7BUM")
+        self.assertIsNone(locator)
+        self.assertEqual(cq_target, "DX")
+
+    def test_parse_cq_without_target_no_locator(self):
+        """Test parsing CQ message without target and no locator."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ BG7BUM")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "BG7BUM")
+        self.assertIsNone(locator)
+        self.assertIsNone(cq_target)
+
+    def test_parse_cq_full_line_with_na_target(self):
+        """Test parsing full line with NA target prefix."""
+        line = "151700 -12  0.0 1698 ~  CQ NA BG7BUM OM67"
+        # This will fail to parse with LINE_PATTERN (doesn't have proper WSJT-X format)
+        # Let's use proper format
+        line = "260419_185200     7.074 Rx FT8    -19  0.3 1133 CQ NA BG7BUM OM67"
+        parsed = self.parser.parse_line(line)
+
+        self.assertIsNotNone(parsed)
+        self.assertTrue(parsed.is_cq)
+        self.assertEqual(parsed.callsign, "BG7BUM")
+        self.assertEqual(parsed.locator, "OM67")
+        self.assertEqual(parsed.cq_target, "NA")
+
+    def test_parse_cq_lowercase_target_normalized_to_uppercase(self):
+        """Test that lowercase target prefix is normalized to uppercase."""
+        # The parser is case-insensitive for CQ targets
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ na BG7BUM OM67")
+        self.assertTrue(is_cq)
+        self.assertEqual(callsign, "BG7BUM")
+        self.assertEqual(locator, "OM67")
+        self.assertEqual(cq_target, "NA")  # Normalized to uppercase
+
+    def test_cq_targets_set_contains_expected_values(self):
+        """Test that CQ_TARGETS set contains all expected target prefixes."""
+        expected_targets = {'DX', 'NA', 'SA', 'EU', 'AS', 'AF', 'OC', 'RU', 'JA', 'CA'}
+        self.assertEqual(self.parser.CQ_TARGETS, expected_targets)
+
+    def test_parse_non_cq_message_returns_false(self):
+        """Test that non-CQ messages return False for is_cq."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("DL1ABC K1XYZ RR73")
+        self.assertFalse(is_cq)
+        self.assertIsNone(callsign)
+        self.assertIsNone(locator)
+        self.assertIsNone(cq_target)
+
+    def test_parse_cq_only_returns_false(self):
+        """Test that message with only 'CQ' returns False."""
+        is_cq, callsign, locator, cq_target = self.parser._parse_cq_message("CQ")
+        self.assertFalse(is_cq)
+        self.assertIsNone(callsign)
+        self.assertIsNone(locator)
+        self.assertIsNone(cq_target)
+
 
 class MaidenheadUtilsTests(TestCase):
     """Tests for Maidenhead locator utilities."""
