@@ -1,8 +1,482 @@
-cp: /Users/admin/Documents/wsjt-x/ALL.TXT: Operation not permitted
-cp: /Users/admin/Documents/wsjt-x/ALL.TXT: Operation not permitted
-cp: /Users/admin/Documents/wsjt-x/ALL.TXT: Operation not permitted
-cp: /Users/admin/Documents/wsjt-x/ALL.TXT: Operation not permitted
-cp: /Users/admin/Documents/wsjt-x/ALL.TXT: Operation not permitted
-cp: /Users/admin/PropScope/data/wsjt-x/ALL.TXT: No such file or directory
-cp: /Users/admin/PropScope/data/wsjt-x/ALL.TXT: No such file or directory
-cp: /Users/admin/PropScope/data/wsjt-x/ALL.TXT: No such file or directory
+INFO 2026-05-02 20:50:52,549 Starting GeoService geodata loading process
+INFO 2026-05-02 20:50:53,185 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 20:50:54,062 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 20:50:54,062 GeoService initialized successfully
+INFO 2026-05-02 20:50:54,069 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:50:54,070 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 20:50:54,070 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 20:50:54,072 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:50:54,110 Match FOUND for (40.5, -3): country=Spain, continent=Europe
+INFO 2026-05-02 20:50:54,110 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 20:50:54,110 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 20:50:54,111 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 20:50:54,147 Match FOUND for (38.5, -1): country=Spain, continent=Europe
+INFO 2026-05-02 20:50:54,147 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 20:50:54,148 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 20:50:54,149 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 20:50:54,180 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 20:50:54,180 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 20:50:54,181 MaidenheadArea found for IN80: country=Spain, continent=Europe
+WARNING 2026-05-02 20:50:54,190 Invalid locator format: LA1SDX - Invalid locator format: LA1SDX
+INFO 2026-05-02 20:50:54,203 Match FOUND for (52.5, 5): country=Netherlands, continent=Europe
+INFO 2026-05-02 20:50:54,203 GeoService detected country: Netherlands for locator JO22
+INFO 2026-05-02 20:50:54,203 GeoService detected continent: Europe for locator JO22
+INFO 2026-05-02 20:50:54,205 MaidenheadArea found for JO22: country=Netherlands, continent=Europe
+INFO 2026-05-02 20:50:54,233 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 20:50:54,233 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 20:50:54,234 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:50:54,253 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 20:50:54,253 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 20:50:54,254 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 20:50:54,263 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 20:50:54,263 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 20:50:54,264 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 20:50:54,278 Match FOUND for (67.5, 33): country=Russia, continent=Europe
+INFO 2026-05-02 20:50:54,279 GeoService detected country: Russia for locator KP67
+INFO 2026-05-02 20:50:54,279 GeoService detected continent: Europe for locator KP67
+INFO 2026-05-02 20:50:54,281 MaidenheadArea found for KP67: country=Russia, continent=Europe
+INFO 2026-05-02 20:50:54,296 Match FOUND for (46.5, 15): country=Slovenia, continent=Europe
+INFO 2026-05-02 20:50:54,296 GeoService detected country: Slovenia for locator JN76
+INFO 2026-05-02 20:50:54,296 GeoService detected continent: Europe for locator JN76
+INFO 2026-05-02 20:50:54,297 MaidenheadArea found for JN76: country=Slovenia, continent=Europe
+INFO 2026-05-02 20:50:54,306 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 20:50:54,306 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 20:50:54,307 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 20:50:54,323 Match FOUND for (19.5, 73): country=India, continent=Asia
+INFO 2026-05-02 20:50:54,324 GeoService detected country: India for locator MK69
+INFO 2026-05-02 20:50:54,324 GeoService detected continent: Asia for locator MK69
+INFO 2026-05-02 20:50:54,325 MaidenheadArea found for MK69: country=India, continent=Asia
+INFO 2026-05-02 20:50:54,340 Match FOUND for (52.5, -3): country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:50:54,340 GeoService detected country: United Kingdom for locator IO82
+INFO 2026-05-02 20:50:54,340 GeoService detected continent: Europe for locator IO82
+INFO 2026-05-02 20:50:54,342 MaidenheadArea found for IO82: country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:51:55,283 Starting GeoService geodata loading process
+INFO 2026-05-02 20:51:55,914 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 20:51:56,894 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 20:51:56,895 GeoService initialized successfully
+INFO 2026-05-02 20:51:56,903 Match FOUND for (48.5, 7): country=France, continent=Europe
+INFO 2026-05-02 20:51:56,904 GeoService detected country: France for locator JN38
+INFO 2026-05-02 20:51:56,904 GeoService detected continent: Europe for locator JN38
+INFO 2026-05-02 20:51:56,907 MaidenheadArea found for JN38: country=France, continent=Europe
+INFO 2026-05-02 20:51:56,936 Match FOUND for (52.5, -3): country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:51:56,937 GeoService detected country: United Kingdom for locator IO82
+INFO 2026-05-02 20:51:56,937 GeoService detected continent: Europe for locator IO82
+INFO 2026-05-02 20:51:56,939 MaidenheadArea found for IO82: country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:51:56,965 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:51:56,966 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 20:51:56,966 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 20:51:56,967 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:51:57,040 Match FOUND for (19.5, 73): country=India, continent=Asia
+INFO 2026-05-02 20:51:57,040 GeoService detected country: India for locator MK69
+INFO 2026-05-02 20:51:57,041 GeoService detected continent: Asia for locator MK69
+INFO 2026-05-02 20:51:57,042 MaidenheadArea found for MK69: country=India, continent=Asia
+INFO 2026-05-02 20:51:57,078 Match FOUND for (38.5, -1): country=Spain, continent=Europe
+INFO 2026-05-02 20:51:57,079 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 20:51:57,079 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 20:51:57,081 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 20:51:57,111 Match FOUND for (48.5, 17): country=Slovakia, continent=Europe
+INFO 2026-05-02 20:51:57,112 GeoService detected country: Slovakia for locator JN88
+INFO 2026-05-02 20:51:57,112 GeoService detected continent: Europe for locator JN88
+INFO 2026-05-02 20:51:57,113 MaidenheadArea found for JN88: country=Slovakia, continent=Europe
+INFO 2026-05-02 20:51:57,135 Match FOUND for (40.5, -3): country=Spain, continent=Europe
+INFO 2026-05-02 20:51:57,136 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 20:51:57,136 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 20:51:57,137 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 20:51:57,168 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 20:51:57,168 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 20:51:57,169 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 20:51:57,182 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 20:51:57,182 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 20:51:57,184 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:51:57,247 No match for (25.5, 55) - likely ocean or unmapped area
+INFO 2026-05-02 20:51:57,248 GeoService returned None for country (locator LL75)
+INFO 2026-05-02 20:51:57,248 GeoService returned None for continent (locator LL75)
+INFO 2026-05-02 20:51:57,250 MaidenheadArea found for LL75: country=Saudi Arabia, continent=Asia
+INFO 2026-05-02 20:51:57,264 GeoService detected country: India for locator MK69
+INFO 2026-05-02 20:51:57,265 GeoService detected continent: Asia for locator MK69
+INFO 2026-05-02 20:51:57,267 MaidenheadArea found for MK69: country=India, continent=Asia
+INFO 2026-05-02 20:51:57,292 No match for (55.5, -5) - likely ocean or unmapped area
+INFO 2026-05-02 20:51:57,292 GeoService returned None for country (locator IO75)
+INFO 2026-05-02 20:51:57,292 GeoService returned None for continent (locator IO75)
+INFO 2026-05-02 20:52:58,883 Starting GeoService geodata loading process
+INFO 2026-05-02 20:52:59,721 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 20:53:00,887 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 20:53:00,888 GeoService initialized successfully
+INFO 2026-05-02 20:53:00,898 Match FOUND for (38.5, -1): country=Spain, continent=Europe
+INFO 2026-05-02 20:53:00,898 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 20:53:00,899 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 20:53:00,900 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 20:53:00,915 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:53:00,915 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 20:53:00,916 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 20:53:00,917 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:53:00,938 Match FOUND for (43.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:53:00,938 GeoService detected country: Bosnia and Herz. for locator JN93
+INFO 2026-05-02 20:53:00,938 GeoService detected continent: Europe for locator JN93
+INFO 2026-05-02 20:53:00,939 MaidenheadArea found for JN93: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:53:00,950 No match for (41.5, 3) - likely ocean or unmapped area
+INFO 2026-05-02 20:53:00,950 GeoService returned None for country (locator JN11)
+INFO 2026-05-02 20:53:00,950 GeoService returned None for continent (locator JN11)
+INFO 2026-05-02 20:53:00,951 MaidenheadArea found for JN11: country=Barcelona/Spanien, continent=Europe
+INFO 2026-05-02 20:53:00,979 Match FOUND for (40.5, -3): country=Spain, continent=Europe
+INFO 2026-05-02 20:53:00,979 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 20:53:00,979 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 20:53:00,980 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 20:53:01,032 No match for (55.5, -5) - likely ocean or unmapped area
+INFO 2026-05-02 20:53:01,032 GeoService returned None for country (locator IO75)
+INFO 2026-05-02 20:53:01,032 GeoService returned None for continent (locator IO75)
+INFO 2026-05-02 20:53:01,058 Match FOUND for (51.5, -3): country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:53:01,059 GeoService detected country: United Kingdom for locator IO81
+INFO 2026-05-02 20:53:01,059 GeoService detected continent: Europe for locator IO81
+INFO 2026-05-02 20:53:01,060 MaidenheadArea found for IO81: country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:53:01,071 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 20:53:01,071 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 20:53:01,072 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 20:53:01,088 Match FOUND for (52.5, 5): country=Netherlands, continent=Europe
+INFO 2026-05-02 20:53:01,088 GeoService detected country: Netherlands for locator JO22
+INFO 2026-05-02 20:53:01,088 GeoService detected continent: Europe for locator JO22
+INFO 2026-05-02 20:53:01,089 MaidenheadArea found for JO22: country=Netherlands, continent=Europe
+INFO 2026-05-02 20:53:01,105 Match FOUND for (47.5, 37): country=Ukraine, continent=Europe
+INFO 2026-05-02 20:53:01,105 GeoService detected country: Ukraine for locator KN87
+INFO 2026-05-02 20:53:01,105 GeoService detected continent: Europe for locator KN87
+INFO 2026-05-02 20:53:01,107 MaidenheadArea found for KN87: country=Ukraine, continent=Europe
+INFO 2026-05-02 20:53:01,121 Match FOUND for (52.5, -3): country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:53:01,122 GeoService detected country: United Kingdom for locator IO82
+INFO 2026-05-02 20:53:01,122 GeoService detected continent: Europe for locator IO82
+INFO 2026-05-02 20:53:01,123 MaidenheadArea found for IO82: country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:53:01,133 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 20:53:01,133 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 20:53:01,134 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 20:53:01,144 GeoService detected country: Bosnia and Herz. for locator JN93
+INFO 2026-05-02 20:53:01,144 GeoService detected continent: Europe for locator JN93
+INFO 2026-05-02 20:53:01,145 MaidenheadArea found for JN93: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 20:53:01,176 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 20:53:01,176 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 20:53:01,177 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 20:53:01,192 GeoService returned None for country (locator JN11)
+INFO 2026-05-02 20:53:01,192 GeoService returned None for continent (locator JN11)
+INFO 2026-05-02 20:53:01,193 MaidenheadArea found for JN11: country=Barcelona/Spanien, continent=Europe
+INFO 2026-05-02 20:53:01,231 Match FOUND for (40.5, 15): country=Italy, continent=Europe
+INFO 2026-05-02 20:53:01,231 GeoService detected country: Italy for locator JN70
+INFO 2026-05-02 20:53:01,231 GeoService detected continent: Europe for locator JN70
+INFO 2026-05-02 20:53:01,232 MaidenheadArea found for JN70: country=Italy, continent=Europe
+INFO 2026-05-02 20:53:01,244 GeoService detected country: United Kingdom for locator IO82
+INFO 2026-05-02 20:53:01,244 GeoService detected continent: Europe for locator IO82
+INFO 2026-05-02 20:53:01,245 MaidenheadArea found for IO82: country=United Kingdom, continent=Europe
+INFO 2026-05-02 20:53:01,291 Match FOUND for (48.5, 17): country=Slovakia, continent=Europe
+INFO 2026-05-02 20:53:01,291 GeoService detected country: Slovakia for locator JN88
+INFO 2026-05-02 20:53:01,291 GeoService detected continent: Europe for locator JN88
+INFO 2026-05-02 20:53:01,292 MaidenheadArea found for JN88: country=Slovakia, continent=Europe
+INFO 2026-05-02 20:53:01,303 GeoService detected country: Ukraine for locator KN87
+INFO 2026-05-02 20:53:01,303 GeoService detected continent: Europe for locator KN87
+INFO 2026-05-02 20:53:01,304 MaidenheadArea found for KN87: country=Ukraine, continent=Europe
+INFO 2026-05-02 20:54:02,279 Starting GeoService geodata loading process
+INFO 2026-05-02 20:54:02,985 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 20:54:03,912 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 20:54:03,913 GeoService initialized successfully
+INFO 2026-05-02 20:54:03,920 Match FOUND for (48.5, 7): country=France, continent=Europe
+INFO 2026-05-02 20:54:03,921 GeoService detected country: France for locator JN38
+INFO 2026-05-02 20:54:03,921 GeoService detected continent: Europe for locator JN38
+INFO 2026-05-02 20:54:03,923 MaidenheadArea found for JN38: country=France, continent=Europe
+WARNING 2026-05-02 20:57:06,993 Invalid locator format: GM0DEQ - Invalid locator format: GM0DEQ
+INFO 2026-05-02 21:01:10,125 Starting GeoService geodata loading process
+INFO 2026-05-02 21:01:10,775 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 21:01:11,647 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 21:01:11,648 GeoService initialized successfully
+INFO 2026-05-02 21:01:11,655 Match FOUND for (52.5, 5): country=Netherlands, continent=Europe
+INFO 2026-05-02 21:01:11,655 GeoService detected country: Netherlands for locator JO22
+INFO 2026-05-02 21:01:11,656 GeoService detected continent: Europe for locator JO22
+INFO 2026-05-02 21:01:11,658 MaidenheadArea found for JO22: country=Netherlands, continent=Europe
+INFO 2026-05-02 21:02:12,521 Starting GeoService geodata loading process
+INFO 2026-05-02 21:02:12,947 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 21:02:13,790 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 21:02:13,791 GeoService initialized successfully
+INFO 2026-05-02 21:02:13,797 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:02:13,797 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 21:02:13,797 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 21:02:13,799 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:03:14,619 Starting GeoService geodata loading process
+INFO 2026-05-02 21:03:15,091 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 21:03:15,706 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 21:03:15,707 GeoService initialized successfully
+INFO 2026-05-02 21:03:15,712 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:03:15,713 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 21:03:15,713 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 21:03:15,715 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:03:15,736 Match FOUND for (42.5, 13): country=Italy, continent=Europe
+INFO 2026-05-02 21:03:15,736 GeoService detected country: Italy for locator JN62
+INFO 2026-05-02 21:03:15,736 GeoService detected continent: Europe for locator JN62
+INFO 2026-05-02 21:03:15,737 MaidenheadArea found for JN62: country=Italy, continent=Europe
+INFO 2026-05-02 21:03:15,765 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-02 21:03:15,765 GeoService detected country: Italy for locator JN45
+INFO 2026-05-02 21:03:15,765 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-02 21:03:15,766 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-02 21:03:15,777 Match FOUND for (38.5, -1): country=Spain, continent=Europe
+INFO 2026-05-02 21:03:15,777 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 21:03:15,777 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 21:03:15,778 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 21:04:16,657 Starting GeoService geodata loading process
+INFO 2026-05-02 21:04:17,306 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 21:04:18,298 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 21:04:18,299 GeoService initialized successfully
+INFO 2026-05-02 21:04:18,305 Match FOUND for (37.5, 15): country=Italy, continent=Europe
+INFO 2026-05-02 21:04:18,305 GeoService detected country: Italy for locator JM77
+INFO 2026-05-02 21:04:18,305 GeoService detected continent: Europe for locator JM77
+INFO 2026-05-02 21:04:18,307 MaidenheadArea found for JM77: country=Italy, continent=Europe
+INFO 2026-05-02 21:04:18,327 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-02 21:04:18,327 GeoService detected country: Italy for locator JN45
+INFO 2026-05-02 21:04:18,327 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-02 21:04:18,329 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-02 21:04:18,369 No match for (29.5, -13) - likely ocean or unmapped area
+INFO 2026-05-02 21:04:18,370 GeoService returned None for country (locator IL39)
+INFO 2026-05-02 21:04:18,370 GeoService returned None for continent (locator IL39)
+INFO 2026-05-02 21:04:18,382 Match FOUND for (49.5, 43): country=Russia, continent=Europe
+INFO 2026-05-02 21:04:18,382 GeoService detected country: Russia for locator LN19
+INFO 2026-05-02 21:04:18,382 GeoService detected continent: Europe for locator LN19
+INFO 2026-05-02 21:05:19,283 Starting GeoService geodata loading process
+INFO 2026-05-02 21:05:19,946 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 21:05:20,891 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 21:05:20,892 GeoService initialized successfully
+INFO 2026-05-02 21:05:20,900 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-02 21:05:20,900 GeoService detected country: Italy for locator JN45
+INFO 2026-05-02 21:05:20,901 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-02 21:05:20,903 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-02 21:05:20,923 Match FOUND for (37.5, 15): country=Italy, continent=Europe
+INFO 2026-05-02 21:05:20,923 GeoService detected country: Italy for locator JM77
+INFO 2026-05-02 21:05:20,923 GeoService detected continent: Europe for locator JM77
+INFO 2026-05-02 21:05:20,925 MaidenheadArea found for JM77: country=Italy, continent=Europe
+INFO 2026-05-02 21:05:20,943 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:05:20,944 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 21:05:20,944 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 21:05:20,945 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:05:20,975 Match FOUND for (40.5, -3): country=Spain, continent=Europe
+INFO 2026-05-02 21:05:20,975 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 21:05:20,975 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 21:05:20,976 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 21:05:20,993 Match FOUND for (53.5, 27): country=Belarus, continent=Europe
+INFO 2026-05-02 21:05:20,994 GeoService detected country: Belarus for locator KO33
+INFO 2026-05-02 21:05:20,994 GeoService detected continent: Europe for locator KO33
+INFO 2026-05-02 21:05:20,995 MaidenheadArea found for KO33: country=Belarus, continent=Europe
+INFO 2026-05-02 21:05:21,020 Match FOUND for (38.5, -1): country=Spain, continent=Europe
+INFO 2026-05-02 21:05:21,021 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 21:05:21,021 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 21:05:21,022 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 21:05:21,056 No match for (25.5, 55) - likely ocean or unmapped area
+INFO 2026-05-02 21:05:21,057 GeoService returned None for country (locator LL75)
+INFO 2026-05-02 21:05:21,057 GeoService returned None for continent (locator LL75)
+INFO 2026-05-02 21:05:21,058 MaidenheadArea found for LL75: country=Saudi Arabia, continent=Asia
+INFO 2026-05-02 21:05:21,073 Match FOUND for (51.5, 1): country=United Kingdom, continent=Europe
+INFO 2026-05-02 21:05:21,073 GeoService detected country: United Kingdom for locator JO01
+INFO 2026-05-02 21:05:21,073 GeoService detected continent: Europe for locator JO01
+INFO 2026-05-02 21:05:21,074 MaidenheadArea found for JO01: country=United Kingdom, continent=Europe
+INFO 2026-05-02 21:06:21,996 Starting GeoService geodata loading process
+INFO 2026-05-02 21:06:22,671 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 21:06:23,626 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 21:06:23,626 GeoService initialized successfully
+INFO 2026-05-02 21:06:23,635 Match FOUND for (42.5, 13): country=Italy, continent=Europe
+INFO 2026-05-02 21:06:23,635 GeoService detected country: Italy for locator JN62
+INFO 2026-05-02 21:06:23,635 GeoService detected continent: Europe for locator JN62
+INFO 2026-05-02 21:06:23,637 MaidenheadArea found for JN62: country=Italy, continent=Europe
+INFO 2026-05-02 21:06:23,656 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:06:23,657 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 21:06:23,657 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 21:06:23,658 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:06:23,672 Match FOUND for (40.5, -3): country=Spain, continent=Europe
+INFO 2026-05-02 21:06:23,672 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 21:06:23,672 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 21:06:23,673 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-02 21:06:23,729 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-02 21:06:23,729 GeoService detected country: Italy for locator JN45
+INFO 2026-05-02 21:06:23,730 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-02 21:06:23,731 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-02 21:06:23,747 Match FOUND for (53.5, 23): country=Poland, continent=Europe
+INFO 2026-05-02 21:06:23,747 GeoService detected country: Poland for locator KO13
+INFO 2026-05-02 21:06:23,747 GeoService detected continent: Europe for locator KO13
+INFO 2026-05-02 21:06:23,748 MaidenheadArea found for KO13: country=Poland, continent=Europe
+INFO 2026-05-02 21:06:23,761 No match for (25.5, 55) - likely ocean or unmapped area
+INFO 2026-05-02 21:06:23,761 GeoService returned None for country (locator LL75)
+INFO 2026-05-02 21:06:23,761 GeoService returned None for continent (locator LL75)
+INFO 2026-05-02 21:06:23,762 MaidenheadArea found for LL75: country=Saudi Arabia, continent=Asia
+INFO 2026-05-02 21:07:24,776 Starting GeoService geodata loading process
+INFO 2026-05-02 21:07:25,425 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-02 21:07:26,435 Shapefile loaded successfully. Records: 177
+INFO 2026-05-02 21:07:26,436 GeoService initialized successfully
+INFO 2026-05-02 21:07:26,442 Match FOUND for (38.5, -1): country=Spain, continent=Europe
+INFO 2026-05-02 21:07:26,442 GeoService detected country: Spain for locator IM98
+INFO 2026-05-02 21:07:26,442 GeoService detected continent: Europe for locator IM98
+INFO 2026-05-02 21:07:26,445 MaidenheadArea found for IM98: country=Spain, continent=Europe
+INFO 2026-05-02 21:07:26,465 Match FOUND for (42.5, 13): country=Italy, continent=Europe
+INFO 2026-05-02 21:07:26,465 GeoService detected country: Italy for locator JN62
+INFO 2026-05-02 21:07:26,465 GeoService detected continent: Europe for locator JN62
+INFO 2026-05-02 21:07:26,466 MaidenheadArea found for JN62: country=Italy, continent=Europe
+INFO 2026-05-02 21:07:26,482 Match FOUND for (44.5, 19): country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:07:26,483 GeoService detected country: Bosnia and Herz. for locator JN94
+INFO 2026-05-02 21:07:26,483 GeoService detected continent: Europe for locator JN94
+INFO 2026-05-02 21:07:26,484 MaidenheadArea found for JN94: country=Bosnia and Herz., continent=Europe
+INFO 2026-05-02 21:07:26,538 Match FOUND for (49.5, 43): country=Russia, continent=Europe
+INFO 2026-05-02 21:07:26,538 GeoService detected country: Russia for locator LN19
+INFO 2026-05-02 21:07:26,538 GeoService detected continent: Europe for locator LN19
+INFO 2026-05-02 21:07:26,552 No match for (25.5, 55) - likely ocean or unmapped area
+INFO 2026-05-02 21:07:26,553 GeoService returned None for country (locator LL75)
+INFO 2026-05-02 21:07:26,553 GeoService returned None for continent (locator LL75)
+INFO 2026-05-02 21:07:26,554 MaidenheadArea found for LL75: country=Saudi Arabia, continent=Asia
+INFO 2026-05-02 21:07:26,567 Match FOUND for (48.5, 7): country=France, continent=Europe
+INFO 2026-05-02 21:07:26,568 GeoService detected country: France for locator JN38
+INFO 2026-05-02 21:07:26,568 GeoService detected continent: Europe for locator JN38
+INFO 2026-05-02 21:07:26,569 MaidenheadArea found for JN38: country=France, continent=Europe
+INFO 2026-05-02 21:07:26,585 Match FOUND for (40.5, -3): country=Spain, continent=Europe
+INFO 2026-05-02 21:07:26,585 GeoService detected country: Spain for locator IN80
+INFO 2026-05-02 21:07:26,585 GeoService detected continent: Europe for locator IN80
+INFO 2026-05-02 21:07:26,586 MaidenheadArea found for IN80: country=Spain, continent=Europe
+INFO 2026-05-03 08:20:44,882 Starting GeoService geodata loading process
+INFO 2026-05-03 08:20:45,882 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 08:20:47,252 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 08:20:47,252 GeoService initialized successfully
+INFO 2026-05-03 08:20:47,264 Match FOUND for (49.5, 7): country=Germany, continent=Europe
+INFO 2026-05-03 08:20:47,265 GeoService detected country: Germany for locator JN39
+INFO 2026-05-03 08:20:47,265 GeoService detected continent: Europe for locator JN39
+INFO 2026-05-03 08:20:47,267 MaidenheadArea found for JN39: country=Germany, continent=Europe
+INFO 2026-05-03 08:20:47,283 Match FOUND for (52.5, 9): country=Germany, continent=Europe
+INFO 2026-05-03 08:20:47,283 GeoService detected country: Germany for locator JO42
+INFO 2026-05-03 08:20:47,283 GeoService detected continent: Europe for locator JO42
+INFO 2026-05-03 08:20:47,284 MaidenheadArea found for JO42: country=Germany, continent=Europe
+INFO 2026-05-03 08:27:53,271 Starting GeoService geodata loading process
+INFO 2026-05-03 08:27:54,272 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 08:27:55,606 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 08:27:55,607 GeoService initialized successfully
+INFO 2026-05-03 08:27:55,618 Match FOUND for (44.5, -1): country=France, continent=Europe
+INFO 2026-05-03 08:27:55,618 GeoService detected country: France for locator IN94
+INFO 2026-05-03 08:27:55,619 GeoService detected continent: Europe for locator IN94
+INFO 2026-05-03 08:27:55,621 MaidenheadArea found for IN94: country=France, continent=Europe
+INFO 2026-05-03 08:27:55,650 Match FOUND for (52.5, -1): country=United Kingdom, continent=Europe
+INFO 2026-05-03 08:27:55,650 GeoService detected country: United Kingdom for locator IO92
+INFO 2026-05-03 08:27:55,650 GeoService detected continent: Europe for locator IO92
+INFO 2026-05-03 08:27:55,651 MaidenheadArea found for IO92: country=United Kingdom, continent=Europe
+WARNING 2026-05-03 08:27:55,672 Invalid locator format: LZ3AI - Locator must be 4 or 6 characters, got: LZ3AI
+INFO 2026-05-03 08:27:55,684 Match FOUND for (64.5, 27): country=Finland, continent=Europe
+INFO 2026-05-03 08:27:55,684 GeoService detected country: Finland for locator KP34
+INFO 2026-05-03 08:27:55,684 GeoService detected continent: Europe for locator KP34
+INFO 2026-05-03 08:27:55,703 GeoService detected country: France for locator IN94
+INFO 2026-05-03 08:27:55,703 GeoService detected continent: Europe for locator IN94
+INFO 2026-05-03 08:27:55,704 MaidenheadArea found for IN94: country=France, continent=Europe
+INFO 2026-05-03 08:27:55,721 GeoService detected country: United Kingdom for locator IO92
+INFO 2026-05-03 08:27:55,721 GeoService detected continent: Europe for locator IO92
+INFO 2026-05-03 08:27:55,722 MaidenheadArea found for IO92: country=United Kingdom, continent=Europe
+INFO 2026-05-03 08:27:55,742 Match FOUND for (44.5, 25): country=Romania, continent=Europe
+INFO 2026-05-03 08:27:55,742 GeoService detected country: Romania for locator KN24
+INFO 2026-05-03 08:27:55,742 GeoService detected continent: Europe for locator KN24
+INFO 2026-05-03 08:28:56,575 Starting GeoService geodata loading process
+INFO 2026-05-03 08:28:57,506 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 08:28:58,765 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 08:28:58,765 GeoService initialized successfully
+INFO 2026-05-03 08:28:58,776 Match FOUND for (52.5, -1): country=United Kingdom, continent=Europe
+INFO 2026-05-03 08:28:58,776 GeoService detected country: United Kingdom for locator IO92
+INFO 2026-05-03 08:28:58,776 GeoService detected continent: Europe for locator IO92
+INFO 2026-05-03 08:28:58,778 MaidenheadArea found for IO92: country=United Kingdom, continent=Europe
+INFO 2026-05-03 08:28:58,794 Match FOUND for (44.5, 25): country=Romania, continent=Europe
+INFO 2026-05-03 08:28:58,794 GeoService detected country: Romania for locator KN24
+INFO 2026-05-03 08:28:58,794 GeoService detected continent: Europe for locator KN24
+INFO 2026-05-03 08:57:18,738 Starting GeoService geodata loading process
+INFO 2026-05-03 08:57:19,689 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 08:57:20,944 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 08:57:20,944 GeoService initialized successfully
+INFO 2026-05-03 08:57:20,955 Match FOUND for (50.5, 7): country=Germany, continent=Europe
+INFO 2026-05-03 08:57:20,955 GeoService detected country: Germany for locator JO30
+INFO 2026-05-03 08:57:20,955 GeoService detected continent: Europe for locator JO30
+INFO 2026-05-03 08:57:20,957 MaidenheadArea found for JO30: country=Germany, continent=Europe
+INFO 2026-05-03 09:05:27,699 Starting GeoService geodata loading process
+INFO 2026-05-03 09:05:28,263 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:05:29,068 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:05:29,068 GeoService initialized successfully
+INFO 2026-05-03 09:05:29,074 Match FOUND for (44.5, 11): country=Italy, continent=Europe
+INFO 2026-05-03 09:05:29,075 GeoService detected country: Italy for locator JN54
+INFO 2026-05-03 09:05:29,075 GeoService detected continent: Europe for locator JN54
+INFO 2026-05-03 09:05:29,077 MaidenheadArea found for JN54: country=Italy, continent=Europe
+INFO 2026-05-03 09:06:29,945 Starting GeoService geodata loading process
+INFO 2026-05-03 09:06:30,676 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:06:31,833 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:06:31,834 GeoService initialized successfully
+INFO 2026-05-03 09:06:31,840 Match FOUND for (52.5, 13): country=Germany, continent=Europe
+INFO 2026-05-03 09:06:31,840 GeoService detected country: Germany for locator JO62
+INFO 2026-05-03 09:06:31,840 GeoService detected continent: Europe for locator JO62
+INFO 2026-05-03 09:06:31,842 MaidenheadArea found for JO62: country=Germany, continent=Europe
+INFO 2026-05-03 09:07:32,971 Starting GeoService geodata loading process
+INFO 2026-05-03 09:07:34,011 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:07:35,272 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:07:35,272 GeoService initialized successfully
+INFO 2026-05-03 09:07:35,281 Match FOUND for (52.5, 13): country=Germany, continent=Europe
+INFO 2026-05-03 09:07:35,282 GeoService detected country: Germany for locator JO62
+INFO 2026-05-03 09:07:35,282 GeoService detected continent: Europe for locator JO62
+INFO 2026-05-03 09:07:35,285 MaidenheadArea found for JO62: country=Germany, continent=Europe
+INFO 2026-05-03 09:07:35,310 Match FOUND for (50.5, 7): country=Germany, continent=Europe
+INFO 2026-05-03 09:07:35,311 GeoService detected country: Germany for locator JO30
+INFO 2026-05-03 09:07:35,311 GeoService detected continent: Europe for locator JO30
+INFO 2026-05-03 09:07:35,312 MaidenheadArea found for JO30: country=Germany, continent=Europe
+INFO 2026-05-03 09:08:36,394 Starting GeoService geodata loading process
+INFO 2026-05-03 09:08:37,170 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:08:38,342 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:08:38,342 GeoService initialized successfully
+INFO 2026-05-03 09:08:38,350 Match FOUND for (46.5, 15): country=Slovenia, continent=Europe
+INFO 2026-05-03 09:08:38,350 GeoService detected country: Slovenia for locator JN76
+INFO 2026-05-03 09:08:38,350 GeoService detected continent: Europe for locator JN76
+INFO 2026-05-03 09:08:38,353 MaidenheadArea found for JN76: country=Slovenia, continent=Europe
+INFO 2026-05-03 09:09:39,470 Starting GeoService geodata loading process
+INFO 2026-05-03 09:09:40,247 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:09:41,426 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:09:41,426 GeoService initialized successfully
+INFO 2026-05-03 09:09:41,436 Match FOUND for (52.5, 13): country=Germany, continent=Europe
+INFO 2026-05-03 09:09:41,436 GeoService detected country: Germany for locator JO62
+INFO 2026-05-03 09:09:41,436 GeoService detected continent: Europe for locator JO62
+INFO 2026-05-03 09:09:41,439 MaidenheadArea found for JO62: country=Germany, continent=Europe
+INFO 2026-05-03 09:09:41,462 Match FOUND for (44.5, 11): country=Italy, continent=Europe
+INFO 2026-05-03 09:09:41,462 GeoService detected country: Italy for locator JN54
+INFO 2026-05-03 09:09:41,463 GeoService detected continent: Europe for locator JN54
+INFO 2026-05-03 09:09:41,464 MaidenheadArea found for JN54: country=Italy, continent=Europe
+INFO 2026-05-03 09:10:42,605 Starting GeoService geodata loading process
+INFO 2026-05-03 09:10:43,731 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:10:45,097 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:10:45,097 GeoService initialized successfully
+INFO 2026-05-03 09:10:45,111 Match FOUND for (44.5, 11): country=Italy, continent=Europe
+INFO 2026-05-03 09:10:45,111 GeoService detected country: Italy for locator JN54
+INFO 2026-05-03 09:10:45,111 GeoService detected continent: Europe for locator JN54
+INFO 2026-05-03 09:10:45,113 MaidenheadArea found for JN54: country=Italy, continent=Europe
+INFO 2026-05-03 09:11:46,272 Starting GeoService geodata loading process
+INFO 2026-05-03 09:11:47,057 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:11:48,236 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:11:48,237 GeoService initialized successfully
+INFO 2026-05-03 09:11:48,247 Match FOUND for (52.5, 13): country=Germany, continent=Europe
+INFO 2026-05-03 09:11:48,247 GeoService detected country: Germany for locator JO62
+INFO 2026-05-03 09:11:48,247 GeoService detected continent: Europe for locator JO62
+INFO 2026-05-03 09:11:48,250 MaidenheadArea found for JO62: country=Germany, continent=Europe
+INFO 2026-05-03 09:11:48,270 Match FOUND for (50.5, 7): country=Germany, continent=Europe
+INFO 2026-05-03 09:11:48,271 GeoService detected country: Germany for locator JO30
+INFO 2026-05-03 09:11:48,271 GeoService detected continent: Europe for locator JO30
+INFO 2026-05-03 09:11:48,272 MaidenheadArea found for JO30: country=Germany, continent=Europe
+INFO 2026-05-03 09:13:50,543 Starting GeoService geodata loading process
+INFO 2026-05-03 09:13:51,622 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:13:53,144 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:13:53,145 GeoService initialized successfully
+INFO 2026-05-03 09:13:53,156 Match FOUND for (44.5, 11): country=Italy, continent=Europe
+INFO 2026-05-03 09:13:53,156 GeoService detected country: Italy for locator JN54
+INFO 2026-05-03 09:13:53,156 GeoService detected continent: Europe for locator JN54
+INFO 2026-05-03 09:13:53,159 MaidenheadArea found for JN54: country=Italy, continent=Europe
+WARNING 2026-05-03 09:13:53,172 Invalid locator format: IU0KNS - Invalid locator format: IU0KNS
+INFO 2026-05-03 09:13:53,192 Match FOUND for (50.5, 7): country=Germany, continent=Europe
+INFO 2026-05-03 09:13:53,192 GeoService detected country: Germany for locator JO30
+INFO 2026-05-03 09:13:53,192 GeoService detected continent: Europe for locator JO30
+INFO 2026-05-03 09:13:53,194 MaidenheadArea found for JO30: country=Germany, continent=Europe
+INFO 2026-05-03 09:14:54,178 Starting GeoService geodata loading process
+INFO 2026-05-03 09:14:54,842 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-03 09:14:55,764 Shapefile loaded successfully. Records: 177
+INFO 2026-05-03 09:14:55,764 GeoService initialized successfully
+INFO 2026-05-03 09:14:55,775 Match FOUND for (52.5, 13): country=Germany, continent=Europe
+INFO 2026-05-03 09:14:55,775 GeoService detected country: Germany for locator JO62
+INFO 2026-05-03 09:14:55,775 GeoService detected continent: Europe for locator JO62
+INFO 2026-05-03 09:14:55,778 MaidenheadArea found for JO62: country=Germany, continent=Europe
+INFO 2026-05-03 09:14:55,801 Match FOUND for (44.5, 11): country=Italy, continent=Europe
+INFO 2026-05-03 09:14:55,801 GeoService detected country: Italy for locator JN54
+INFO 2026-05-03 09:14:55,802 GeoService detected continent: Europe for locator JN54
+INFO 2026-05-03 09:14:55,803 MaidenheadArea found for JN54: country=Italy, continent=Europe
+INFO 2026-05-03 09:14:55,815 GeoService detected country: Germany for locator JO62
+INFO 2026-05-03 09:14:55,815 GeoService detected continent: Europe for locator JO62
+INFO 2026-05-03 09:14:55,816 MaidenheadArea found for JO62: country=Germany, continent=Europe

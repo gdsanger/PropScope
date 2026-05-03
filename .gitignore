@@ -5,6 +5,15 @@ __pycache__/
 
 # C extensions
 *.so
+*.log
+*.logs
+*.err
+*.1
+*.2
+*.3
+*.4
+*.5
+ALL.TXT
 
 # Distribution / packaging
 .Python
