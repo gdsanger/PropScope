@@ -34,7 +34,8 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_
 CSRF_TRUSTED_ORIGINS = [
 
     "https://afu.angermeier.net:8443",
-
+    "http://afu.angermeier.net",
+    "http://afu.angermeier.net:8008",
 ]
 
 # Application definition
