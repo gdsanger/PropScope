@@ -106,6 +106,17 @@
                                class="btn btn-sm btn-outline-info {% if band == '10m' %}active{% endif %}">10m</a>
                         </div>
                     </div>
+
+                    <!-- Greyline Toggle -->
+                    <div class="mt-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="greylineToggle">
+                            <label class="form-check-label fw-bold" for="greylineToggle">
+                                Greyline (Tag/Nacht-Grenze) anzeigen
+                            </label>
+                        </div>
+                        <small class="text-muted">Visualisiert die Dämmerungszone für optimale DX-Bedingungen</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -176,6 +187,63 @@
             <p class="mb-0"><strong>Locator:</strong> {{ station_profile.locator }}</p>
         </div>
     `);
+
+    // Initialize greyline layer
+    let greylineLayer = null;
+
+    function loadGreyline() {
+        // Remove existing greyline if present
+        if (greylineLayer) {
+            map.removeLayer(greylineLayer);
+            greylineLayer = null;
+        }
+
+        // Fetch greyline data from API
+        fetch('{% url "ui:greyline-api" %}')
+            .then(response => response.json())
+            .then(data => {
+                const coordinates = data.coordinates || [];
+
+                if (coordinates.length > 0) {
+                    // Create polyline for greyline
+                    greylineLayer = L.polyline(coordinates, {
+                        color: '#FF6B35',  // Orange color
+                        weight: 3,
+                        opacity: 0.8,
+                        dashArray: '10, 5'  // Dashed line
+                    }).addTo(map);
+
+                    // Add popup to show what this line represents
+                    greylineLayer.bindPopup(`
+                        <div style="min-width: 200px;">
+                            <h6 class="mb-2"><strong>Greyline (Tag/Nacht-Grenze)</strong></h6>
+                            <p class="mb-1">Zeit: ${data.timestamp}</p>
+                            <p class="mb-0"><small>Die Greyline markiert die Dämmerungszone, in der optimale Bedingungen für DX-Verbindungen herrschen.</small></p>
+                        </div>
+                    `);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading greyline:', error);
+            });
+    }
+
+    function removeGreyline() {
+        if (greylineLayer) {
+            map.removeLayer(greylineLayer);
+            greylineLayer = null;
+        }
+    }
+
+    // Handle greyline toggle
+    const greylineToggle = document.getElementById('greylineToggle');
+    greylineToggle.addEventListener('change', function() {
+        if (this.checked) {
+            loadGreyline();
+        } else {
+            removeGreyline();
+        }
+    });
 
     // Fetch and display spots
     const currentUrl = new URL(window.location.href);
