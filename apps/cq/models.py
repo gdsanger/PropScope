@@ -83,6 +83,9 @@ class HeardSignal(models.Model):
     callsign_continent = models.CharField(max_length=50, null=True, blank=True, help_text="Continent from callsign prefix")
     qrz_url = models.URLField(null=True, blank=True, help_text="QRZ.com URL for the callsign")
 
+    # CQ target (e.g., DX, NA, EU, AS, RU, JA, CA)
+    cq_target = models.CharField(max_length=10, null=True, blank=True, db_index=True, help_text="CQ target prefix (e.g., DX, NA, EU)")
+
     # Locator information
     locator = models.CharField(max_length=6, db_index=True, null=True, blank=True, help_text="Maidenhead locator (4 or 6 char)")
     locator_lat = models.FloatField(null=True, blank=True, help_text="Latitude from locator")
