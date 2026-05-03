@@ -491,3 +491,46 @@ def station_detail(request, callsign):
     return render(request, 'stations/detail.html', context)
 
 
+def greyline_api(request):
+    """API endpoint: Return greyline (day/night terminator) coordinates as JSON."""
+    from apps.geo.services.greyline_service import GreylineService
+    from datetime import datetime
+
+    greyline_service = GreylineService()
+
+    # Get optional timestamp parameter (ISO format)
+    timestamp_str = request.GET.get('timestamp')
+
+    if timestamp_str:
+        try:
+            # Parse ISO format timestamp
+            timestamp = datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
+        except ValueError:
+            return JsonResponse({
+                'error': 'Invalid timestamp format. Use ISO 8601 format (e.g., 2026-05-03T19:00:00Z)'
+            }, status=400)
+    else:
+        # Use current UTC time
+        timestamp = datetime.utcnow()
+
+    # Get optional resolution parameter (number of points)
+    resolution = int(request.GET.get('resolution', 360))
+
+    # Limit resolution to prevent performance issues
+    if resolution < 10:
+        resolution = 10
+    elif resolution > 1000:
+        resolution = 1000
+
+    # Calculate greyline coordinates
+    coordinates = greyline_service.calculate_greyline(timestamp, resolution)
+
+    # Format response
+    response_data = {
+        'timestamp': timestamp.strftime('%Y-%m-%dT%H:%M:%SZ'),
+        'coordinates': coordinates
+    }
+
+    return JsonResponse(response_data)
+
+

@@ -10,6 +10,7 @@ urlpatterns = [
     # Map
     path('map/', views.propagation_map, name='propagation-map'),
     path('map/api/spots/', views.map_spots_api, name='map-spots-api'),
+    path('map/api/greyline/', views.greyline_api, name='greyline-api'),
 
     # HTMX partials
     path('dashboard/partials/kpi-cards/', views.dashboard_kpi_cards, name='dashboard-kpi-cards'),
