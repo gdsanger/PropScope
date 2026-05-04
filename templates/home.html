@@ -1,51 +1,151 @@
 {% extends "base.html" %}
 
-{% block title %}PropScope - WSJT-X Statistics{% endblock %}
+{% block title %}PropScope - Lokale FT8 Propagation aus Landshut{% endblock %}
 
 {% block content %}
+<!-- Hero Section -->
 <div class="row">
     <div class="col-12">
-        <div class="jumbotron bg-light p-5 rounded">
-            <h1 class="display-4">📡 PropScope</h1>
-            <p class="lead">WSJT-X Statistics / CQ Analyzer</p>
+        <div class="bg-light p-5 rounded-4 shadow-sm mb-4">
+            <h1 class="display-4 fw-bold">📡 PropScope – Lokale FT8 Propagation aus Landshut</h1>
+            <p class="lead text-muted">Ein privates Analyseprojekt zur Visualisierung empfangener WSJT-X / FT8 Signale.</p>
             <hr class="my-4">
-            <p>Analyse von WSJT-X ALL.TXT Logs mit Fokus auf CQ-Rufe, Entfernung und Ausbreitungsbedingungen.</p>
-            <div class="alert alert-info" role="alert">
-                <h4 class="alert-heading">🚧 In Entwicklung</h4>
-                <p>PropScope ist derzeit in Entwicklung. Bald verfügbar:</p>
+            <p class="mb-4">PropScope analysiert empfangene WSJT-X / FT8 Signale und visualisiert daraus lokale Ausbreitungsbedingungen am Standort <strong>Landshut / JN68BN</strong>.</p>
+            <div class="d-flex gap-3 flex-wrap">
+                <a href="{% url 'ui:dashboard' %}" class="btn btn-primary btn-lg">📊 Dashboard öffnen</a>
+                <a href="{% url 'ui:propagation-map' %}" class="btn btn-outline-primary btn-lg">🗺️ Karte öffnen</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- What is PropScope Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <h2 class="h3 mb-3">Was ist PropScope?</h2>
+                <p>PropScope wertet empfangene WSJT-X ALL.TXT Logs aus und zeigt, welche CQ-Rufe an meinem Standort empfangen wurden. Daraus werden Entfernung, Richtung, Band, Signalstärke und geografische Einordnung berechnet.</p>
+                <p class="mb-0">Die Auswertung basiert ausschließlich auf empfangenen Signalen und dient der Analyse lokaler Ausbreitungsbedingungen.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- What do the data show Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <h2 class="h3 mb-3">Was zeigen die Daten?</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="mb-3 mb-md-0">
+                            <li>Empfangene CQ-Rufe</li>
+                            <li>Geschätzte Entfernung auf Basis Maidenhead Locator</li>
+                            <li>SNR / Signalstärke</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="mb-0">
+                            <li>Auswertung nach Band und Tageszeit</li>
+                            <li>Richtungs- und Kartenansicht</li>
+                            <li>DX-Fenster und lokale Ausbreitungsmuster</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Important Limitations Section -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 border-warning" style="border-left: 4px solid #ffc107 !important;">
+            <div class="card-body p-4">
+                <h2 class="h3 mb-3">⚠️ Wichtige Einschränkungen</h2>
+                <div class="alert alert-warning mb-3">
+                    <strong>Projektstatus:</strong> PropScope ist ein privates Bastel-, Lern- und Analyseprojekt. Open Source, Quellcode bei GitHub unter <a href="https://github.com/gdsanger/PropScope/" target="_blank" rel="noopener" class="alert-link">github.com/gdsanger/PropScope</a>
+                </div>
                 <ul>
-                    <li>Import von ALL.TXT Dateien</li>
-                    <li>CQ-Ruf Analyse</li>
-                    <li>Entfernungsberechnung via Maidenhead Locator</li>
-                    <li>Statistiken und Visualisierungen</li>
+                    <li><strong>Nur Empfang:</strong> Derzeit wird ausschließlich empfangen, nicht gesendet. Sendebetrieb ist voraussichtlich ab Mitte / Ende Juni 2026 geplant.</li>
+                    <li><strong>Standort:</strong> Die Auswertung bezieht sich ausschließlich auf <strong>Landshut / JN68BN</strong>. Die dargestellten Empfangsbedingungen gelten für diesen konkreten Standort, die verwendete Antenne und die jeweilige lokale Umgebung.</li>
+                    <li><strong>Keine 24/7 Station:</strong> Die Empfangsstation läuft nicht durchgehend. Daten abhängig von Zeit, Band, Empfangslage und Versuchsaufbau. Datenlücken sind normal.</li>
+                    <li><strong>Näherungswerte:</strong> Maidenhead Locator sind Näherungen, keine exakten Stationspositionen.</li>
+                    <li><strong>Keine offizielle Messstation:</strong> Keine wissenschaftliche Garantie. Daten können unvollständig oder fehlerhaft sein.</li>
+                    <li><strong>Entwicklung:</strong> System wird laufend weiterentwickelt und verbessert.</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row mt-4">
+<!-- Technology Section -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <h2 class="h3 mb-3">🔧 Technik kurz erklärt</h2>
+                <p>PropScope basiert auf folgenden Technologien:</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-primary">Python</span>
+                    <span class="badge bg-primary">Django</span>
+                    <span class="badge bg-primary">HTMX</span>
+                    <span class="badge bg-primary">Bootstrap</span>
+                    <span class="badge bg-primary">PostgreSQL</span>
+                    <span class="badge bg-secondary">WSJT-X ALL.TXT</span>
+                    <span class="badge bg-secondary">FT8</span>
+                </div>
+                <p class="mt-3 mb-0 text-muted small">Die Rohdaten stammen aus WSJT-X ALL.TXT Logs und werden lokal verarbeitet und visualisiert.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <h2 class="h3 mb-3">📧 Kontakt</h2>
+                <p><strong>Betreiber:</strong></p>
+                <address class="mb-0">
+                    <strong>Christian Angermeier</strong><br>
+                    Benaktzyweg 19b<br>
+                    84032 Landshut<br>
+                    <br>
+                    E-Mail: <a href="mailto:ca@angermeier.net">ca@angermeier.net</a>
+                </address>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feature Cards -->
+<div class="row g-3">
     <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">📏 Entfernung</h5>
-                <p class="card-text">Berechnung der Luftlinie basierend auf Maidenhead Locator</p>
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body text-center">
+                <div class="fs-1 mb-3">📏</div>
+                <h5 class="card-title">Entfernung</h5>
+                <p class="card-text text-muted">Berechnung der Luftlinie basierend auf Maidenhead Locator</p>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">⏱️ Tageszeit</h5>
-                <p class="card-text">Auswertung nach Tageszeit und Bandöffnungen</p>
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body text-center">
+                <div class="fs-1 mb-3">⏱️</div>
+                <h5 class="card-title">Tageszeit</h5>
+                <p class="card-text text-muted">Auswertung nach Tageszeit und Bandöffnungen</p>
             </div>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">🌍 Geografie</h5>
-                <p class="card-text">Geografische Einordnung nach Land und Kontinent</p>
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body text-center">
+                <div class="fs-1 mb-3">🌍</div>
+                <h5 class="card-title">Geografie</h5>
+                <p class="card-text text-muted">Geografische Einordnung nach Land und Kontinent</p>
             </div>
         </div>
     </div>
