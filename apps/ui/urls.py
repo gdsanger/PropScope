@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 app_name = 'ui'
@@ -31,6 +31,6 @@ urlpatterns = [
     path('dashboard/maidenhead-area/create-modal/', views.maidenhead_area_create_modal, name='maidenhead-area-create-modal'),
     path('dashboard/maidenhead-area/create/', views.maidenhead_area_create, name='maidenhead-area-create'),
 
-    # Station detail pages
-    path('stations/<str:callsign>/', views.station_detail, name='station-detail'),
+    # Station detail pages - use re_path to allow slashes in callsigns (e.g., EK/RX3DPK for portable/guest operators)
+    re_path(r'^stations/(?P<callsign>[A-Z0-9/]+)/$', views.station_detail, name='station-detail'),
 ]

@@ -493,3 +493,34 @@ class MaidenheadAreaModalViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         # Should not crash even if GeoService is unavailable
         self.assertIn('form', response.context)
+
+
+class StationDetailURLTests(TestCase):
+    """Tests for station-detail URL pattern with portable callsigns."""
+
+    def setUp(self):
+        """Set up test client."""
+        self.client = Client()
+
+    def test_station_detail_url_with_simple_callsign(self):
+        """Test that station-detail URL works with simple callsign."""
+        url = reverse('ui:station-detail', kwargs={'callsign': 'DL3TX'})
+        self.assertEqual(url, '/stations/DL3TX/')
+
+    def test_station_detail_url_with_portable_callsign(self):
+        """Test that station-detail URL works with portable callsign (slash)."""
+        # This is the fix for guest operators like EK/RX3DPK
+        url = reverse('ui:station-detail', kwargs={'callsign': 'EK/RX3DPK'})
+        self.assertEqual(url, '/stations/EK/RX3DPK/')
+
+    def test_station_detail_url_with_another_portable_callsign(self):
+        """Test that station-detail URL works with another portable callsign format."""
+        url = reverse('ui:station-detail', kwargs={'callsign': 'DL/AD2LX'})
+        self.assertEqual(url, '/stations/DL/AD2LX/')
+
+    def test_station_detail_view_with_portable_callsign(self):
+        """Test that station-detail view handles portable callsigns without error."""
+        # This should not raise NoReverseMatch error anymore
+        response = self.client.get(reverse('ui:station-detail', kwargs={'callsign': 'EK/RX3DPK'}))
+        # View should return 200 (even if no data exists for the callsign)
+        self.assertEqual(response.status_code, 200)
