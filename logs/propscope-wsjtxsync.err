@@ -18947,3 +18947,1391 @@ INFO 2026-05-04 20:04:29,135 GeoService returned None for country (locator IN52)
 INFO 2026-05-04 20:04:29,135 GeoService returned None for continent (locator IN52)
 INFO 2026-05-04 20:04:29,146 GeoService returned None for country (locator KM25)
 INFO 2026-05-04 20:04:29,146 GeoService returned None for continent (locator KM25)
+INFO 2026-05-06 19:33:12,490 Starting GeoService geodata loading process
+INFO 2026-05-06 19:33:13,028 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:33:13,802 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:33:13,802 GeoService initialized successfully
+INFO 2026-05-06 19:33:13,809 Match FOUND for (28.5, 107): country=China, continent=Asia
+INFO 2026-05-06 19:33:13,809 GeoService detected country: China for locator OL38
+INFO 2026-05-06 19:33:13,809 GeoService detected continent: Asia for locator OL38
+INFO 2026-05-06 19:33:13,839 No match for (43.5, -9) - likely ocean or unmapped area
+INFO 2026-05-06 19:33:13,839 GeoService returned None for country (locator IN53)
+INFO 2026-05-06 19:33:13,840 GeoService returned None for continent (locator IN53)
+INFO 2026-05-06 19:33:13,853 No match for (44.5, 37) - likely ocean or unmapped area
+INFO 2026-05-06 19:33:13,853 GeoService returned None for country (locator KN84)
+INFO 2026-05-06 19:33:13,854 GeoService returned None for continent (locator KN84)
+INFO 2026-05-06 19:36:15,919 Starting GeoService geodata loading process
+INFO 2026-05-06 19:36:16,492 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:36:17,245 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:36:17,245 GeoService initialized successfully
+INFO 2026-05-06 19:36:17,249 No match for (44.5, 37) - likely ocean or unmapped area
+INFO 2026-05-06 19:36:17,250 GeoService returned None for country (locator KN84)
+INFO 2026-05-06 19:36:17,250 GeoService returned None for continent (locator KN84)
+INFO 2026-05-06 19:37:18,092 Starting GeoService geodata loading process
+INFO 2026-05-06 19:37:18,633 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:37:19,440 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:37:19,440 GeoService initialized successfully
+INFO 2026-05-06 19:37:19,446 Match FOUND for (52.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 19:37:19,447 GeoService detected country: Russia for locator LO02
+INFO 2026-05-06 19:37:19,447 GeoService detected continent: Europe for locator LO02
+INFO 2026-05-06 19:37:19,449 MaidenheadArea found for LO02: country=Russia, continent=Europe
+INFO 2026-05-06 19:39:20,971 Starting GeoService geodata loading process
+INFO 2026-05-06 19:39:21,507 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:39:22,322 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:39:22,322 GeoService initialized successfully
+INFO 2026-05-06 19:39:22,328 Match FOUND for (28.5, 107): country=China, continent=Asia
+INFO 2026-05-06 19:39:22,328 GeoService detected country: China for locator OL38
+INFO 2026-05-06 19:39:22,328 GeoService detected continent: Asia for locator OL38
+INFO 2026-05-06 19:40:23,174 Starting GeoService geodata loading process
+INFO 2026-05-06 19:40:24,002 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:40:25,172 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:40:25,172 GeoService initialized successfully
+INFO 2026-05-06 19:40:25,180 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 19:40:25,180 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 19:40:25,180 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 19:42:26,724 Starting GeoService geodata loading process
+INFO 2026-05-06 19:42:27,233 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:42:27,925 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:42:27,925 GeoService initialized successfully
+INFO 2026-05-06 19:42:27,929 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 19:42:27,929 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 19:42:27,930 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 19:43:28,765 Starting GeoService geodata loading process
+INFO 2026-05-06 19:43:29,304 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:43:30,008 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:43:30,008 GeoService initialized successfully
+INFO 2026-05-06 19:43:30,011 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 19:43:30,011 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 19:43:30,011 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 19:43:30,013 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 19:44:30,841 Starting GeoService geodata loading process
+INFO 2026-05-06 19:44:31,400 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:44:32,187 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:44:32,188 GeoService initialized successfully
+INFO 2026-05-06 19:44:32,192 No match for (28.5, -17) - likely ocean or unmapped area
+INFO 2026-05-06 19:44:32,192 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:44:32,192 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:44:32,194 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:44:32,208 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 19:44:32,208 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 19:44:32,208 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 19:44:32,209 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 19:44:32,233 Match FOUND for (37.5, 15): country=Italy, continent=Europe
+INFO 2026-05-06 19:44:32,234 GeoService detected country: Italy for locator JM77
+INFO 2026-05-06 19:44:32,234 GeoService detected continent: Europe for locator JM77
+INFO 2026-05-06 19:44:32,235 MaidenheadArea found for JM77: country=Italy, continent=Europe
+INFO 2026-05-06 19:47:34,664 Starting GeoService geodata loading process
+INFO 2026-05-06 19:47:35,215 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:47:36,013 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:47:36,014 GeoService initialized successfully
+INFO 2026-05-06 19:47:36,018 No match for (44.5, 37) - likely ocean or unmapped area
+INFO 2026-05-06 19:47:36,018 GeoService returned None for country (locator KN84)
+INFO 2026-05-06 19:47:36,018 GeoService returned None for continent (locator KN84)
+INFO 2026-05-06 19:47:36,067 Match FOUND for (57.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 19:47:36,068 GeoService detected country: Russia for locator LO07
+INFO 2026-05-06 19:47:36,068 GeoService detected continent: Europe for locator LO07
+INFO 2026-05-06 19:47:36,069 MaidenheadArea found for LO07: country=Russia, continent=Europe
+INFO 2026-05-06 19:47:36,082 No match for (28.5, -17) - likely ocean or unmapped area
+INFO 2026-05-06 19:47:36,083 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:47:36,083 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:47:36,084 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:48:36,897 Starting GeoService geodata loading process
+INFO 2026-05-06 19:48:37,473 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:48:38,252 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:48:38,253 GeoService initialized successfully
+INFO 2026-05-06 19:48:38,257 No match for (28.5, -17) - likely ocean or unmapped area
+INFO 2026-05-06 19:48:38,257 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:48:38,257 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:48:38,259 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:48:38,275 Match FOUND for (57.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 19:48:38,276 GeoService detected country: Russia for locator LO07
+INFO 2026-05-06 19:48:38,276 GeoService detected continent: Europe for locator LO07
+INFO 2026-05-06 19:48:38,277 MaidenheadArea found for LO07: country=Russia, continent=Europe
+INFO 2026-05-06 19:49:39,355 Starting GeoService geodata loading process
+INFO 2026-05-06 19:49:40,234 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:49:41,403 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:49:41,404 GeoService initialized successfully
+INFO 2026-05-06 19:49:41,412 No match for (28.5, -17) - likely ocean or unmapped area
+INFO 2026-05-06 19:49:41,412 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:49:41,412 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:49:41,414 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:49:41,431 Match FOUND for (57.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 19:49:41,432 GeoService detected country: Russia for locator LO07
+INFO 2026-05-06 19:49:41,432 GeoService detected continent: Europe for locator LO07
+INFO 2026-05-06 19:49:41,433 MaidenheadArea found for LO07: country=Russia, continent=Europe
+INFO 2026-05-06 19:49:41,447 Match FOUND for (33.5, 131): country=Japan, continent=Asia
+INFO 2026-05-06 19:49:41,448 GeoService detected country: Japan for locator PM53
+INFO 2026-05-06 19:49:41,448 GeoService detected continent: Asia for locator PM53
+INFO 2026-05-06 19:49:41,449 MaidenheadArea found for PM53: country=Japan, continent=Asia
+INFO 2026-05-06 19:49:41,463 Match FOUND for (35.5, 135): country=Japan, continent=Asia
+INFO 2026-05-06 19:49:41,463 GeoService detected country: Japan for locator PM75
+INFO 2026-05-06 19:49:41,463 GeoService detected continent: Asia for locator PM75
+INFO 2026-05-06 19:50:42,236 Starting GeoService geodata loading process
+INFO 2026-05-06 19:50:42,691 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:50:43,417 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:50:43,418 GeoService initialized successfully
+INFO 2026-05-06 19:50:43,422 No match for (44.5, 37) - likely ocean or unmapped area
+INFO 2026-05-06 19:50:43,422 GeoService returned None for country (locator KN84)
+INFO 2026-05-06 19:50:43,422 GeoService returned None for continent (locator KN84)
+INFO 2026-05-06 19:50:43,460 Match FOUND for (57.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 19:50:43,460 GeoService detected country: Russia for locator LO07
+INFO 2026-05-06 19:50:43,461 GeoService detected continent: Europe for locator LO07
+INFO 2026-05-06 19:50:43,461 MaidenheadArea found for LO07: country=Russia, continent=Europe
+INFO 2026-05-06 19:51:44,294 Starting GeoService geodata loading process
+INFO 2026-05-06 19:51:44,754 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:51:45,410 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:51:45,410 GeoService initialized successfully
+INFO 2026-05-06 19:51:45,414 No match for (33.5, 135) - likely ocean or unmapped area
+INFO 2026-05-06 19:51:45,415 GeoService returned None for country (locator PM73)
+INFO 2026-05-06 19:51:45,415 GeoService returned None for continent (locator PM73)
+INFO 2026-05-06 19:51:45,417 MaidenheadArea found for PM73: country=Japan, continent=Asia
+INFO 2026-05-06 19:53:46,935 Starting GeoService geodata loading process
+INFO 2026-05-06 19:53:47,479 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:53:48,279 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:53:48,279 GeoService initialized successfully
+INFO 2026-05-06 19:53:48,283 No match for (28.5, -17) - likely ocean or unmapped area
+INFO 2026-05-06 19:53:48,284 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:53:48,284 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:53:48,286 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:54:49,056 Starting GeoService geodata loading process
+INFO 2026-05-06 19:54:49,570 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:54:50,344 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:54:50,345 GeoService initialized successfully
+INFO 2026-05-06 19:54:50,351 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 19:54:50,351 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 19:54:50,351 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 19:54:50,353 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 19:54:50,380 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 19:54:50,380 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 19:54:50,380 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 19:54:50,381 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 19:54:50,414 Match FOUND for (51.5, 39): country=Russia, continent=Europe
+INFO 2026-05-06 19:54:50,414 GeoService detected country: Russia for locator KO91
+INFO 2026-05-06 19:54:50,414 GeoService detected continent: Europe for locator KO91
+INFO 2026-05-06 19:54:50,415 MaidenheadArea found for KO91: country=Russia, continent=Europe
+INFO 2026-05-06 19:55:51,290 Starting GeoService geodata loading process
+INFO 2026-05-06 19:55:51,870 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:55:52,810 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:55:52,810 GeoService initialized successfully
+INFO 2026-05-06 19:55:52,817 Match FOUND for (51.5, 39): country=Russia, continent=Europe
+INFO 2026-05-06 19:55:52,817 GeoService detected country: Russia for locator KO91
+INFO 2026-05-06 19:55:52,818 GeoService detected continent: Europe for locator KO91
+INFO 2026-05-06 19:55:52,820 MaidenheadArea found for KO91: country=Russia, continent=Europe
+INFO 2026-05-06 19:55:52,865 GeoService detected country: Russia for locator KO91
+INFO 2026-05-06 19:55:52,865 GeoService detected continent: Europe for locator KO91
+INFO 2026-05-06 19:55:52,866 MaidenheadArea found for KO91: country=Russia, continent=Europe
+INFO 2026-05-06 19:55:52,900 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 19:55:52,900 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 19:55:52,901 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 19:56:53,756 Starting GeoService geodata loading process
+INFO 2026-05-06 19:56:54,329 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:56:55,224 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:56:55,224 GeoService initialized successfully
+INFO 2026-05-06 19:56:55,231 Match FOUND for (33.5, 131): country=Japan, continent=Asia
+INFO 2026-05-06 19:56:55,231 GeoService detected country: Japan for locator PM53
+INFO 2026-05-06 19:56:55,231 GeoService detected continent: Asia for locator PM53
+INFO 2026-05-06 19:56:55,233 MaidenheadArea found for PM53: country=Japan, continent=Asia
+INFO 2026-05-06 19:56:55,248 Match FOUND for (35.5, 135): country=Japan, continent=Asia
+INFO 2026-05-06 19:56:55,248 GeoService detected country: Japan for locator PM75
+INFO 2026-05-06 19:56:55,248 GeoService detected continent: Asia for locator PM75
+INFO 2026-05-06 19:56:55,249 MaidenheadArea found for PM75: country=Japan, continent=Asia
+INFO 2026-05-06 19:56:55,264 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 19:56:55,264 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 19:56:55,264 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 19:56:55,265 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 19:56:55,276 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 19:56:55,276 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 19:56:55,276 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 19:56:55,277 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 19:56:55,290 Match FOUND for (51.5, 39): country=Russia, continent=Europe
+INFO 2026-05-06 19:56:55,291 GeoService detected country: Russia for locator KO91
+INFO 2026-05-06 19:56:55,291 GeoService detected continent: Europe for locator KO91
+INFO 2026-05-06 19:56:55,292 MaidenheadArea found for KO91: country=Russia, continent=Europe
+INFO 2026-05-06 19:57:56,177 Starting GeoService geodata loading process
+INFO 2026-05-06 19:57:56,791 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:57:57,524 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:57:57,525 GeoService initialized successfully
+INFO 2026-05-06 19:57:57,530 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 19:57:57,530 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 19:57:57,530 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 19:57:57,532 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 19:57:57,575 Match FOUND for (51.5, 39): country=Russia, continent=Europe
+INFO 2026-05-06 19:57:57,575 GeoService detected country: Russia for locator KO91
+INFO 2026-05-06 19:57:57,575 GeoService detected continent: Europe for locator KO91
+INFO 2026-05-06 19:57:57,576 MaidenheadArea found for KO91: country=Russia, continent=Europe
+INFO 2026-05-06 19:57:57,588 No match for (28.5, -17) - likely ocean or unmapped area
+INFO 2026-05-06 19:57:57,588 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:57:57,588 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:57:57,589 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:57:57,598 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 19:57:57,598 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 19:57:57,598 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 19:57:57,599 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 19:57:57,607 GeoService detected country: Russia for locator KO91
+INFO 2026-05-06 19:57:57,607 GeoService detected continent: Europe for locator KO91
+INFO 2026-05-06 19:57:57,608 MaidenheadArea found for KO91: country=Russia, continent=Europe
+INFO 2026-05-06 19:57:57,617 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 19:57:57,617 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 19:57:57,618 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 19:57:57,640 Match FOUND for (37.5, -5): country=Spain, continent=Europe
+INFO 2026-05-06 19:57:57,640 GeoService detected country: Spain for locator IM77
+INFO 2026-05-06 19:57:57,640 GeoService detected continent: Europe for locator IM77
+INFO 2026-05-06 19:57:57,641 MaidenheadArea found for IM77: country=Spain, continent=Europe
+INFO 2026-05-06 19:58:58,592 Starting GeoService geodata loading process
+INFO 2026-05-06 19:58:59,181 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 19:58:59,919 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 19:58:59,919 GeoService initialized successfully
+INFO 2026-05-06 19:58:59,924 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 19:58:59,925 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 19:58:59,925 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 19:58:59,926 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 19:58:59,940 Match FOUND for (37.5, -5): country=Spain, continent=Europe
+INFO 2026-05-06 19:58:59,940 GeoService detected country: Spain for locator IM77
+INFO 2026-05-06 19:58:59,940 GeoService detected continent: Europe for locator IM77
+INFO 2026-05-06 19:58:59,941 MaidenheadArea found for IM77: country=Spain, continent=Europe
+INFO 2026-05-06 19:58:59,970 No match for (28.5, -17) - likely ocean or unmapped area
+INFO 2026-05-06 19:58:59,970 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:58:59,970 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:58:59,971 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:58:59,981 No match for (33.5, 135) - likely ocean or unmapped area
+INFO 2026-05-06 19:58:59,981 GeoService returned None for country (locator PM73)
+INFO 2026-05-06 19:58:59,981 GeoService returned None for continent (locator PM73)
+INFO 2026-05-06 19:58:59,982 MaidenheadArea found for PM73: country=Japan, continent=Asia
+INFO 2026-05-06 19:58:59,993 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 19:58:59,993 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 19:58:59,993 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 19:58:59,994 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 19:59:00,006 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 19:59:00,006 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 19:59:00,007 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 19:59:00,008 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 19:59:00,027 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 19:59:00,027 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 19:59:00,028 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 19:59:00,039 Match FOUND for (42.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 19:59:00,040 GeoService detected country: Spain for locator IN62
+INFO 2026-05-06 19:59:00,040 GeoService detected continent: Europe for locator IN62
+INFO 2026-05-06 19:59:00,041 MaidenheadArea found for IN62: country=Spain, continent=Europe
+INFO 2026-05-06 19:59:00,066 GeoService returned None for country (locator IL18)
+INFO 2026-05-06 19:59:00,066 GeoService returned None for continent (locator IL18)
+INFO 2026-05-06 19:59:00,067 MaidenheadArea found for IL18: country=Spanien, continent=Europe
+INFO 2026-05-06 19:59:00,074 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 19:59:00,074 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 19:59:00,075 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:00:01,000 Starting GeoService geodata loading process
+INFO 2026-05-06 20:00:01,650 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:00:02,700 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:00:02,701 GeoService initialized successfully
+INFO 2026-05-06 20:00:02,709 Match FOUND for (37.5, 31): country=Turkey, continent=Asia
+INFO 2026-05-06 20:00:02,709 GeoService detected country: Turkey for locator KM57
+INFO 2026-05-06 20:00:02,710 GeoService detected continent: Asia for locator KM57
+INFO 2026-05-06 20:00:02,712 MaidenheadArea found for KM57: country=Turkey, continent=Asia
+INFO 2026-05-06 20:00:02,730 No match for (33.5, 135) - likely ocean or unmapped area
+INFO 2026-05-06 20:00:02,730 GeoService returned None for country (locator PM73)
+INFO 2026-05-06 20:00:02,730 GeoService returned None for continent (locator PM73)
+INFO 2026-05-06 20:00:02,731 MaidenheadArea found for PM73: country=Japan, continent=Asia
+INFO 2026-05-06 20:13:12,782 Starting GeoService geodata loading process
+INFO 2026-05-06 20:13:13,291 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:13:14,042 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:13:14,043 GeoService initialized successfully
+INFO 2026-05-06 20:13:14,049 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:13:14,049 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:13:14,049 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:13:14,051 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:14:14,753 Starting GeoService geodata loading process
+INFO 2026-05-06 20:14:15,177 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:14:15,947 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:14:15,947 GeoService initialized successfully
+INFO 2026-05-06 20:14:15,953 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:14:15,954 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:14:15,954 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:14:15,956 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:14:15,971 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 20:14:15,971 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 20:14:15,971 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 20:14:15,986 Match FOUND for (33.5, 131): country=Japan, continent=Asia
+INFO 2026-05-06 20:14:15,987 GeoService detected country: Japan for locator PM53
+INFO 2026-05-06 20:14:15,987 GeoService detected continent: Asia for locator PM53
+INFO 2026-05-06 20:14:15,988 MaidenheadArea found for PM53: country=Japan, continent=Asia
+INFO 2026-05-06 20:16:17,526 Starting GeoService geodata loading process
+INFO 2026-05-06 20:16:18,097 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:16:18,840 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:16:18,841 GeoService initialized successfully
+INFO 2026-05-06 20:16:18,847 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:16:18,848 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:16:18,848 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:16:18,850 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:16:18,868 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:16:18,868 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:16:18,868 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:16:18,869 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:16:18,882 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 20:16:18,882 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 20:16:18,883 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 20:17:19,842 Starting GeoService geodata loading process
+INFO 2026-05-06 20:17:20,555 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:17:21,613 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:17:21,614 GeoService initialized successfully
+INFO 2026-05-06 20:17:21,623 Match FOUND for (39.5, -9): country=Portugal, continent=Europe
+INFO 2026-05-06 20:17:21,623 GeoService detected country: Portugal for locator IM59
+INFO 2026-05-06 20:17:21,624 GeoService detected continent: Europe for locator IM59
+INFO 2026-05-06 20:17:21,626 MaidenheadArea found for IM59: country=Portugal, continent=Europe
+INFO 2026-05-06 20:17:21,648 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:17:21,648 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:17:21,648 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:17:21,649 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:17:21,665 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 20:17:21,666 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 20:17:21,666 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 20:17:21,682 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:17:21,682 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:17:21,682 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:17:21,683 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:18:22,636 Starting GeoService geodata loading process
+INFO 2026-05-06 20:18:23,282 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:18:24,343 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:18:24,343 GeoService initialized successfully
+INFO 2026-05-06 20:18:24,353 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:18:24,353 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:18:24,353 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:18:24,356 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:18:24,377 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:18:24,378 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:18:24,378 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:18:24,379 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:19:25,337 Starting GeoService geodata loading process
+INFO 2026-05-06 20:19:26,056 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:19:27,054 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:19:27,054 GeoService initialized successfully
+INFO 2026-05-06 20:19:27,061 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:19:27,061 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:19:27,062 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:19:27,063 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:19:27,080 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:19:27,081 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:19:27,081 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:19:27,082 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:19:27,095 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 20:19:27,095 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 20:19:27,095 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 20:20:27,811 Starting GeoService geodata loading process
+INFO 2026-05-06 20:20:28,367 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:20:29,082 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:20:29,082 GeoService initialized successfully
+INFO 2026-05-06 20:20:29,088 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:20:29,088 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:20:29,089 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:20:29,090 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:20:29,105 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 20:20:29,106 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 20:20:29,106 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 20:20:29,118 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:20:29,119 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:20:29,119 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:20:29,120 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:20:29,130 No match for (33.5, 135) - likely ocean or unmapped area
+INFO 2026-05-06 20:20:29,130 GeoService returned None for country (locator PM73)
+INFO 2026-05-06 20:20:29,130 GeoService returned None for continent (locator PM73)
+INFO 2026-05-06 20:20:29,131 MaidenheadArea found for PM73: country=Japan, continent=Asia
+INFO 2026-05-06 20:21:29,821 Starting GeoService geodata loading process
+INFO 2026-05-06 20:21:30,243 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:21:31,009 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:21:31,009 GeoService initialized successfully
+INFO 2026-05-06 20:21:31,016 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:21:31,016 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:21:31,016 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:21:31,018 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:21:31,035 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:21:31,036 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:21:31,036 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:21:31,037 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:21:31,061 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 20:21:31,061 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 20:21:31,061 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 20:21:31,062 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 20:21:31,074 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:21:31,074 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:21:31,075 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:21:31,076 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:22:31,843 Starting GeoService geodata loading process
+INFO 2026-05-06 20:22:32,376 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:22:33,157 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:22:33,158 GeoService initialized successfully
+INFO 2026-05-06 20:22:33,164 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:22:33,164 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:22:33,164 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:22:33,166 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:22:33,193 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 20:22:33,194 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 20:22:33,194 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 20:22:33,220 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 20:22:33,220 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 20:22:33,220 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 20:22:33,221 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 20:22:33,234 Match FOUND for (37.5, -5): country=Spain, continent=Europe
+INFO 2026-05-06 20:22:33,234 GeoService detected country: Spain for locator IM77
+INFO 2026-05-06 20:22:33,235 GeoService detected continent: Europe for locator IM77
+INFO 2026-05-06 20:22:33,235 MaidenheadArea found for IM77: country=Spain, continent=Europe
+INFO 2026-05-06 20:23:34,011 Starting GeoService geodata loading process
+INFO 2026-05-06 20:23:34,545 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:23:35,280 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:23:35,280 GeoService initialized successfully
+INFO 2026-05-06 20:23:35,286 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:23:35,286 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:23:35,287 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:23:35,288 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:23:35,303 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:23:35,304 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:23:35,304 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:23:35,305 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:23:35,318 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:23:35,318 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:23:35,318 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:23:35,319 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:24:36,102 Starting GeoService geodata loading process
+INFO 2026-05-06 20:24:36,621 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:24:37,391 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:24:37,392 GeoService initialized successfully
+INFO 2026-05-06 20:24:37,398 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:24:37,398 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:24:37,398 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:24:37,400 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:24:37,415 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:24:37,416 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:24:37,416 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:24:37,417 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:24:37,432 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:24:37,432 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:24:37,432 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:24:37,433 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:24:37,445 No match for (33.5, 135) - likely ocean or unmapped area
+INFO 2026-05-06 20:24:37,445 GeoService returned None for country (locator PM73)
+INFO 2026-05-06 20:24:37,446 GeoService returned None for continent (locator PM73)
+INFO 2026-05-06 20:24:37,447 MaidenheadArea found for PM73: country=Japan, continent=Asia
+INFO 2026-05-06 20:24:37,460 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:24:37,460 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:24:37,460 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:24:37,461 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:24:37,474 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:24:37,474 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:24:37,474 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:24:37,475 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:25:38,841 Starting GeoService geodata loading process
+INFO 2026-05-06 20:25:40,049 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:25:41,583 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:25:41,584 GeoService initialized successfully
+INFO 2026-05-06 20:25:41,598 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:25:41,598 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:25:41,598 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:25:41,601 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:25:41,634 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:25:41,634 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:25:41,635 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:25:41,636 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:25:41,680 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:25:41,681 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:25:41,681 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:25:41,682 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:25:41,697 No match for (41.5, -9) - likely ocean or unmapped area
+INFO 2026-05-06 20:25:41,698 GeoService returned None for country (locator IN51)
+INFO 2026-05-06 20:25:41,698 GeoService returned None for continent (locator IN51)
+INFO 2026-05-06 20:26:43,038 Starting GeoService geodata loading process
+INFO 2026-05-06 20:26:43,868 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:26:44,836 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:26:44,837 GeoService initialized successfully
+INFO 2026-05-06 20:26:44,844 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:26:44,844 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:26:44,844 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:26:44,846 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:26:44,864 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:26:44,864 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:26:44,864 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:26:44,866 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:26:44,881 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:26:44,882 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:26:44,882 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:26:44,883 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:26:44,896 No match for (36.5, 31) - likely ocean or unmapped area
+INFO 2026-05-06 20:26:44,896 GeoService returned None for country (locator KM56)
+INFO 2026-05-06 20:26:44,896 GeoService returned None for continent (locator KM56)
+INFO 2026-05-06 20:26:44,908 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:26:44,908 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:26:44,908 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:26:44,909 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:26:44,916 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:26:44,916 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:26:44,917 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:26:44,932 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:26:44,933 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:26:44,933 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:27:45,835 Starting GeoService geodata loading process
+INFO 2026-05-06 20:27:46,539 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:27:47,532 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:27:47,533 GeoService initialized successfully
+INFO 2026-05-06 20:27:47,539 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:27:47,539 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:27:47,539 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:27:47,541 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:27:47,573 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:27:47,574 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:27:47,574 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:27:47,575 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:27:47,585 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:27:47,585 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:27:47,586 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:27:47,610 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:27:47,610 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:27:47,611 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:27:47,612 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:28:48,511 Starting GeoService geodata loading process
+INFO 2026-05-06 20:28:49,164 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:28:50,230 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:28:50,230 GeoService initialized successfully
+INFO 2026-05-06 20:28:50,238 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:28:50,239 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:28:50,239 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:28:50,241 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:28:50,278 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:28:50,279 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:28:50,279 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:28:50,280 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:28:50,295 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:28:50,296 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:28:50,296 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:28:50,297 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:28:50,311 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:28:50,311 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:28:50,312 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:28:50,313 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:28:50,328 Match FOUND for (48.5, -99): country=United States of America, continent=North America
+INFO 2026-05-06 20:28:50,328 GeoService detected country: United States of America for locator EN08
+INFO 2026-05-06 20:28:50,328 GeoService detected continent: North America for locator EN08
+INFO 2026-05-06 20:28:50,329 MaidenheadArea found for EN08: country=United States of America, continent=North America
+INFO 2026-05-06 20:30:51,911 Starting GeoService geodata loading process
+INFO 2026-05-06 20:30:52,482 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:30:53,349 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:30:53,350 GeoService initialized successfully
+INFO 2026-05-06 20:30:53,356 Match FOUND for (33.5, 131): country=Japan, continent=Asia
+INFO 2026-05-06 20:30:53,357 GeoService detected country: Japan for locator PM53
+INFO 2026-05-06 20:30:53,357 GeoService detected continent: Asia for locator PM53
+INFO 2026-05-06 20:30:53,359 MaidenheadArea found for PM53: country=Japan, continent=Asia
+INFO 2026-05-06 20:30:53,378 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:30:53,378 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:30:53,378 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:30:53,379 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:30:53,401 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:30:53,401 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:30:53,401 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:30:53,402 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:31:54,235 Starting GeoService geodata loading process
+INFO 2026-05-06 20:31:54,797 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:31:55,669 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:31:55,670 GeoService initialized successfully
+INFO 2026-05-06 20:31:55,678 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:31:55,678 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:31:55,678 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:31:55,681 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:31:55,698 Match FOUND for (42.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:31:55,699 GeoService detected country: Italy for locator JN62
+INFO 2026-05-06 20:31:55,699 GeoService detected continent: Europe for locator JN62
+INFO 2026-05-06 20:31:55,700 MaidenheadArea found for JN62: country=Italy, continent=Europe
+INFO 2026-05-06 20:31:55,726 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:31:55,727 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:31:55,727 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:31:55,728 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:31:55,739 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:31:55,740 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:31:55,740 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:31:55,741 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:31:55,754 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 20:31:55,754 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 20:31:55,754 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 20:31:55,755 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 20:31:55,764 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:31:55,764 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:31:55,765 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:32:56,651 Starting GeoService geodata loading process
+INFO 2026-05-06 20:32:57,221 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:32:58,014 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:32:58,015 GeoService initialized successfully
+INFO 2026-05-06 20:32:58,023 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:32:58,024 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:32:58,024 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:32:58,026 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:32:58,045 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:32:58,045 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:32:58,045 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:32:58,046 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:32:58,061 Match FOUND for (42.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:32:58,061 GeoService detected country: Italy for locator JN62
+INFO 2026-05-06 20:32:58,061 GeoService detected continent: Europe for locator JN62
+INFO 2026-05-06 20:32:58,063 MaidenheadArea found for JN62: country=Italy, continent=Europe
+INFO 2026-05-06 20:32:58,072 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:32:58,072 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:32:58,073 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:32:58,105 No match for (18.5, -65) - likely ocean or unmapped area
+INFO 2026-05-06 20:32:58,105 GeoService returned None for country (locator FK78)
+INFO 2026-05-06 20:32:58,105 GeoService returned None for continent (locator FK78)
+INFO 2026-05-06 20:33:58,965 Starting GeoService geodata loading process
+INFO 2026-05-06 20:33:59,555 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:34:00,254 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:34:00,255 GeoService initialized successfully
+INFO 2026-05-06 20:34:00,262 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:34:00,262 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:34:00,262 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:34:00,264 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:34:00,276 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:34:00,276 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:34:00,277 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:34:00,289 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:34:00,289 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:34:00,289 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:34:00,290 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:35:01,314 Starting GeoService geodata loading process
+INFO 2026-05-06 20:35:01,996 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:35:03,058 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:35:03,058 GeoService initialized successfully
+INFO 2026-05-06 20:35:03,067 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:35:03,067 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:35:03,067 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:35:03,069 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:37:04,511 Starting GeoService geodata loading process
+INFO 2026-05-06 20:37:05,506 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:37:12,858 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:37:12,859 GeoService initialized successfully
+INFO 2026-05-06 20:37:12,865 Match FOUND for (37.5, -7): country=Spain, continent=Europe
+INFO 2026-05-06 20:37:12,865 GeoService detected country: Spain for locator IM67
+INFO 2026-05-06 20:37:12,866 GeoService detected continent: Europe for locator IM67
+INFO 2026-05-06 20:37:12,868 MaidenheadArea found for IM67: country=Spain, continent=Europe
+INFO 2026-05-06 20:37:12,885 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:37:12,885 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:37:12,885 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:37:12,886 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:37:12,900 Match FOUND for (35.5, 139): country=Japan, continent=Asia
+INFO 2026-05-06 20:37:12,900 GeoService detected country: Japan for locator PM95
+INFO 2026-05-06 20:37:12,900 GeoService detected continent: Asia for locator PM95
+INFO 2026-05-06 20:37:12,901 MaidenheadArea found for PM95: country=Japan, continent=Asia
+INFO 2026-05-06 20:37:12,916 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:37:12,916 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:37:12,916 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:37:12,917 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:37:12,949 Match FOUND for (31.5, 35): country=Palestine, continent=Asia
+INFO 2026-05-06 20:37:12,949 GeoService detected country: Palestine for locator KM71
+INFO 2026-05-06 20:37:12,950 GeoService detected continent: Asia for locator KM71
+INFO 2026-05-06 20:37:12,951 MaidenheadArea found for KM71: country=Palestine, continent=Asia
+INFO 2026-05-06 20:37:12,965 Match FOUND for (42.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:37:12,966 GeoService detected country: Italy for locator JN62
+INFO 2026-05-06 20:37:12,966 GeoService detected continent: Europe for locator JN62
+INFO 2026-05-06 20:37:12,967 MaidenheadArea found for JN62: country=Italy, continent=Europe
+INFO 2026-05-06 20:37:12,979 No match for (33.5, 135) - likely ocean or unmapped area
+INFO 2026-05-06 20:37:12,979 GeoService returned None for country (locator PM73)
+INFO 2026-05-06 20:37:12,979 GeoService returned None for continent (locator PM73)
+INFO 2026-05-06 20:37:12,980 MaidenheadArea found for PM73: country=Japan, continent=Asia
+INFO 2026-05-06 20:37:12,995 Match FOUND for (48.5, -99): country=United States of America, continent=North America
+INFO 2026-05-06 20:37:12,996 GeoService detected country: United States of America for locator EN08
+INFO 2026-05-06 20:37:12,996 GeoService detected continent: North America for locator EN08
+INFO 2026-05-06 20:37:12,997 MaidenheadArea found for EN08: country=United States of America, continent=North America
+INFO 2026-05-06 20:37:13,010 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:37:13,010 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:37:13,010 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:37:13,011 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:39:14,730 Starting GeoService geodata loading process
+INFO 2026-05-06 20:39:15,500 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:39:16,665 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:39:16,666 GeoService initialized successfully
+INFO 2026-05-06 20:39:16,675 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:39:16,675 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:39:16,676 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:39:16,678 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:39:16,695 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:39:16,696 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:39:16,696 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:39:16,697 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:39:16,711 Match FOUND for (41.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:39:16,711 GeoService detected country: Italy for locator JN61
+INFO 2026-05-06 20:39:16,711 GeoService detected continent: Europe for locator JN61
+INFO 2026-05-06 20:39:16,712 MaidenheadArea found for JN61: country=Italy, continent=Europe
+INFO 2026-05-06 20:40:17,516 Starting GeoService geodata loading process
+INFO 2026-05-06 20:40:18,067 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:40:18,839 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:40:18,839 GeoService initialized successfully
+INFO 2026-05-06 20:40:18,846 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:40:18,846 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:40:18,846 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:40:18,848 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:40:18,866 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:40:18,866 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:40:18,866 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:40:18,867 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:41:19,681 Starting GeoService geodata loading process
+INFO 2026-05-06 20:41:20,208 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:41:20,993 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:41:20,994 GeoService initialized successfully
+INFO 2026-05-06 20:41:21,000 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:41:21,000 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:41:21,000 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:41:21,002 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:41:21,018 Match FOUND for (42.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:41:21,018 GeoService detected country: Italy for locator JN62
+INFO 2026-05-06 20:41:21,018 GeoService detected continent: Europe for locator JN62
+INFO 2026-05-06 20:41:21,019 MaidenheadArea found for JN62: country=Italy, continent=Europe
+INFO 2026-05-06 20:42:21,851 Starting GeoService geodata loading process
+INFO 2026-05-06 20:42:22,415 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:42:23,297 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:42:23,298 GeoService initialized successfully
+INFO 2026-05-06 20:42:23,304 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:42:23,305 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:42:23,305 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:42:23,307 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:43:24,215 Starting GeoService geodata loading process
+INFO 2026-05-06 20:43:24,816 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:43:25,537 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:43:25,537 GeoService initialized successfully
+INFO 2026-05-06 20:43:25,543 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:43:25,543 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:43:25,543 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:43:25,545 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:43:25,583 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:43:25,583 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:43:25,584 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:43:25,586 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:44:26,451 Starting GeoService geodata loading process
+INFO 2026-05-06 20:44:27,245 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:44:28,378 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:44:28,378 GeoService initialized successfully
+INFO 2026-05-06 20:44:28,387 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:44:28,387 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:44:28,387 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:44:28,389 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:44:28,405 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:44:28,406 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:44:28,406 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:44:28,407 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:45:29,238 Starting GeoService geodata loading process
+INFO 2026-05-06 20:45:29,760 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:45:30,506 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:45:30,506 GeoService initialized successfully
+INFO 2026-05-06 20:45:30,512 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:45:30,513 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:45:30,513 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:45:30,515 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:45:30,533 Match FOUND for (50.5, 5): country=Belgium, continent=Europe
+INFO 2026-05-06 20:45:30,533 GeoService detected country: Belgium for locator JO20
+INFO 2026-05-06 20:45:30,533 GeoService detected continent: Europe for locator JO20
+INFO 2026-05-06 20:45:30,534 MaidenheadArea found for JO20: country=Belgium, continent=Europe
+INFO 2026-05-06 20:45:30,571 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:45:30,571 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:45:30,571 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:45:30,573 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:45:30,586 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 20:45:30,586 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 20:45:30,587 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 20:45:30,587 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 20:45:30,601 Match FOUND for (38.5, -77): country=United States of America, continent=North America
+INFO 2026-05-06 20:45:30,602 GeoService detected country: United States of America for locator FM18
+INFO 2026-05-06 20:45:30,602 GeoService detected continent: North America for locator FM18
+INFO 2026-05-06 20:45:30,603 MaidenheadArea found for FM18: country=United States of America, continent=North America
+INFO 2026-05-06 20:46:31,451 Starting GeoService geodata loading process
+INFO 2026-05-06 20:46:32,036 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:46:32,861 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:46:32,862 GeoService initialized successfully
+INFO 2026-05-06 20:46:32,868 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:46:32,869 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:46:32,869 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:46:32,871 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:46:32,910 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:46:32,910 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:46:32,910 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:46:32,911 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:46:32,925 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:46:32,926 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:46:32,926 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:46:32,927 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:46:32,938 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:46:32,938 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:46:32,938 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:46:32,939 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:47:33,725 Starting GeoService geodata loading process
+INFO 2026-05-06 20:47:34,310 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:47:35,146 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:47:35,146 GeoService initialized successfully
+INFO 2026-05-06 20:47:35,153 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:47:35,154 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:47:35,154 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:47:35,156 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:47:35,176 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:47:35,177 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:47:35,177 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:47:35,178 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:47:35,198 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:47:35,198 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:47:35,198 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:47:35,199 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:47:35,215 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:47:35,216 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:47:35,216 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:47:35,218 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:48:36,374 Starting GeoService geodata loading process
+INFO 2026-05-06 20:48:37,285 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:48:38,476 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:48:38,476 GeoService initialized successfully
+INFO 2026-05-06 20:48:38,487 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:48:38,487 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:48:38,487 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:48:38,490 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:48:38,507 Match FOUND for (41.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:48:38,507 GeoService detected country: Italy for locator JN61
+INFO 2026-05-06 20:48:38,507 GeoService detected continent: Europe for locator JN61
+INFO 2026-05-06 20:48:38,508 MaidenheadArea found for JN61: country=Italy, continent=Europe
+INFO 2026-05-06 20:48:38,543 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:48:38,543 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:48:38,543 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:48:38,544 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:48:38,557 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:48:38,557 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:48:38,557 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:48:38,558 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:49:39,654 Starting GeoService geodata loading process
+INFO 2026-05-06 20:49:40,584 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:49:41,792 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:49:41,793 GeoService initialized successfully
+INFO 2026-05-06 20:49:41,802 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-06 20:49:41,802 GeoService detected country: Italy for locator JN45
+INFO 2026-05-06 20:49:41,802 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-06 20:49:41,804 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-06 20:49:41,820 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:49:41,820 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:49:41,820 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:49:41,822 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:50:42,609 Starting GeoService geodata loading process
+INFO 2026-05-06 20:50:43,292 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:50:44,159 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:50:44,159 GeoService initialized successfully
+INFO 2026-05-06 20:50:44,166 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:50:44,167 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:50:44,167 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:50:44,170 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:50:44,190 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:50:44,190 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:50:44,190 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:50:44,192 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:50:44,208 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-06 20:50:44,209 GeoService detected country: Italy for locator JN45
+INFO 2026-05-06 20:50:44,209 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-06 20:50:44,210 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-06 20:50:44,228 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:50:44,228 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:50:44,228 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:50:44,230 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:51:45,029 Starting GeoService geodata loading process
+INFO 2026-05-06 20:51:45,599 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:51:46,589 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:51:46,589 GeoService initialized successfully
+INFO 2026-05-06 20:51:46,598 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:51:46,599 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:51:46,599 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:51:46,602 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:51:46,661 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:51:46,661 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:51:46,661 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:51:46,662 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:51:46,673 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:51:46,673 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:51:46,674 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:51:46,705 Match FOUND for (41.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:51:46,705 GeoService detected country: Italy for locator JN61
+INFO 2026-05-06 20:51:46,705 GeoService detected continent: Europe for locator JN61
+INFO 2026-05-06 20:51:46,707 MaidenheadArea found for JN61: country=Italy, continent=Europe
+INFO 2026-05-06 20:52:47,709 Starting GeoService geodata loading process
+INFO 2026-05-06 20:52:48,373 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:52:49,341 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:52:49,342 GeoService initialized successfully
+INFO 2026-05-06 20:52:49,349 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:52:49,349 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:52:49,350 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:52:49,352 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:52:49,371 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:52:49,371 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:52:49,371 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:52:49,373 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:52:49,391 Match FOUND for (41.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:52:49,392 GeoService detected country: Italy for locator JN61
+INFO 2026-05-06 20:52:49,392 GeoService detected continent: Europe for locator JN61
+INFO 2026-05-06 20:52:49,393 MaidenheadArea found for JN61: country=Italy, continent=Europe
+INFO 2026-05-06 20:52:49,435 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:52:49,436 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:52:49,436 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:52:49,437 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:52:49,450 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:52:49,451 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:52:49,451 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:52:49,452 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:52:49,468 Match FOUND for (33.5, 131): country=Japan, continent=Asia
+INFO 2026-05-06 20:52:49,468 GeoService detected country: Japan for locator PM53
+INFO 2026-05-06 20:52:49,468 GeoService detected continent: Asia for locator PM53
+INFO 2026-05-06 20:52:49,470 MaidenheadArea found for PM53: country=Japan, continent=Asia
+INFO 2026-05-06 20:52:49,479 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:52:49,479 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:52:49,480 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:52:49,490 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:52:49,490 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:52:49,491 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:53:50,536 Starting GeoService geodata loading process
+INFO 2026-05-06 20:53:51,180 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:53:52,202 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:53:52,203 GeoService initialized successfully
+INFO 2026-05-06 20:53:52,212 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:53:52,213 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:53:52,213 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:53:52,216 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:53:52,237 Match FOUND for (40.5, 15): country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,237 GeoService detected country: Italy for locator JN70
+INFO 2026-05-06 20:53:52,237 GeoService detected continent: Europe for locator JN70
+INFO 2026-05-06 20:53:52,238 MaidenheadArea found for JN70: country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,278 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,278 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:53:52,278 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:53:52,279 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,294 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 20:53:52,294 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 20:53:52,294 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 20:53:52,295 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 20:53:52,312 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,313 GeoService detected country: Italy for locator JN45
+INFO 2026-05-06 20:53:52,313 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-06 20:53:52,314 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,329 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:53:52,330 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:53:52,330 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:53:52,331 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:53:52,349 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 20:53:52,349 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 20:53:52,350 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,368 Match FOUND for (41.5, 13): country=Italy, continent=Europe
+INFO 2026-05-06 20:53:52,369 GeoService detected country: Italy for locator JN61
+INFO 2026-05-06 20:53:52,369 GeoService detected continent: Europe for locator JN61
+INFO 2026-05-06 20:53:52,370 MaidenheadArea found for JN61: country=Italy, continent=Europe
+INFO 2026-05-06 20:54:53,620 Starting GeoService geodata loading process
+INFO 2026-05-06 20:54:54,640 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:54:55,990 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:54:55,990 GeoService initialized successfully
+INFO 2026-05-06 20:54:56,000 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 20:54:56,001 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 20:54:56,001 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 20:54:56,003 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 20:54:56,016 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:54:56,016 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:54:56,016 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:54:56,017 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:54:56,032 Match FOUND for (45.5, 9): country=Italy, continent=Europe
+INFO 2026-05-06 20:54:56,032 GeoService detected country: Italy for locator JN45
+INFO 2026-05-06 20:54:56,032 GeoService detected continent: Europe for locator JN45
+INFO 2026-05-06 20:54:56,034 MaidenheadArea found for JN45: country=Italy, continent=Europe
+INFO 2026-05-06 20:55:57,035 Starting GeoService geodata loading process
+INFO 2026-05-06 20:55:57,537 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:55:58,458 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:55:58,458 GeoService initialized successfully
+INFO 2026-05-06 20:55:58,463 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:55:58,464 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:55:58,464 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:55:58,466 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:55:58,479 No match for (64.5, -23) - likely ocean or unmapped area
+INFO 2026-05-06 20:55:58,480 GeoService returned None for country (locator HP84)
+INFO 2026-05-06 20:55:58,480 GeoService returned None for continent (locator HP84)
+INFO 2026-05-06 20:55:58,496 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 20:55:58,497 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 20:55:58,497 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 20:55:58,498 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 20:55:58,514 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:55:58,514 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:55:58,515 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:55:58,516 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:56:59,449 Starting GeoService geodata loading process
+INFO 2026-05-06 20:56:59,903 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:57:00,688 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:57:00,689 GeoService initialized successfully
+INFO 2026-05-06 20:57:00,696 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:57:00,696 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:57:00,696 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:57:00,698 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:57:00,714 No match for (25.5, 57) - likely ocean or unmapped area
+INFO 2026-05-06 20:57:00,715 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:57:00,715 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:57:00,716 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:57:00,731 Match FOUND for (38.5, -77): country=United States of America, continent=North America
+INFO 2026-05-06 20:57:00,732 GeoService detected country: United States of America for locator FM18
+INFO 2026-05-06 20:57:00,732 GeoService detected continent: North America for locator FM18
+INFO 2026-05-06 20:57:00,733 MaidenheadArea found for FM18: country=United States of America, continent=North America
+INFO 2026-05-06 20:57:00,748 No match for (25.5, 55) - likely ocean or unmapped area
+INFO 2026-05-06 20:57:00,749 GeoService returned None for country (locator LL75)
+INFO 2026-05-06 20:57:00,749 GeoService returned None for continent (locator LL75)
+INFO 2026-05-06 20:57:00,750 MaidenheadArea found for LL75: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:57:00,765 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:57:00,766 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:57:00,766 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:57:00,767 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:57:00,811 GeoService returned None for country (locator LL85)
+INFO 2026-05-06 20:57:00,811 GeoService returned None for continent (locator LL85)
+INFO 2026-05-06 20:57:00,813 MaidenheadArea found for LL85: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 20:57:00,821 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 20:57:00,821 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 20:57:00,822 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 20:58:01,757 Starting GeoService geodata loading process
+INFO 2026-05-06 20:58:02,407 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 20:58:03,362 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 20:58:03,362 GeoService initialized successfully
+INFO 2026-05-06 20:58:03,369 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 20:58:03,370 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 20:58:03,370 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 20:58:03,372 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:10:12,734 Starting GeoService geodata loading process
+INFO 2026-05-06 21:10:13,387 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:10:14,294 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:10:14,295 GeoService initialized successfully
+INFO 2026-05-06 21:10:14,305 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:10:14,305 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:10:14,305 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:10:14,308 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:11:15,015 Starting GeoService geodata loading process
+INFO 2026-05-06 21:11:15,427 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:11:16,473 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:11:16,473 GeoService initialized successfully
+INFO 2026-05-06 21:11:16,481 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:11:16,482 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:11:16,482 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:11:16,484 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:11:16,524 Match FOUND for (69.5, 19): country=Norway, continent=Europe
+INFO 2026-05-06 21:11:16,524 GeoService detected country: Norway for locator JP99
+INFO 2026-05-06 21:11:16,524 GeoService detected continent: Europe for locator JP99
+INFO 2026-05-06 21:12:17,325 Starting GeoService geodata loading process
+INFO 2026-05-06 21:12:17,820 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:12:18,530 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:12:18,530 GeoService initialized successfully
+INFO 2026-05-06 21:12:18,537 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:12:18,537 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:12:18,537 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:12:18,539 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:12:18,557 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 21:12:18,557 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 21:12:18,557 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 21:12:18,558 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 21:12:18,584 Match FOUND for (35.5, -5): country=Morocco, continent=Africa
+INFO 2026-05-06 21:12:18,584 GeoService detected country: Morocco for locator IM75
+INFO 2026-05-06 21:12:18,584 GeoService detected continent: Africa for locator IM75
+INFO 2026-05-06 21:12:18,585 MaidenheadArea found for IM75: country=Morocco, continent=Africa
+INFO 2026-05-06 21:13:19,333 Starting GeoService geodata loading process
+INFO 2026-05-06 21:13:19,835 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:13:20,609 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:13:20,610 GeoService initialized successfully
+INFO 2026-05-06 21:13:20,615 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:13:20,616 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:13:20,616 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:13:20,618 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:13:20,643 Match FOUND for (54.5, -1): country=United Kingdom, continent=Europe
+INFO 2026-05-06 21:13:20,643 GeoService detected country: United Kingdom for locator IO94
+INFO 2026-05-06 21:13:20,643 GeoService detected continent: Europe for locator IO94
+INFO 2026-05-06 21:13:20,644 MaidenheadArea found for IO94: country=United Kingdom, continent=Europe
+INFO 2026-05-06 21:14:21,400 Starting GeoService geodata loading process
+INFO 2026-05-06 21:14:21,902 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:14:22,678 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:14:22,679 GeoService initialized successfully
+INFO 2026-05-06 21:14:22,685 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:14:22,685 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:14:22,685 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:14:22,687 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:14:22,704 Match FOUND for (54.5, -1): country=United Kingdom, continent=Europe
+INFO 2026-05-06 21:14:22,704 GeoService detected country: United Kingdom for locator IO94
+INFO 2026-05-06 21:14:22,704 GeoService detected continent: Europe for locator IO94
+INFO 2026-05-06 21:14:22,705 MaidenheadArea found for IO94: country=United Kingdom, continent=Europe
+INFO 2026-05-06 21:14:22,720 Match FOUND for (33.5, -7): country=Morocco, continent=Africa
+INFO 2026-05-06 21:14:22,720 GeoService detected country: Morocco for locator IM63
+INFO 2026-05-06 21:14:22,720 GeoService detected continent: Africa for locator IM63
+INFO 2026-05-06 21:14:22,721 MaidenheadArea found for IM63: country=Morocco, continent=Africa
+INFO 2026-05-06 21:15:23,607 Starting GeoService geodata loading process
+INFO 2026-05-06 21:15:24,115 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:15:24,847 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:15:24,847 GeoService initialized successfully
+INFO 2026-05-06 21:15:24,853 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:15:24,854 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:15:24,854 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:15:24,856 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:15:24,872 Match FOUND for (54.5, -1): country=United Kingdom, continent=Europe
+INFO 2026-05-06 21:15:24,872 GeoService detected country: United Kingdom for locator IO94
+INFO 2026-05-06 21:15:24,873 GeoService detected continent: Europe for locator IO94
+INFO 2026-05-06 21:15:24,874 MaidenheadArea found for IO94: country=United Kingdom, continent=Europe
+INFO 2026-05-06 21:16:25,643 Starting GeoService geodata loading process
+INFO 2026-05-06 21:16:26,150 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:16:26,882 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:16:26,882 GeoService initialized successfully
+INFO 2026-05-06 21:16:26,888 Match FOUND for (35.5, -5): country=Morocco, continent=Africa
+INFO 2026-05-06 21:16:26,889 GeoService detected country: Morocco for locator IM75
+INFO 2026-05-06 21:16:26,889 GeoService detected continent: Africa for locator IM75
+INFO 2026-05-06 21:16:26,891 MaidenheadArea found for IM75: country=Morocco, continent=Africa
+INFO 2026-05-06 21:16:26,918 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:16:26,919 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:16:26,919 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:16:26,920 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:17:27,766 Starting GeoService geodata loading process
+INFO 2026-05-06 21:17:28,423 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:17:29,357 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:17:29,357 GeoService initialized successfully
+INFO 2026-05-06 21:17:29,365 Match FOUND for (35.5, -5): country=Morocco, continent=Africa
+INFO 2026-05-06 21:17:29,366 GeoService detected country: Morocco for locator IM75
+INFO 2026-05-06 21:17:29,366 GeoService detected continent: Africa for locator IM75
+INFO 2026-05-06 21:17:29,369 MaidenheadArea found for IM75: country=Morocco, continent=Africa
+INFO 2026-05-06 21:17:29,418 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:17:29,419 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:17:29,419 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:17:29,420 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:17:29,434 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:17:29,434 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:17:29,434 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:17:29,435 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:17:29,448 Match FOUND for (43.5, 77): country=Kazakhstan, continent=Asia
+INFO 2026-05-06 21:17:29,449 GeoService detected country: Kazakhstan for locator MN83
+INFO 2026-05-06 21:17:29,449 GeoService detected continent: Asia for locator MN83
+INFO 2026-05-06 21:17:29,450 MaidenheadArea found for MN83: country=Kazakhstan, continent=Asia
+INFO 2026-05-06 21:18:30,313 Starting GeoService geodata loading process
+INFO 2026-05-06 21:18:31,133 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:18:32,280 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:18:32,280 GeoService initialized successfully
+INFO 2026-05-06 21:18:32,290 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:18:32,291 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:18:32,291 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:18:32,292 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:18:32,307 Match FOUND for (69.5, 19): country=Norway, continent=Europe
+INFO 2026-05-06 21:18:32,307 GeoService detected country: Norway for locator JP99
+INFO 2026-05-06 21:18:32,307 GeoService detected continent: Europe for locator JP99
+INFO 2026-05-06 21:18:32,358 Match FOUND for (43.5, 77): country=Kazakhstan, continent=Asia
+INFO 2026-05-06 21:18:32,358 GeoService detected country: Kazakhstan for locator MN83
+INFO 2026-05-06 21:18:32,359 GeoService detected continent: Asia for locator MN83
+INFO 2026-05-06 21:18:32,359 MaidenheadArea found for MN83: country=Kazakhstan, continent=Asia
+INFO 2026-05-06 21:18:32,372 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:18:32,372 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:18:32,372 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:18:32,373 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:18:32,383 No match for (25.5, 55) - likely ocean or unmapped area
+INFO 2026-05-06 21:18:32,383 GeoService returned None for country (locator LL75)
+INFO 2026-05-06 21:18:32,383 GeoService returned None for continent (locator LL75)
+INFO 2026-05-06 21:18:32,384 MaidenheadArea found for LL75: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:19:33,426 Starting GeoService geodata loading process
+INFO 2026-05-06 21:19:34,356 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:19:35,553 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:19:35,553 GeoService initialized successfully
+INFO 2026-05-06 21:19:35,564 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:19:35,564 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:19:35,564 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:19:35,566 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:19:35,580 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 21:19:35,581 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 21:19:35,581 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 21:19:35,582 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 21:19:35,634 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 21:19:35,634 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 21:19:35,634 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 21:19:35,635 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 21:19:35,649 Match FOUND for (39.5, -1): country=Spain, continent=Europe
+INFO 2026-05-06 21:19:35,649 GeoService detected country: Spain for locator IM99
+INFO 2026-05-06 21:19:35,649 GeoService detected continent: Europe for locator IM99
+INFO 2026-05-06 21:19:35,650 MaidenheadArea found for IM99: country=Spain, continent=Europe
+INFO 2026-05-06 21:20:36,816 Starting GeoService geodata loading process
+INFO 2026-05-06 21:20:37,841 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:20:39,140 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:20:39,141 GeoService initialized successfully
+INFO 2026-05-06 21:20:39,152 Match FOUND for (35.5, -5): country=Morocco, continent=Africa
+INFO 2026-05-06 21:20:39,152 GeoService detected country: Morocco for locator IM75
+INFO 2026-05-06 21:20:39,153 GeoService detected continent: Africa for locator IM75
+INFO 2026-05-06 21:20:39,155 MaidenheadArea found for IM75: country=Morocco, continent=Africa
+INFO 2026-05-06 21:20:39,185 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:20:39,185 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:20:39,186 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:20:39,187 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:20:39,205 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 21:20:39,205 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 21:20:39,205 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 21:20:39,207 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 21:21:40,477 Starting GeoService geodata loading process
+INFO 2026-05-06 21:21:41,257 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:21:42,152 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:21:42,152 GeoService initialized successfully
+INFO 2026-05-06 21:21:42,158 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:21:42,158 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:21:42,158 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:21:42,161 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:22:43,009 Starting GeoService geodata loading process
+INFO 2026-05-06 21:22:43,656 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:22:44,516 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:22:44,516 GeoService initialized successfully
+INFO 2026-05-06 21:22:44,523 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:22:44,523 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:22:44,523 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:22:44,526 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:22:44,543 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:22:44,544 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:22:44,544 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:22:44,545 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:22:44,556 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:22:44,556 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:22:44,557 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:23:45,228 Starting GeoService geodata loading process
+INFO 2026-05-06 21:23:45,800 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:23:46,805 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:23:46,805 GeoService initialized successfully
+INFO 2026-05-06 21:23:46,815 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:23:46,815 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:23:46,815 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:23:46,818 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:23:46,845 Match FOUND for (-15.5, -47): country=Brazil, continent=South America
+INFO 2026-05-06 21:23:46,845 GeoService detected country: Brazil for locator GH64
+INFO 2026-05-06 21:23:46,845 GeoService detected continent: South America for locator GH64
+INFO 2026-05-06 21:23:46,863 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:23:46,864 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:23:46,864 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:23:46,865 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:23:46,882 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:23:46,882 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:23:46,882 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:23:46,883 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:23:46,892 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:23:46,892 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:23:46,893 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:24:47,808 Starting GeoService geodata loading process
+INFO 2026-05-06 21:24:48,444 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:24:49,425 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:24:49,425 GeoService initialized successfully
+INFO 2026-05-06 21:24:49,432 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:24:49,432 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:24:49,432 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:24:49,435 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:24:49,454 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:24:49,455 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:24:49,455 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:24:49,456 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:24:49,470 Match FOUND for (42.5, -71): country=United States of America, continent=North America
+INFO 2026-05-06 21:24:49,470 GeoService detected country: United States of America for locator FN42
+INFO 2026-05-06 21:24:49,471 GeoService detected continent: North America for locator FN42
+INFO 2026-05-06 21:24:49,472 MaidenheadArea found for FN42: country=United States of America, continent=North America
+INFO 2026-05-06 21:25:50,618 Starting GeoService geodata loading process
+INFO 2026-05-06 21:25:51,461 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:25:52,583 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:25:52,584 GeoService initialized successfully
+INFO 2026-05-06 21:25:52,593 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:25:52,594 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:25:52,594 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:25:52,596 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:25:52,652 Match FOUND for (44.5, 41): country=Russia, continent=Europe
+INFO 2026-05-06 21:25:52,652 GeoService detected country: Russia for locator LN04
+INFO 2026-05-06 21:25:52,653 GeoService detected continent: Europe for locator LN04
+INFO 2026-05-06 21:25:52,654 MaidenheadArea found for LN04: country=Russia, continent=Europe
+INFO 2026-05-06 21:25:52,672 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:25:52,673 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:25:52,673 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:25:52,674 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:25:52,685 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:25:52,685 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:25:52,686 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:26:53,671 Starting GeoService geodata loading process
+INFO 2026-05-06 21:26:54,273 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:26:55,182 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:26:55,182 GeoService initialized successfully
+INFO 2026-05-06 21:26:55,189 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:26:55,190 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:26:55,190 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:26:55,192 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:26:55,212 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:26:55,212 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:26:55,212 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:26:55,213 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:26:55,243 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:26:55,243 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:26:55,244 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:26:55,245 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:26:55,254 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:26:55,254 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:26:55,255 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:26:55,266 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:26:55,266 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:26:55,268 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:27:56,262 Starting GeoService geodata loading process
+INFO 2026-05-06 21:27:56,917 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:27:57,686 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:27:57,686 GeoService initialized successfully
+INFO 2026-05-06 21:27:57,693 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:27:57,694 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:27:57,694 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:27:57,696 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:27:57,719 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:27:57,720 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:27:57,720 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:27:57,721 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:27:57,760 Match FOUND for (69.5, 19): country=Norway, continent=Europe
+INFO 2026-05-06 21:27:57,760 GeoService detected country: Norway for locator JP99
+INFO 2026-05-06 21:27:57,760 GeoService detected continent: Europe for locator JP99
+INFO 2026-05-06 21:27:57,786 Match FOUND for (39.5, -1): country=Spain, continent=Europe
+INFO 2026-05-06 21:27:57,787 GeoService detected country: Spain for locator IM99
+INFO 2026-05-06 21:27:57,787 GeoService detected continent: Europe for locator IM99
+INFO 2026-05-06 21:27:57,788 MaidenheadArea found for IM99: country=Spain, continent=Europe
+INFO 2026-05-06 21:27:57,801 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:27:57,801 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:27:57,802 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:27:57,803 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:27:57,825 Match FOUND for (40.5, -7): country=Portugal, continent=Europe
+INFO 2026-05-06 21:27:57,825 GeoService detected country: Portugal for locator IN60
+INFO 2026-05-06 21:27:57,825 GeoService detected continent: Europe for locator IN60
+INFO 2026-05-06 21:27:57,835 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:27:57,835 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:27:57,836 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:27:57,845 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:27:57,845 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:27:57,846 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:28:58,746 Starting GeoService geodata loading process
+INFO 2026-05-06 21:28:59,352 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:29:00,062 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:29:00,062 GeoService initialized successfully
+INFO 2026-05-06 21:29:00,068 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:29:00,068 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:29:00,069 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:29:00,071 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:29:00,088 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:29:00,089 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:29:00,089 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:29:00,090 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:29:00,135 No match for (25.5, 55) - likely ocean or unmapped area
+INFO 2026-05-06 21:29:00,135 GeoService returned None for country (locator LL75)
+INFO 2026-05-06 21:29:00,135 GeoService returned None for continent (locator LL75)
+INFO 2026-05-06 21:29:00,136 MaidenheadArea found for LL75: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:29:00,150 Match FOUND for (-15.5, -47): country=Brazil, continent=South America
+INFO 2026-05-06 21:29:00,150 GeoService detected country: Brazil for locator GH64
+INFO 2026-05-06 21:29:00,150 GeoService detected continent: South America for locator GH64
+INFO 2026-05-06 21:29:00,161 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:29:00,161 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:29:00,162 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:29:00,171 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:29:00,171 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:29:00,171 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:29:00,222 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:29:00,222 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:29:00,222 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:29:00,223 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:30:01,295 Starting GeoService geodata loading process
+INFO 2026-05-06 21:30:01,925 Loading shapefile from: /Users/admin/PropScope/geo/ne_110m_admin_0_countries.shp
+INFO 2026-05-06 21:30:02,815 Shapefile loaded successfully. Records: 177
+INFO 2026-05-06 21:30:02,816 GeoService initialized successfully
+INFO 2026-05-06 21:30:02,824 Match FOUND for (40.5, 17): country=Italy, continent=Europe
+INFO 2026-05-06 21:30:02,824 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:30:02,824 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:30:02,826 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:30:02,847 Match FOUND for (25.5, 51): country=Qatar, continent=Asia
+INFO 2026-05-06 21:30:02,848 GeoService detected country: Qatar for locator LL55
+INFO 2026-05-06 21:30:02,848 GeoService detected continent: Asia for locator LL55
+INFO 2026-05-06 21:30:02,850 MaidenheadArea found for LL55: country=Saudi Arabia, continent=Asia
+INFO 2026-05-06 21:30:02,924 Match FOUND for (24.5, 55): country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:30:02,924 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:30:02,925 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:30:02,926 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
+INFO 2026-05-06 21:30:02,946 GeoService detected country: Italy for locator JN80
+INFO 2026-05-06 21:30:02,946 GeoService detected continent: Europe for locator JN80
+INFO 2026-05-06 21:30:02,954 MaidenheadArea found for JN80: country=Italy, continent=Europe
+INFO 2026-05-06 21:30:03,008 GeoService detected country: United Arab Emirates for locator LL74
+INFO 2026-05-06 21:30:03,009 GeoService detected continent: Asia for locator LL74
+INFO 2026-05-06 21:30:03,010 MaidenheadArea found for LL74: country=United Arab Emirates, continent=Asia
