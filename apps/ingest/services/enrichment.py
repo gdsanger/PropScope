@@ -72,87 +72,94 @@ class SignalEnricher:
             locator = enriched['locator']
             logger.debug(f"Processing locator: {locator}")
 
-            # Get coordinates from locator
-            try:
-                lat, lon = maidenhead_to_latlon(locator)
-                enriched['locator_lat'] = lat
-                enriched['locator_lon'] = lon
-                logger.debug(f"Locator {locator} converted to lat={lat}, lon={lon}")
+            # Validate locator length first (must be 4 or 6 characters)
+            # If invalid length, skip locator processing and clear the field
+            if len(locator) not in (4, 6):
+                logger.warning(f"Invalid locator length: {locator} - Locator must be 4 or 6 characters, got {len(locator)} characters. Skipping locator processing.")
+                enriched['locator'] = None  # Clear invalid locator
+                # Continue without locator data
+            else:
+                # Get coordinates from locator
+                try:
+                    lat, lon = maidenhead_to_latlon(locator)
+                    enriched['locator_lat'] = lat
+                    enriched['locator_lon'] = lon
+                    logger.debug(f"Locator {locator} converted to lat={lat}, lon={lon}")
 
-                # Calculate distance if station coordinates are available
-                if self.station_lat is not None and self.station_lon is not None:
-                    distance = haversine_distance(
-                        self.station_lat, self.station_lon,
-                        lat, lon
-                    )
-                    enriched['distance_km'] = distance
-                    logger.debug(f"Distance calculated: {distance:.2f} km")
-
-                    # Calculate azimuth (bearing) from station to signal
-                    try:
-                        from apps.geo.services import MaidenheadService
-                        maidenhead_service = MaidenheadService()
-                        azimuth = maidenhead_service.calculate_azimuth(
+                    # Calculate distance if station coordinates are available
+                    if self.station_lat is not None and self.station_lon is not None:
+                        distance = haversine_distance(
                             self.station_lat, self.station_lon,
                             lat, lon
                         )
-                        enriched['azimuth_deg'] = azimuth
-                        logger.debug(f"Azimuth calculated: {azimuth:.1f}°")
+                        enriched['distance_km'] = distance
+                        logger.debug(f"Distance calculated: {distance:.2f} km")
+
+                        # Calculate azimuth (bearing) from station to signal
+                        try:
+                            from apps.geo.services import MaidenheadService
+                            maidenhead_service = MaidenheadService()
+                            azimuth = maidenhead_service.calculate_azimuth(
+                                self.station_lat, self.station_lon,
+                                lat, lon
+                            )
+                            enriched['azimuth_deg'] = azimuth
+                            logger.debug(f"Azimuth calculated: {azimuth:.1f}°")
+                        except Exception as e:
+                            logger.warning(f"Failed to calculate azimuth: {e}")
+
+                    # Try GeoService for auto-detection first
+                    try:
+                        logger.debug(f"Calling GeoService for locator {locator} (lat={lat}, lon={lon})")
+                        geo_service = self._get_geo_service()
+                        country_auto, continent_auto = geo_service.get_country_continent(lat, lon)
+
+                        if country_auto:
+                            enriched['locator_country_auto'] = country_auto
+                            logger.info(f"GeoService detected country: {country_auto} for locator {locator}")
+                        else:
+                            logger.info(f"GeoService returned None for country (locator {locator})")
+
+                        if continent_auto:
+                            enriched['locator_continent_auto'] = continent_auto
+                            logger.info(f"GeoService detected continent: {continent_auto} for locator {locator}")
+                        else:
+                            logger.info(f"GeoService returned None for continent (locator {locator})")
+
                     except Exception as e:
-                        logger.warning(f"Failed to calculate azimuth: {e}")
+                        # GeoService failed, continue without auto-detection
+                        logger.error(f"GeoService failed for locator {locator}: {e}", exc_info=True)
+                        pass
 
-                # Try GeoService for auto-detection first
-                try:
-                    logger.debug(f"Calling GeoService for locator {locator} (lat={lat}, lon={lon})")
-                    geo_service = self._get_geo_service()
-                    country_auto, continent_auto = geo_service.get_country_continent(lat, lon)
-
-                    if country_auto:
-                        enriched['locator_country_auto'] = country_auto
-                        logger.info(f"GeoService detected country: {country_auto} for locator {locator}")
-                    else:
-                        logger.info(f"GeoService returned None for country (locator {locator})")
-
-                    if continent_auto:
-                        enriched['locator_continent_auto'] = continent_auto
-                        logger.info(f"GeoService detected continent: {continent_auto} for locator {locator}")
-                    else:
-                        logger.info(f"GeoService returned None for continent (locator {locator})")
-
-                except Exception as e:
-                    # GeoService failed, continue without auto-detection
-                    logger.error(f"GeoService failed for locator {locator}: {e}", exc_info=True)
+                except ValueError as e:
+                    # Invalid locator format
+                    logger.warning(f"Invalid locator format: {locator} - {e}")
                     pass
 
-            except ValueError as e:
-                # Invalid locator format
-                logger.warning(f"Invalid locator format: {locator} - {e}")
-                pass
+                # Look up locator in MaidenheadArea table (manual override)
+                # Manual values take precedence over auto-detected values
+                locator_4char = locator[:4].upper() if len(locator) >= 4 else locator.upper()
+                try:
+                    logger.debug(f"Looking up MaidenheadArea for {locator_4char}")
+                    area = MaidenheadArea.objects.get(locator=locator_4char)
+                    enriched['locator_country'] = area.primary_country
+                    enriched['locator_alt_country'] = area.alternative_countries if area.alternative_countries else None
+                    enriched['locator_continent'] = area.continent
+                    enriched['locator_ambiguous'] = area.is_ambiguous
+                    logger.info(f"MaidenheadArea found for {locator_4char}: country={area.primary_country}, continent={area.continent}")
+                except (MaidenheadArea.DoesNotExist, Exception) as e:
+                    # No manual data for this locator, use auto-detected values if available
+                    if isinstance(e, MaidenheadArea.DoesNotExist):
+                        logger.debug(f"No MaidenheadArea entry for {locator_4char}, using auto-detected values")
+                    else:
+                        logger.error(f"Error looking up MaidenheadArea for {locator_4char}: {e}")
 
-            # Look up locator in MaidenheadArea table (manual override)
-            # Manual values take precedence over auto-detected values
-            locator_4char = locator[:4].upper() if len(locator) >= 4 else locator.upper()
-            try:
-                logger.debug(f"Looking up MaidenheadArea for {locator_4char}")
-                area = MaidenheadArea.objects.get(locator=locator_4char)
-                enriched['locator_country'] = area.primary_country
-                enriched['locator_alt_country'] = area.alternative_countries if area.alternative_countries else None
-                enriched['locator_continent'] = area.continent
-                enriched['locator_ambiguous'] = area.is_ambiguous
-                logger.info(f"MaidenheadArea found for {locator_4char}: country={area.primary_country}, continent={area.continent}")
-            except (MaidenheadArea.DoesNotExist, Exception) as e:
-                # No manual data for this locator, use auto-detected values if available
-                if isinstance(e, MaidenheadArea.DoesNotExist):
-                    logger.debug(f"No MaidenheadArea entry for {locator_4char}, using auto-detected values")
-                else:
-                    logger.error(f"Error looking up MaidenheadArea for {locator_4char}: {e}")
-
-                if 'locator_country_auto' in enriched and 'locator_country' not in enriched:
-                    enriched['locator_country'] = enriched['locator_country_auto']
-                    logger.debug(f"Using auto-detected country: {enriched['locator_country_auto']}")
-                if 'locator_continent_auto' in enriched and 'locator_continent' not in enriched:
-                    enriched['locator_continent'] = enriched['locator_continent_auto']
-                    logger.debug(f"Using auto-detected continent: {enriched['locator_continent_auto']}")
+                    if 'locator_country_auto' in enriched and 'locator_country' not in enriched:
+                        enriched['locator_country'] = enriched['locator_country_auto']
+                        logger.debug(f"Using auto-detected country: {enriched['locator_country_auto']}")
+                    if 'locator_continent_auto' in enriched and 'locator_continent' not in enriched:
+                        enriched['locator_continent'] = enriched['locator_continent_auto']
+                        logger.debug(f"Using auto-detected continent: {enriched['locator_continent_auto']}")
 
         # If no locator in the message, check KnownStation table
         elif 'callsign' in enriched and enriched['callsign']:
