@@ -87,7 +87,7 @@ class HeardSignal(models.Model):
     cq_target = models.CharField(max_length=10, null=True, blank=True, db_index=True, help_text="CQ target prefix (e.g., DX, NA, EU)")
 
     # Locator information
-    locator = models.CharField(max_length=6, db_index=True, null=True, blank=True, help_text="Maidenhead locator (4 or 6 char)")
+    locator = models.CharField(max_length=10, db_index=True, null=True, blank=True, help_text="Maidenhead locator (4 or 6 char)")
     locator_lat = models.FloatField(null=True, blank=True, help_text="Latitude from locator")
     locator_lon = models.FloatField(null=True, blank=True, help_text="Longitude from locator")
     locator_country = models.CharField(max_length=100, null=True, blank=True, help_text="Country from locator")

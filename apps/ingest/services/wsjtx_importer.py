@@ -4,6 +4,7 @@ Main service for importing and processing WSJT-X log files.
 """
 
 import hashlib
+import logging
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
@@ -13,6 +14,9 @@ from apps.cq.models import HeardSignal
 from apps.ui.models import PropScopeSettings, StationProfile
 from apps.ingest.services.parser import WsjtxLineParser
 from apps.ingest.services.enrichment import SignalEnricher
+
+
+logger = logging.getLogger(__name__)
 
 
 class WsjtxLogImporter:
@@ -191,7 +195,7 @@ class WsjtxLogImporter:
             enricher: SignalEnricher instance
 
         Returns:
-            True if imported successfully, False if skipped (duplicate)
+            True if imported successfully, False if skipped (duplicate or error)
         """
         # Calculate hash for deduplication
         raw_hash = hashlib.sha256(parsed.raw_line.encode('utf-8')).hexdigest()
@@ -208,7 +212,13 @@ class WsjtxLogImporter:
         }
 
         # Enrich the data
-        enriched = enricher.enrich_signal_data(signal_data)
+        try:
+            enriched = enricher.enrich_signal_data(signal_data)
+        except Exception as e:
+            # Log enrichment error but continue
+            logger.error(f"Enrichment failed for signal {parsed.callsign}: {e}", exc_info=True)
+            # Use unenriched data
+            enriched = signal_data
 
         # Create HeardSignal
         try:
@@ -230,7 +240,7 @@ class WsjtxLogImporter:
                     callsign_continent=enriched.get('callsign_continent'),
                     qrz_url=enriched.get('qrz_url'),
                     cq_target=parsed.cq_target,
-                    locator=parsed.locator,
+                    locator=enriched.get('locator'),  # Use enriched locator (may be None if invalid)
                     locator_lat=enriched.get('locator_lat'),
                     locator_lon=enriched.get('locator_lon'),
                     locator_country=enriched.get('locator_country'),
@@ -243,4 +253,8 @@ class WsjtxLogImporter:
             return True
         except IntegrityError:
             # Duplicate entry (race condition)
+            return False
+        except Exception as e:
+            # Log database error and skip this signal
+            logger.error(f"Import failed for signal {parsed.callsign} at {parsed.timestamp}: {e}", exc_info=True)
             return False

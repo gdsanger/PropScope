@@ -571,6 +571,159 @@ class WsjtxLineParserTests(TestCase):
         self.assertIsNone(locator)
         self.assertIsNone(cq_target)
 
+    def test_parse_cq_with_invalid_locator_callsign_suffix(self):
+        """Test parsing CQ where callsign with suffix appears in locator field."""
+        # This simulates the issue where IT9GKD/P appears in the locator field
+        line = "260419_185200     7.074 Rx FT8    -19  0.3 1133 CQ IT9GKD/P"
+        parsed = self.parser.parse_line(line)
+
+        self.assertIsNotNone(parsed)
+        self.assertTrue(parsed.is_cq)
+        self.assertEqual(parsed.callsign, "IT9GKD/P")
+        self.assertIsNone(parsed.locator)  # No locator present
+
+
+class EnrichmentInvalidLocatorTests(TestCase):
+    """Tests for handling invalid locators in enrichment service."""
+
+    def test_enrichment_skips_invalid_length_locator(self):
+        """Test that enrichment skips locators that are too long."""
+        from apps.ingest.services.enrichment import SignalEnricher
+
+        enricher = SignalEnricher(station_lat=48.5, station_lon=8.0)
+
+        # Test with invalid locator (8 characters - too long)
+        signal_data = {
+            'callsign': 'IT9GKD/P',
+            'locator': 'IT9GKD/P',  # This is a callsign, not a locator
+            'frequency_mhz': 7.074,
+        }
+
+        enriched = enricher.enrich_signal_data(signal_data)
+
+        # Locator should be set to None
+        self.assertIsNone(enriched['locator'])
+        # Coordinates should not be set
+        self.assertNotIn('locator_lat', enriched)
+        self.assertNotIn('locator_lon', enriched)
+
+    def test_enrichment_skips_invalid_short_locator(self):
+        """Test that enrichment skips locators that are too short."""
+        from apps.ingest.services.enrichment import SignalEnricher
+
+        enricher = SignalEnricher(station_lat=48.5, station_lon=8.0)
+
+        # Test with invalid locator (2 characters - too short)
+        signal_data = {
+            'callsign': 'DL1ABC',
+            'locator': 'AB',  # Too short
+            'frequency_mhz': 7.074,
+        }
+
+        enriched = enricher.enrich_signal_data(signal_data)
+
+        # Locator should be set to None
+        self.assertIsNone(enriched['locator'])
+        # Coordinates should not be set
+        self.assertNotIn('locator_lat', enriched)
+        self.assertNotIn('locator_lon', enriched)
+
+    def test_enrichment_accepts_valid_4char_locator(self):
+        """Test that enrichment accepts valid 4-character locators."""
+        from apps.ingest.services.enrichment import SignalEnricher
+
+        enricher = SignalEnricher(station_lat=48.5, station_lon=8.0)
+
+        signal_data = {
+            'callsign': 'DL1ABC',
+            'locator': 'JN68',
+            'frequency_mhz': 7.074,
+        }
+
+        enriched = enricher.enrich_signal_data(signal_data)
+
+        # Locator should remain
+        self.assertEqual(enriched['locator'], 'JN68')
+        # Coordinates should be set
+        self.assertIn('locator_lat', enriched)
+        self.assertIn('locator_lon', enriched)
+
+    def test_enrichment_accepts_valid_6char_locator(self):
+        """Test that enrichment accepts valid 6-character locators."""
+        from apps.ingest.services.enrichment import SignalEnricher
+
+        enricher = SignalEnricher(station_lat=48.5, station_lon=8.0)
+
+        signal_data = {
+            'callsign': 'DL1ABC',
+            'locator': 'JN68qv',
+            'frequency_mhz': 7.074,
+        }
+
+        enriched = enricher.enrich_signal_data(signal_data)
+
+        # Locator should remain
+        self.assertEqual(enriched['locator'], 'JN68qv')
+        # Coordinates should be set
+        self.assertIn('locator_lat', enriched)
+        self.assertIn('locator_lon', enriched)
+
+
+class ImporterErrorHandlingTests(TestCase):
+    """Tests for error handling in the importer."""
+
+    def setUp(self):
+        """Create a temporary test file with problematic data."""
+        self.test_content = """260419_185200     7.074 Rx FT8    -19  0.3 1133 CQ IT9GKD/P
+260419_185215    14.074 Rx FT8    -12  0.2 1456 CQ DL1ABC JN68
+260419_185230    21.074 Rx FT8     -8  0.1 1789 CQ K1XYZ FN42
+"""
+        fd, self.test_file_path = tempfile.mkstemp(suffix='.txt', prefix='test_error_')
+        with os.fdopen(fd, 'w') as f:
+            f.write(self.test_content)
+
+    def tearDown(self):
+        """Clean up temporary test file."""
+        if os.path.exists(self.test_file_path):
+            os.unlink(self.test_file_path)
+
+    def test_importer_continues_after_invalid_locator(self):
+        """Test that importer continues processing after encountering invalid locator."""
+        from apps.ingest.services.wsjtx_importer import WsjtxLogImporter
+        from apps.cq.models import HeardSignal
+
+        importer = WsjtxLogImporter()
+
+        # Run import with file containing IT9GKD/P (invalid locator)
+        import_run = importer.import_file(
+            file_path=self.test_file_path,
+            incremental=False,
+            settings=None
+        )
+
+        # Assert import completed successfully (not failed)
+        self.assertEqual(import_run.status, 'completed')
+
+        # All 3 lines should be processed
+        self.assertEqual(import_run.lines_total, 3)
+
+        # All 3 CQ signals should be imported (even the one with invalid locator)
+        self.assertEqual(import_run.lines_imported, 3)
+
+        # Verify the signal with invalid locator was imported with None locator
+        signal_with_invalid = HeardSignal.objects.filter(callsign='IT9GKD/P').first()
+        self.assertIsNotNone(signal_with_invalid)
+        self.assertIsNone(signal_with_invalid.locator)  # Locator should be None
+        self.assertIsNone(signal_with_invalid.locator_lat)
+        self.assertIsNone(signal_with_invalid.locator_lon)
+
+        # Verify other signals were imported correctly
+        signal_with_valid = HeardSignal.objects.filter(callsign='DL1ABC').first()
+        self.assertIsNotNone(signal_with_valid)
+        self.assertEqual(signal_with_valid.locator, 'JN68')
+        self.assertIsNotNone(signal_with_valid.locator_lat)
+        self.assertIsNotNone(signal_with_valid.locator_lon)
+
 
 class MaidenheadUtilsTests(TestCase):
     """Tests for Maidenhead locator utilities."""
